@@ -4,6 +4,7 @@
     ViewData["Title"] = "LoaiVeSo";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
+
 <section class="wrapper">
     <div class="table-agile-info">
         <div class="panel panel-default">
@@ -12,18 +13,16 @@
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
-                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#addModal">Thêm</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">Thêm</button>
                 </div>
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-3">
                     <div class="input-group">
-                        <form asp-controller="Management" asp-action="Search" method="post">
-                            <input type="text" name="txtSearch" class="input-sm form-control" placeholder="Search">
-                            <span class="input-group-btn">
-                                <button class="btn btn-sm btn-default" type="submit"><i class="fas fa-search"></i></button>
-                            </span>
-                        </form>
+                        <input id="txtSearch" type="text" class="input-sm form-control" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-default" type="button">Go!</button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -38,7 +37,7 @@
                             <th style="width:30px;"></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="listLoaiVeSo">
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -103,3 +102,23 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+        //Search
+        $(function () {
+            $("#txtSearch").keyup(function () {
+                $.ajax({
+                    url: "/Management/Search",
+                    type: "post",
+                    data: { "keyword": $(this).val() },
+                    success: function (data) {
+                        $(".listLoaiVeSo").html(data);
+                    },
+                    error: function (data) {
+                        alert("Error: " + data);
+                    }
+                });
+            });
+        });
+    </script>
+}

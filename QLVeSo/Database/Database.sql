@@ -62,4 +62,11 @@ INSERT INTO LoaiVeSo
 		  ('cc3cf4fe-9665-4c5f-ada5-c1d14bdd8b78', 'VSVT', N'Vũng Tàu', N'Không khoá'),
 		  ('4e8b9ef4-cbff-40d5-ae44-2ff4f3c6bbfb', 'VSCT', N'Cần Thơ', N'Không khoá'),
 		  ('5469fda6-ae0f-4772-9bec-757a2ae4245f', 'VSBL', N'Bạc Liêu', N'Không khoá'),
-		  ('0219a36f-e572-4921-ad4e-c920ff75cf23', 'VSVL', N'Vĩnh Long', N'Không khoá')
+		  ('0219a36f-e572-4921-ad4e-c920ff75cf23', 'VSVL', N'Vĩnh Long', N'Không khoá'),
+		  ('543571f0-c178-4f29-a7c9-603be01d1a8a', 'VSRG', N'Rạch giá', N'Không khoá'),
+		  ('758b0c57-d32c-412e-b30d-d55e445f4220', 'VSLX', N'Long Xuyên', N'Không khoá'),
+	      ('dba7fa9b-c5aa-4541-985d-8e27131468f8', 'VSCL', N'Cao Lãnh', N'Không khoá'),
+		  ('de25f16c-43f4-4a41-9089-7f21c0fdb26f', 'VSTA', N'Tân An', N'Không khoá'),
+		  ('5cf29f46-bc5b-4b4f-b6a4-cfa74057764f', 'VSBH', N'Biên Hoà', N'Không khoá'),
+		  ('f7e693cc-2cc9-4141-b6bf-d90bb1d7bd63', 'VSPT', N'Phan Thiết', N'Không khoá'),
+		  ('aa0a7b91-85e6-4d14-ae3b-ad1a6be67d65', 'VSPR', N'Phan Rang', N'Không khoá')

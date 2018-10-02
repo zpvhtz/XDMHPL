@@ -26,23 +26,44 @@ namespace ProjectQLVeSo.Controllers
             return View(dsLoaiVeSo);
         }
 
-        public IActionResult Search(string txtSearch)
+        public IActionResult Search(string keyword)
         {
             List<LoaiVeSo> dsLoaiVeSo = new List<LoaiVeSo>();
-            dsLoaiVeSo = context.LoaiVeSo.Where(vs => vs.Tinh.Contains(txtSearch)).ToList();
-            return View("LoaiVeSo", dsLoaiVeSo);
+            if (keyword == null)
+            {
+                dsLoaiVeSo = context.LoaiVeSo.ToList();
+            }
+            else
+            {
+                dsLoaiVeSo = context.LoaiVeSo.Where(vs => vs.Tinh.Contains(keyword)).ToList();
+            }
+            return PartialView("LoaiVeSoPartial", dsLoaiVeSo);
         }
 
         public IActionResult Add(string ma, string tinh)
         {
-            LoaiVeSo vs = new LoaiVeSo();
-            vs.Id = Guid.NewGuid();
-            vs.Ma = ma;
-            vs.Tinh = tinh;
-            vs.TinhTrang = "Không khoá";
-            context.LoaiVeSo.Add(vs);
-            context.SaveChanges();
-            return RedirectToAction("LoaiVeSo");
+            try
+            {
+                //Kiểm tra mã có trùng chưa
+                LoaiVeSo vs = new LoaiVeSo();
+                vs.Id = Guid.NewGuid();
+                vs.Ma = ma;
+                vs.Tinh = tinh;
+                vs.TinhTrang = "Không khoá";
+                context.LoaiVeSo.Add(vs);
+                context.SaveChanges();
+                return RedirectToAction("LoaiVeSo");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public IActionResult Test()
+        {
+            return View();
         }
     }
 }
