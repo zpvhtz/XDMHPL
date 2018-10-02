@@ -1,0 +1,105 @@
+﻿@model IEnumerable<LoaiVeSo>
+
+@{
+    ViewData["Title"] = "LoaiVeSo";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<section class="wrapper">
+    <div class="table-agile-info">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Responsive Table
+            </div>
+            <div class="row w3-res-tb">
+                <div class="col-sm-5 m-b-xs">
+                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#addModal">Thêm</button>
+                </div>
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <form asp-controller="Management" asp-action="Search" method="post">
+                            <input type="text" name="txtSearch" class="input-sm form-control" placeholder="Search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-sm btn-default" type="submit"><i class="fas fa-search"></i></button>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Mã</th>
+                            <th>Tỉnh</th>
+                            <th>Tình trạng</th>
+                            <th style="width:30px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Ma</td>
+                                <td>@item.Tinh</td>
+                                <td>@item.TinhTrang</td>
+                                <td>
+                                    <button type="button" class="btn btn-info">Edit</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-5 text-center">
+                        <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                    </div>
+                    <div class="col-sm-7 text-right text-center-xs">
+                        <ul class="pagination pagination-sm m-t-none m-b-none">
+                            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
+                            <li><a href="">1</a></li>
+                            <li><a href="">2</a></li>
+                            <li><a href="">3</a></li>
+                            <li><a href="">4</a></li>
+                            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</section>
+<!-- Modal Thêm-->
+<div class="modal fade" id="addModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm</h4>
+            </div>
+            <form asp-controller="Management" asp-action="Add" method="post">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Mã vé số:</label>
+                        <input type="text" class="form-control" id="ma" name="ma">
+                    </div>
+                    <div class="form-group">
+                        <label for="usr">Tỉnh:</label>
+                        <input type="text" class="form-control" id="tinh" name="tinh">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info" value="Tạo">Tạo</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

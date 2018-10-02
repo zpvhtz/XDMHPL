@@ -1,4 +1,4 @@
-CREATE DATABASE QLVeSo
+﻿CREATE DATABASE QLVeSo
 GO
 --
 USE QLVeSo
@@ -53,3 +53,13 @@ ALTER TABLE PhanPhoi
 	ADD
 		CONSTRAINT FK_PhanPhoi_LoaiVeSo_MaVeSo FOREIGN KEY (IdVeSo) REFERENCES LoaiVeSo(Id),
 		CONSTRAINT FK_PhanPhoi_DaiLy_MaDaiLy FOREIGN KEY (IdDaiLy) REFERENCES DaiLy(Id)
+
+--ADD DATA--
+INSERT INTO LoaiVeSo
+	VALUES('ee5a75e6-89c5-461e-b11b-d3e23d78f550', 'VSBT', N'Bến Tre', N'Không khoá'),
+		  ('730d0c60-2546-4854-b88a-6ddfbfe11cbb', 'VSLA', N'Long An', N'Không khoá'),
+	      ('570b0397-2061-4add-8563-2e965322cf01', 'VSCM', N'Cà Mau', N'Không khoá'),
+		  ('cc3cf4fe-9665-4c5f-ada5-c1d14bdd8b78', 'VSVT', N'Vũng Tàu', N'Không khoá'),
+		  ('4e8b9ef4-cbff-40d5-ae44-2ff4f3c6bbfb', 'VSCT', N'Cần Thơ', N'Không khoá'),
+		  ('5469fda6-ae0f-4772-9bec-757a2ae4245f', 'VSBL', N'Bạc Liêu', N'Không khoá'),
+		  ('0219a36f-e572-4921-ad4e-c920ff75cf23', 'VSVL', N'Vĩnh Long', N'Không khoá')
