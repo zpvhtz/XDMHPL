@@ -13367,11 +13367,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\ProjectQLVeSo.csproj",
+      "projectUniqueName": "C:\\Projects\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\ProjectQLVeSo.csproj",
       "projectName": "ProjectQLVeSo",
-      "projectPath": "D:\\Projects\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\ProjectQLVeSo.csproj",
+      "projectPath": "C:\\Projects\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\ProjectQLVeSo.csproj",
       "packagesPath": "C:\\Users\\HeoBayMau\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\obj\\",
+      "outputPath": "C:\\Projects\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

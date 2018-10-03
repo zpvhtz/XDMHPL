@@ -9,7 +9,7 @@
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Responsive Table
+                QUẢN LÝ LOẠI VÉ SỐ
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
@@ -18,12 +18,14 @@
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-3">
-                    <div class="input-group">
-                        <input id="txtSearch" type="text" class="input-sm form-control" placeholder="Search">
-                        <span class="input-group-btn">
-                            <button class="btn btn-sm btn-default" type="button">Go!</button>
-                        </span>
-                    </div>
+                    <form asp-controller="Management" asp-action="Search" method="get">
+                        <div class="input-group">
+                            <input type="text" class="input-sm form-control" placeholder="Search" name="txtSearch">
+                            <span class="input-group-btn">
+                                <button class="btn btn-sm btn-default" type="submit"><i class="fas fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="table-responsive">
@@ -37,16 +39,16 @@
                             <th style="width:30px;"></th>
                         </tr>
                     </thead>
-                    <tbody class="listLoaiVeSo">
+                    <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Id</td>
-                                <td>@item.Ma</td>
-                                <td>@item.Tinh</td>
-                                <td>@item.TinhTrang</td>
+                                <td class="item-id">@item.Id</td>
+                                <td class="item-ma">@item.Ma</td>
+                                <td class="item-tinh">@item.Tinh</td>
+                                <td class="item-tinhtrang">@item.TinhTrang</td>
                                 <td>
-                                    <button type="button" class="btn btn-info">Edit</button>
+                                    <button type="button" class="btn btn-info btnEdit">Edit</button>
                                 </td>
                             </tr>
                         }
@@ -102,23 +104,49 @@
         </div>
     </div>
 </div>
-@section Scripts{
-    <script>
-        //Search
-        $(function () {
-            $("#txtSearch").keyup(function () {
-                $.ajax({
-                    url: "/Management/Search",
-                    type: "post",
-                    data: { "keyword": $(this).val() },
-                    success: function (data) {
-                        $(".listLoaiVeSo").html(data);
-                    },
-                    error: function (data) {
-                        alert("Error: " + data);
-                    }
-                });
-            });
-        });
-    </script>
-}
+<!-- Modal Sửa-->
+<div class="modal fade" id="addModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sửa</h4>
+            </div>
+            <form asp-controller="Management" asp-action="Edit" method="post">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Mã vé số:</label>
+                        <input type="text" class="form-control" id="ma-edit" name="ma" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="usr">Tỉnh:</label>
+                        <input type="text" class="form-control" id="tinh-edit" name="tinh">
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Select list:</label>
+                        <select class="form-control" id="tinhtrang-edit">
+                            <option>Không khoá</option>
+                            <option>Khoá</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info" value="Tạo">Sửa</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Đưa data vào modal khi edit -->
+<script>
+    $(".btnEdit").click(function () {
+        var $item = $(this).closest("tr")
+            .find(".item-id")
+            .text();
+        alert($item);
+    });
+</script>
