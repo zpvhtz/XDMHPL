@@ -7,19 +7,17 @@ using ProjectQLVeSo.Models;
 
 namespace ProjectQLVeSo.Controllers
 {
-    public class ManagementController : Controller
+    public class LoaiVeSoController : Controller
     {
         private readonly QlVeSoContext context;
-        public ManagementController(QlVeSoContext context)
+        const int soluongveso = 10;
+
+        public LoaiVeSoController(QlVeSoContext context)
         {
             this.context = context;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public IActionResult LoaiVeSo(string thongbao)
+        public IActionResult Index(string thongbao)
         {
             if (thongbao != null)
                 ViewBag.ThongBao = thongbao;
@@ -32,7 +30,7 @@ namespace ProjectQLVeSo.Controllers
         {
             List<LoaiVeSo> dsLoaiVeSo = new List<LoaiVeSo>();
             dsLoaiVeSo = context.LoaiVeSo.Where(vs => vs.Tinh.Contains(txtSearch)).ToList();
-            return View("LoaiVeSo", dsLoaiVeSo);
+            return View("Index", dsLoaiVeSo);
         }
 
         public IActionResult Add(string ma, string tinh)
@@ -59,7 +57,27 @@ namespace ProjectQLVeSo.Controllers
                 {
                     thongbao = "Mã bị trùng";
                 }
-                return RedirectToAction("LoaiVeSo", "Management", new { thongbao = thongbao });
+                return RedirectToAction("Index", "LoaiVeSo", new { thongbao = thongbao });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IActionResult Edit(string maedit, string tinhedit, string tinhtrangedit)
+        {
+            try
+            {
+                //Thông báo
+                string thongbao = "";
+                //Sửa
+                LoaiVeSo vs = context.LoaiVeSo.Where(v => v.Ma == maedit).SingleOrDefault();
+                vs.Tinh = tinhedit;
+                vs.TinhTrang = tinhtrangedit;
+                context.SaveChanges();
+                thongbao = "Sửa thành công";
+                return RedirectToAction("Index", "LoaiVeSo", new { thongbao = thongbao });
             }
             catch (Exception)
             {

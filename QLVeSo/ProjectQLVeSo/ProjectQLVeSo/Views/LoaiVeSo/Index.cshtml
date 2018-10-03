@@ -18,7 +18,7 @@
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-3">
-                    <form asp-controller="Management" asp-action="Search" method="get">
+                    <form asp-controller="LoaiVeSo" asp-action="Search" method="get">
                         <div class="input-group">
                             <input type="text" class="input-sm form-control" placeholder="Search" name="txtSearch">
                             <span class="input-group-btn">
@@ -48,7 +48,7 @@
                                 <td class="item-tinh">@item.Tinh</td>
                                 <td class="item-tinhtrang">@item.TinhTrang</td>
                                 <td>
-                                    <button type="button" class="btn btn-info btnEdit">Edit</button>
+                                    <button type="button" class="btn btn-info btnEdit" data-toggle="modal" data-target="#editModal">Edit</button>
                                 </td>
                             </tr>
                         }
@@ -84,7 +84,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Thêm</h4>
             </div>
-            <form asp-controller="Management" asp-action="Add" method="post">
+            <form asp-controller="LoaiVeSo" asp-action="Add" method="post">
                 <div class="modal-body">
 
                     <div class="form-group">
@@ -105,7 +105,7 @@
     </div>
 </div>
 <!-- Modal Sửa-->
-<div class="modal fade" id="addModal" role="dialog">
+<div class="modal fade" id="editModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
@@ -113,27 +113,27 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Sửa</h4>
             </div>
-            <form asp-controller="Management" asp-action="Edit" method="post">
+            <form asp-controller="LoaiVeSo" asp-action="Edit" method="post">
                 <div class="modal-body">
 
                     <div class="form-group">
                         <label>Mã vé số:</label>
-                        <input type="text" class="form-control" id="ma-edit" name="ma" disabled>
+                        <input type="text" class="form-control ma-edit" name="maedit" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="usr">Tỉnh:</label>
-                        <input type="text" class="form-control" id="tinh-edit" name="tinh">
+                        <label>Tỉnh:</label>
+                        <input type="text" class="form-control tinh-edit" name="tinhedit">
                     </div>
                     <div class="form-group">
-                        <label for="sel1">Select list:</label>
-                        <select class="form-control" id="tinhtrang-edit">
-                            <option>Không khoá</option>
-                            <option>Khoá</option>
+                        <label>Select list:</label>
+                        <select class="form-control tinhtrang-edit" name="tinhtrangedit">
+                            <option value="Không khoá">Không khoá</option>
+                            <option value="Khoá">Khoá</option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info" value="Tạo">Sửa</button>
+                    <button type="submit" class="btn btn-info" value="Sửa">Sửa</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
                 </div>
             </form>
@@ -144,9 +144,12 @@
 <!-- Đưa data vào modal khi edit -->
 <script>
     $(".btnEdit").click(function () {
-        var $item = $(this).closest("tr")
-            .find(".item-id")
-            .text();
-        alert($item);
+        var ma = $(this).closest("tr").find(".item-ma").text();
+        var tinh = $(this).closest("tr").find(".item-tinh").text();
+        var tinhtrang = $(this).closest("tr").find(".item-tinhtrang").text();
+        
+        $(".ma-edit").val(ma.trim());
+        $(".tinh-edit").val(tinh.trim());
+        $(".tinhtrang-edit").val(tinhtrang.trim());
     });
 </script>
