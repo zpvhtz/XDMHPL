@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<section class="wrapper">
+    <div class="table-agile-info">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Phân phối
+            </div>
+
+            <div class="panel">
+                <div style="height:50px;background-color:#f9f9f9;padding-top:10px">
+                    <div class="col-lg-6" style="float:left">
+                        <button type="submit" class="btn btn-md btn-primary btn-success" style="float:left">Thêm</button>
+                        <button type="submit" class="btn btn-md btn-primary btn-danger" style="float:left;margin-left:2px" data-toggle="collapse" data-target="#demo">Tìm kiếm nâng cao</button>
+                    </div>
+                    <div class="col-lg-6" style="float:right">
+
+                        <button type="submit" class="btn btn-md btn-primary btn-primary" style="float:right">Tìm kiếm</button>
+                        <input type="text" placeholder="Nội dụng tìm kiếm" class="form-control" style="float:right;width:50%" />
+                    </div>
+                </div>
+
+
+                <!-- Colapse tim kiem -->
+
+                <div id="demo" class="collapse">
+                    <div class="col-lg-6" style="float:left">
+                        <label>ID</label>
+                        <input type="text" class="form-control" id="id">
+                    </div>
+                    <div class="col-lg-6" style="float:right">
+                        <label>Tên đại lý</label>
+                        <input type="text" class="form-control" id="tendaily">
+                    </div>
+                    <div class="col-lg-6" style="float:left">
+                        <label>Loại vé số</label>
+                        <input type="text" class="form-control" id="loaiveso">
+                    </div>
+                    <div class="col-lg-3" style="float:right">
+                        <label>Số lượng giao</label>
+                        <input type="text" class="form-control" id="slgiao" />
+                    </div>
+                    <div class="col-lg-3" style="float:right">
+                        <label>Số lượng bán</label>
+                        <input type="text" class="form-control" id="slban" />
+                    </div>
+                    <div class="col-lg-6" style="float:left">
+                        <label>Từ Ngày</label>
+                        <input type="text" class="form-control" id="ngaybd">
+                    </div>
+                    <div class="col-lg-6" style="float:right">
+                        <label>Đến ngày</label>
+                        <input type="text" class="form-control" id="ngaykt">
+                    </div>
+                    <div class="col-lg-2" style="float:right">
+                        <button type="submit" class="btn btn-md btn-primary btn-default" style="margin:5px" data-toggle="collapse" data-target="#demo">Hủy</button>
+                        <button type="submit" class="btn btn-md btn-primary btn-primary" style="margin:5px">Tìm</button>
+                    </div>
+                </div>
+                <!-- end Colapse -->
+
+
+            </div>
+            <div>
+                <!-- table -->
+
+                <table class="table table-striped" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên Đại Lý</th>
+                            <th>Loại Vé số</th>
+                            <th>Ngày phân phối</th>
+                            <th>Số lượng giao</th>
+                            <th>Số lượng bán</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-expanded="true">
+                            <td>model.id</td>
+                            <td>model.Tendaily</td>
+                            <td>model.Loaiveso</td>
+                            <td>model.Ngayphanphoi</td>
+                            <td>model.soluonggiao</td>
+                            <td>model.soluongban</td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
+                        </tr>
+                        <tr data-expanded="true">
+                            <td>model.id</td>
+                            <td>model.Tendaily</td>
+                            <td>model.Loaiveso</td>
+                            <td>model.Ngayphanphoi</td>
+                            <td>model.soluonggiao</td>
+                            <td>model.soluongban</td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
+                        </tr>
+                        <tr data-expanded="true">
+                            <td>model.id</td>
+                            <td>model.Tendaily</td>
+                            <td>model.Loaiveso</td>
+                            <td>model.Ngayphanphoi</td>
+                            <td>model.soluonggiao</td>
+                            <td>model.soluongban</td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
+                        </tr>
+                        <tr data-expanded="true">
+                            <td>model.id</td>
+                            <td>model.Tendaily</td>
+                            <td>model.Loaiveso</td>
+                            <td>model.Ngayphanphoi</td>
+                            <td>model.soluonggiao</td>
+                            <td>model.soluongban</td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
+                        </tr>
+                        <tr data-expanded="true">
+                            <td>model.id</td>
+                            <td>model.Tendaily</td>
+                            <td>model.Loaiveso</td>
+                            <td>model.Ngayphanphoi</td>
+                            <td>model.soluonggiao</td>
+                            <td>model.soluongban</td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
+                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- end table  -->
+            </div>
+
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-5 text-center">
+                        <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                    </div>
+                    <div class="col-sm-7 text-right text-center-xs">
+                        <ul class="pagination pagination-sm m-t-none m-b-none">
+                            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
+                            <li><a href="">1</a></li>
+                            <li><a href="">2</a></li>
+                            <li><a href="">3</a></li>
+                            <li><a href="">4</a></li>
+                            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+    </div>
+
+</section>
