@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<PhanPhoi>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/MainLayout.cshtml";
@@ -17,49 +18,51 @@
                         <button type="submit" class="btn btn-md btn-primary btn-danger" style="float:left;margin-left:2px" data-toggle="collapse" data-target="#demo">Tìm kiếm nâng cao</button>
                     </div>
                     <div class="col-lg-6" style="float:right">
-
-                        <button type="submit" class="btn btn-md btn-primary btn-primary" style="float:right">Tìm kiếm</button>
-                        <input type="text" placeholder="Nội dụng tìm kiếm" class="form-control" style="float:right;width:50%" />
+                        <form asp-controller="PhanPhoi" asp-action="Search" method="get">
+                            <button type="submit" class="btn btn-md btn-primary btn-primary" style="float:right">Tìm kiếm</button>
+                            <input type="text" placeholder="Nội dung tìm kiếm" class="form-control" style="float:right;width:50%" name="txtSearch"/>
+                        </form>
                     </div>
                 </div>
 
 
                 <!-- Colapse tim kiem -->
-
-                <div id="demo" class="collapse">
-                    <div class="col-lg-6" style="float:left">
-                        <label>ID</label>
-                        <input type="text" class="form-control" id="id">
+                <form asp-controller="PhanPhoi" asp-action="AdvancedSearch" method="get">
+                    <div id="demo" class="collapse">
+                        <div class="col-lg-6" style="float:left">
+                            <label>ID</label>
+                            <input type="text" class="form-control" id="id" name="id_search">
+                        </div>
+                        <div class="col-lg-6" style="float:right">
+                            <label>Tên đại lý</label>
+                            <input type="text" class="form-control" id="tendaily" name="daily_search">
+                        </div>
+                        <div class="col-lg-6" style="float:left">
+                            <label>Loại vé số</label>
+                            <input type="text" class="form-control" id="loaiveso" name="veso_search">
+                        </div>
+                        <div class="col-lg-3" style="float:right">
+                            <label>Số lượng giao</label>
+                            <input type="number" class="form-control" id="slgiao" name="slgiao_search"/>
+                        </div>
+                        <div class="col-lg-3" style="float:right">
+                            <label>Số lượng bán</label>
+                            <input type="number" class="form-control" id="slban" name="slban_search"/>
+                        </div>
+                        <div class="col-lg-6" style="float:left">
+                            <label>Từ Ngày</label>
+                            <input type="date" class="form-control" id="ngaybd" name="ngaybd_search">
+                        </div>
+                        <div class="col-lg-6" style="float:right">
+                            <label>Đến ngày</label>
+                            <input type="date" class="form-control" id="ngaykt" name="ngaykt_search">
+                        </div>
+                        <div class="col-lg-2" style="float:right">
+                            <button type="button" class="btn btn-md btn-primary btn-default" style="margin:5px" data-toggle="collapse" data-target="#demo">Hủy</button>
+                            <button type="submit" class="btn btn-md btn-primary btn-primary" style="margin:5px">Tìm</button>
+                        </div>
                     </div>
-                    <div class="col-lg-6" style="float:right">
-                        <label>Tên đại lý</label>
-                        <input type="text" class="form-control" id="tendaily">
-                    </div>
-                    <div class="col-lg-6" style="float:left">
-                        <label>Loại vé số</label>
-                        <input type="text" class="form-control" id="loaiveso">
-                    </div>
-                    <div class="col-lg-3" style="float:right">
-                        <label>Số lượng giao</label>
-                        <input type="text" class="form-control" id="slgiao" />
-                    </div>
-                    <div class="col-lg-3" style="float:right">
-                        <label>Số lượng bán</label>
-                        <input type="text" class="form-control" id="slban" />
-                    </div>
-                    <div class="col-lg-6" style="float:left">
-                        <label>Từ Ngày</label>
-                        <input type="text" class="form-control" id="ngaybd">
-                    </div>
-                    <div class="col-lg-6" style="float:right">
-                        <label>Đến ngày</label>
-                        <input type="text" class="form-control" id="ngaykt">
-                    </div>
-                    <div class="col-lg-2" style="float:right">
-                        <button type="submit" class="btn btn-md btn-primary btn-default" style="margin:5px" data-toggle="collapse" data-target="#demo">Hủy</button>
-                        <button type="submit" class="btn btn-md btn-primary btn-primary" style="margin:5px">Tìm</button>
-                    </div>
-                </div>
+                </form>
                 <!-- end Colapse -->
 
 
@@ -90,56 +93,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-expanded="true">
-                            <td>model.id</td>
-                            <td>model.Tendaily</td>
-                            <td>model.Loaiveso</td>
-                            <td>model.Ngayphanphoi</td>
-                            <td>model.soluonggiao</td>
-                            <td>model.soluongban</td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
-                        </tr>
-                        <tr data-expanded="true">
-                            <td>model.id</td>
-                            <td>model.Tendaily</td>
-                            <td>model.Loaiveso</td>
-                            <td>model.Ngayphanphoi</td>
-                            <td>model.soluonggiao</td>
-                            <td>model.soluongban</td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
-                        </tr>
-                        <tr data-expanded="true">
-                            <td>model.id</td>
-                            <td>model.Tendaily</td>
-                            <td>model.Loaiveso</td>
-                            <td>model.Ngayphanphoi</td>
-                            <td>model.soluonggiao</td>
-                            <td>model.soluongban</td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
-                        </tr>
-                        <tr data-expanded="true">
-                            <td>model.id</td>
-                            <td>model.Tendaily</td>
-                            <td>model.Loaiveso</td>
-                            <td>model.Ngayphanphoi</td>
-                            <td>model.soluonggiao</td>
-                            <td>model.soluongban</td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
-                        </tr>
-                        <tr data-expanded="true">
-                            <td>model.id</td>
-                            <td>model.Tendaily</td>
-                            <td>model.Loaiveso</td>
-                            <td>model.Ngayphanphoi</td>
-                            <td>model.soluonggiao</td>
-                            <td>model.soluongban</td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
-                            <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr data-expanded="true">
+                                <td>@item.Id</td>
+                                <td>@item.IdDaiLyNavigation.Ten</td>
+                                <td>@item.IdVeSoNavigation.Tinh</td>
+                                <td>@item.Ngay</td>
+                                <td>@item.SoLuongGiao</td>
+                                <td>@item.SoLuongBan</td>
+                                <td><button type="submit" class="btn btn-md btn-primary btn-danger">Xóa</button></td>
+                                <td><button type="submit" class="btn btn-md btn-primary btn-warning">Sửa</button></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
 
