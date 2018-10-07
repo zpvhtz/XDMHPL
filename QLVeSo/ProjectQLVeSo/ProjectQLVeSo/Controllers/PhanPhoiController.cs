@@ -4,90 +4,75 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectQLVeSo.Models;
 
 namespace ProjectQLVeSo.Controllers
 {
     public class PhanPhoiController : Controller
     {
-        // GET: PhanPhoi
-        public ActionResult Index()
+        private readonly QlVeSoContext context;
+        public PhanPhoiController(QlVeSoContext context)
         {
-            return View();
+            this.context = context;
         }
 
-        // GET: PhanPhoi/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Index()
         {
-            return View();
+            List<PhanPhoi> list = context.PhanPhoi.OrderBy(pp => pp.Id).ToList();
+            return View(list);
         }
 
-        // GET: PhanPhoi/Create
-        public ActionResult Create()
+        public IActionResult Search(string txtSearch)
         {
-            return View();
+            List<PhanPhoi> list = context.PhanPhoi.Where(pp => pp.Id.ToString().Contains(txtSearch)
+                                                            || pp.IdDaiLyNavigation.Ten.Contains(txtSearch)
+                                                            || pp.IdVeSoNavigation.Tinh.Contains(txtSearch))
+                                                  .ToList();
+            return View("Index", list);
         }
 
-        // POST: PhanPhoi/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult AdvancedSearch(string id_search, string daily_search, string veso_search, int slgiao_search, int slban_search, DateTime ngaybd_search, DateTime ngaykt_search)
         {
-            try
+            List<PhanPhoi> list = new List<PhanPhoi>();
+            if(id_search != null)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
+                list = context.PhanPhoi.Where(pp => pp.Id.ToString().Contains(id_search)).ToList();
             }
-            catch
+            if(daily_search != null)
             {
-                return View();
+                list = context.PhanPhoi.Where(pp => pp.IdDaiLyNavigation.Ten.Contains(daily_search)).ToList();
             }
-        }
-
-        // GET: PhanPhoi/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: PhanPhoi/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
+            if(veso_search != null)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                list = context.PhanPhoi.Where(pp => pp.IdVeSoNavigation.Tinh.Contains(veso_search)).ToList();
             }
-            catch
+            if(slgiao_search > 0)
             {
-                return View();
+                list = context.PhanPhoi.Where(pp => pp.SoLuongGiao == slgiao_search).ToList();
             }
-        }
-
-        // GET: PhanPhoi/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: PhanPhoi/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+            if(slban_search > 0)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
+                list = context.PhanPhoi.Where(pp => pp.SoLuongBan == slban_search).ToList();
             }
-            catch
+            if(ngaybd_search.Date != DateTime.Parse("1/1/0001"))
             {
-                return View();
+                if(ngaykt_search != DateTime.Parse("1/1/0001"))
+                {
+                    list = context.PhanPhoi.Where(pp => pp.Ngay.Value >= ngaybd_search && pp.Ngay.Value <= ngaykt_search).ToList();
+                }
+                else
+                {
+                    list = context.PhanPhoi.Where(pp => pp.Ngay.Value >= ngaybd_search).ToList();
+                }                
             }
+            else
+            {
+                if(ngaykt_search != DateTime.Parse("1/1/0001"))
+                {
+                    list = context.PhanPhoi.Where(pp => pp.Ngay.Value <= ngaykt_search).ToList();
+                }
+            }
+            return View("Index", list);
         }
     }
 }
