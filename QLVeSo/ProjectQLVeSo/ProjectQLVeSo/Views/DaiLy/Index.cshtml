@@ -1,0 +1,248 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<section class="wrapper">
+    <div class="table-agile-info">
+        <div class="panel panel-default">
+            <div>
+                <!-- Dai ly -->
+
+                <div class="panel-heading">
+                    Đại lý
+                </div> <!-- Tieu de-->
+
+                <div class="panel-body">
+                    <div class="col-lg-6">
+                        <button class="btn btn-success"> Thêm </button>
+                        <button class="btn btn-danger" data-toggle="collapse" data-target="#demo1"> Tìm kiếm nâng cao </button>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <button class="btn btn-info" style="float:right"> Tìm kiếm </button>
+                        <div class="col-lg-8" style="float:right"> <input class="form-control" placeholder="Nội dung tìm kiếm" /> </div>
+                    </div>
+                </div>  <!-- Button -->
+                <!-- collapse -->
+                <div class="panel-body collapse" id="demo1">
+                    <div class="form-group col-lg-6">
+                        <label> Tên đại lý </label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label> Loại vé số </label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <div><label> Ngày đăng ký</label></div>
+                        <div class="col-lg-1" style="margin-top:5px"> Từ </div>
+                        <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
+                        <div class="col-lg-1" style="margin-top:5px"> Đến </div>
+                        <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label> Tên đại lý </label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <button class="btn btn-success" style="float:right"> Tìm </button>
+                            <button class="btn btn-default" style="float:right;margin-right:5px" data-toggle="collapse" data-target="#demo1"> Hủy </button>
+                        </div>
+                    </div>
+                </div> <!-- Tim kiem nang cao -->
+                <!-- End collapse -->
+
+                <div>
+                    <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+                        <thead>
+                            <tr>
+                                <th>Tên đại lý</th>
+                                <th>Địa chỉ</th>
+                                <th>Điện thoại</th>
+                                <th>Tình trạng</th>
+                                <th> </th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-expanded="true">
+                                <td>Model.TenDaiLy</td>
+                                <td>Model.DiaChi</td>
+                                <td>Model.DienThoai</td>
+                                <td>Model.TinhTrang</td>
+                                <td> <button class="btn btn-danger"> Xóa </button></td>
+                                <td> <button class="btn btn-warning"> Sửa </button></td>
+                            </tr>
+                            <tr data-expanded="true">
+                                <td>Model.TenDaiLy</td>
+                                <td>Model.DiaChi</td>
+                                <td>Model.DienThoai</td>
+                                <td>Model.TinhTrang</td>
+                                <td> <button class="btn btn-danger"> Xóa </button></td>
+                                <td> <button class="btn btn-warning"> Sửa </button></td>
+                            </tr>
+                            <tr data-expanded="true">
+                                <td>Model.TenDaiLy</td>
+                                <td>Model.DiaChi</td>
+                                <td>Model.DienThoai</td>
+                                <td>Model.TinhTrang</td>
+                                <td> <button class="btn btn-danger"> Xóa </button></td>
+                                <td> <button class="btn btn-warning"> Sửa </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>  <!-- Bang -->
+
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-5 text-center">
+                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                        </div>
+                        <div class="col-sm-7 text-right text-center-xs">
+                            <ul class="pagination pagination-sm m-t-none m-b-none">
+                                <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
+                                <li><a href="">1</a></li>
+                                <li><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><a href="">4</a></li>
+                                <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </footer> <!-- Phan trang -->
+
+                <!-- End DaiLy -->
+            </div>
+            <div>
+                <!-- Dang ky -->
+                <div class="panel-heading">
+                    Đăng ký
+                </div> <!-- Tieu de-->
+
+                <div class="panel-body">
+                    <div class="col-lg-6">
+                        <button class="btn btn-success"> Thêm </button>
+                        <button class="btn btn-danger" data-toggle="collapse" data-target="#demo"> Tìm kiếm nâng cao </button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn btn-info" style="float:right"> Tìm kiếm </button>
+                        <div class="col-lg-8" style="float:right"> <input class="form-control" placeholder="Nội dung tìm kiếm" /> </div>
+                    </div>
+                </div> <!-- Button -->
+                <!-- collapse -->
+                <div class="panel-body collapse" id="demo">
+                    <div class="form-group col-lg-6">
+                        <label> Tên đại lý </label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label> Loại vé số </label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <div><label> Ngày đăng ký</label></div>
+                        <div class="col-lg-1" style="margin-top:5px"> Từ </div>
+                        <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
+                        <div class="col-lg-1" style="margin-top:5px"> Đến </div>
+                        <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label> Tên đại lý </label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <button class="btn btn-success" style="float:right"> Tìm </button>
+                            <button class="btn btn-default" style="float:right;margin-right:5px" data-toggle="collapse" data-target="#demo"> Hủy </button>
+                        </div>
+                    </div>
+                </div> <!-- Tim kiem nang cao -->
+                <!-- End collapse -->
+
+                <div>
+                    <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+                        <thead>
+                            <tr>
+                                <th>Tên đại lý</th>
+                                <th> Loại vé số </th>
+                                <th>Ngày đăng ký</th>
+                                <th>Số lượng</th>
+                                <th> </th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-expanded="true">
+                                <td>Model.TenDaiLy</td>
+                                <td>Model.LoaiVeSo</td>
+                                <td>Model.NgayDangKy</td>
+                                <td>Model.SoLuong</td>
+                                <td> <button class="btn btn-danger"> Xóa </button></td>
+                                <td> <button class="btn btn-warning"> Sửa </button></td>
+                            </tr>
+                            <tr data-expanded="true">
+                                <td>Model.TenDaiLy</td>
+                                <td>Model.LoaiVeSo</td>
+                                <td>Model.NgayDangKy</td>
+                                <td>Model.SoLuong</td>
+                                <td> <button class="btn btn-danger"> Xóa </button></td>
+                                <td> <button class="btn btn-warning"> Sửa </button></td>
+                            </tr>
+                            <tr data-expanded="true">
+                                <td>Model.TenDaiLy</td>
+                                <td>Model.LoaiVeSo</td>
+                                <td>Model.NgayDangKy</td>
+                                <td>Model.SoLuong</td>
+                                <td> <button class="btn btn-danger"> Xóa </button></td>
+                                <td> <button class="btn btn-warning"> Sửa </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> <!-- Bang -->
+
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-5 text-center">
+                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                        </div>
+                        <div class="col-sm-7 text-right text-center-xs">
+                            <ul class="pagination pagination-sm m-t-none m-b-none">
+                                <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
+                                <li><a href="">1</a></li>
+                                <li><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><a href="">4</a></li>
+                                <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </footer> <!-- Phan trang -->
+
+                <!-- End Dang Ky -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
