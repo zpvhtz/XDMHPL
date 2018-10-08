@@ -9,10 +9,10 @@ namespace ProjectQLVeSo.Controllers
 {
     public class LoaiVeSoController : Controller
     {
-        private readonly QlVeSoContext context;
+        private readonly QLVeSoContext context;
         const int soluongveso = 10;
 
-        public LoaiVeSoController(QlVeSoContext context)
+        public LoaiVeSoController(QLVeSoContext context)
         {
             this.context = context;
         }
@@ -41,12 +41,12 @@ namespace ProjectQLVeSo.Controllers
                 string thongbao = "";
                 //Kiểm tra mã có trùng chưa
                 LoaiVeSo vs;
-                vs = context.LoaiVeSo.Where(v => v.Ma == ma).FirstOrDefault();
+                vs = context.LoaiVeSo.Where(v => v.MaLoaiVeSo == ma).FirstOrDefault();
                 if (vs == null)
                 {
                     vs = new LoaiVeSo();
                     vs.Id = Guid.NewGuid();
-                    vs.Ma = ma;
+                    vs.MaLoaiVeSo = ma;
                     vs.Tinh = tinh;
                     vs.TinhTrang = "Không khoá";
                     context.LoaiVeSo.Add(vs);
@@ -72,7 +72,7 @@ namespace ProjectQLVeSo.Controllers
                 //Thông báo
                 string thongbao = "";
                 //Sửa
-                LoaiVeSo vs = context.LoaiVeSo.Where(v => v.Ma == maedit).SingleOrDefault();
+                LoaiVeSo vs = context.LoaiVeSo.Where(v => v.MaLoaiVeSo == maedit).SingleOrDefault();
                 vs.Tinh = tinhedit;
                 vs.TinhTrang = tinhtrangedit;
                 context.SaveChanges();
