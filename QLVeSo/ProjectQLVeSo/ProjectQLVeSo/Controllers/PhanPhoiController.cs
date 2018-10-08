@@ -10,8 +10,8 @@ namespace ProjectQLVeSo.Controllers
 {
     public class PhanPhoiController : Controller
     {
-        private readonly QlVeSoContext context;
-        public PhanPhoiController(QlVeSoContext context)
+        private readonly QLVeSoContext context;
+        public PhanPhoiController(QLVeSoContext context)
         {
             this.context = context;
         }
@@ -26,7 +26,7 @@ namespace ProjectQLVeSo.Controllers
         {
             List<PhanPhoi> list = context.PhanPhoi.Where(pp => pp.Id.ToString().Contains(txtSearch)
                                                             || pp.IdDaiLyNavigation.Ten.Contains(txtSearch)
-                                                            || pp.IdVeSoNavigation.Tinh.Contains(txtSearch))
+                                                            || pp.IdLoaiVeSoNavigation.Tinh.Contains(txtSearch))
                                                   .ToList();
             return View("Index", list);
         }
@@ -44,7 +44,7 @@ namespace ProjectQLVeSo.Controllers
             }
             if(veso_search != null)
             {
-                list = context.PhanPhoi.Where(pp => pp.IdVeSoNavigation.Tinh.Contains(veso_search)).ToList();
+                list = context.PhanPhoi.Where(pp => pp.IdLoaiVeSoNavigation.Tinh.Contains(veso_search)).ToList();
             }
             if(slgiao_search > 0)
             {

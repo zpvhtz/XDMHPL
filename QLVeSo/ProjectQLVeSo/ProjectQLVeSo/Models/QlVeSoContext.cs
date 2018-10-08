@@ -4,35 +4,64 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ProjectQLVeSo.Models
 {
-    public partial class QlVeSoContext : DbContext
+    public partial class QLVeSoContext : DbContext
     {
-        public QlVeSoContext()
+        public QLVeSoContext()
         {
         }
 
-        public QlVeSoContext(DbContextOptions<QlVeSoContext> options)
+        public QLVeSoContext(DbContextOptions<QLVeSoContext> options)
             : base(options)
         {
         }
 
+        public virtual DbSet<CongNo> CongNo { get; set; }
         public virtual DbSet<DaiLy> DaiLy { get; set; }
         public virtual DbSet<DangKy> DangKy { get; set; }
+        public virtual DbSet<Giai> Giai { get; set; }
+        public virtual DbSet<KetQuaXoSo> KetQuaXoSo { get; set; }
         public virtual DbSet<LoaiVeSo> LoaiVeSo { get; set; }
         public virtual DbSet<PhanPhoi> PhanPhoi { get; set; }
+        public virtual DbSet<PhieuThu> PhieuThu { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=HEOBAUMAU;Database=QlVeSo;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=HEoBAYMAU;Database=QLVeSo;Integrated Security=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CongNo>(entity =>
+            {
+                entity.HasIndex(e => e.MaCongNo)
+                    .HasName("UQ__CongNo__E452A01F45213913")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.MaCongNo)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Ngay).HasColumnType("date");
+
+                entity.HasOne(d => d.IdDaiLyNavigation)
+                    .WithMany(p => p.CongNo)
+                    .HasForeignKey(d => d.IdDaiLy)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
             modelBuilder.Entity<DaiLy>(entity =>
             {
+                entity.HasIndex(e => e.MaDaiLy)
+                    .HasName("UQ__DaiLy__069B00B2DD19138A")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.DiaChi).HasMaxLength(200);
@@ -41,7 +70,7 @@ namespace ProjectQLVeSo.Models
                     .HasMaxLength(12)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Ma)
+                entity.Property(e => e.MaDaiLy)
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -53,28 +82,69 @@ namespace ProjectQLVeSo.Models
 
             modelBuilder.Entity<DangKy>(entity =>
             {
-                entity.HasKey(e => new { e.IdDaiLy, e.IdVeSo });
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.NgayDangKy).HasColumnType("date");
 
                 entity.HasOne(d => d.IdDaiLyNavigation)
                     .WithMany(p => p.DangKy)
                     .HasForeignKey(d => d.IdDaiLy)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DangKy_DaiLy_MaDaiLy");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
 
-                entity.HasOne(d => d.IdVeSoNavigation)
-                    .WithMany(p => p.DangKy)
-                    .HasForeignKey(d => d.IdVeSo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DangKy_LoaiVeSo_MaVeSo");
+            modelBuilder.Entity<Giai>(entity =>
+            {
+                entity.HasIndex(e => e.MaGiai)
+                    .HasName("UQ__Giai__747065BF86130EB6")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.MaGiai)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<KetQuaXoSo>(entity =>
+            {
+                entity.HasIndex(e => e.MaKetQua)
+                    .HasName("UQ__KetQuaXo__D5B3102BAB554113")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.MaKetQua)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Ngay).HasColumnType("date");
+
+                entity.Property(e => e.SoTrung)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdGiaiNavigation)
+                    .WithMany(p => p.KetQuaXoSo)
+                    .HasForeignKey(d => d.IdGiai)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.IdLoaiVeSoNavigation)
+                    .WithMany(p => p.KetQuaXoSo)
+                    .HasForeignKey(d => d.IdLoaiVeSo)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<LoaiVeSo>(entity =>
             {
+                entity.HasIndex(e => e.MaLoaiVeSo)
+                    .HasName("UQ__LoaiVeSo__4AFD9B5EF6167D61")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Ma)
+                entity.Property(e => e.MaLoaiVeSo)
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -93,14 +163,33 @@ namespace ProjectQLVeSo.Models
                 entity.HasOne(d => d.IdDaiLyNavigation)
                     .WithMany(p => p.PhanPhoi)
                     .HasForeignKey(d => d.IdDaiLy)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PhanPhoi_DaiLy_MaDaiLy");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
 
-                entity.HasOne(d => d.IdVeSoNavigation)
+                entity.HasOne(d => d.IdLoaiVeSoNavigation)
                     .WithMany(p => p.PhanPhoi)
-                    .HasForeignKey(d => d.IdVeSo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PhanPhoi_LoaiVeSo_MaVeSo");
+                    .HasForeignKey(d => d.IdLoaiVeSo)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<PhieuThu>(entity =>
+            {
+                entity.HasIndex(e => e.MaPhieuThu)
+                    .HasName("UQ__PhieuThu__1D8B9C6813CEF9A1")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.MaPhieuThu)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Ngay).HasColumnType("date");
+
+                entity.HasOne(d => d.IdDaiLyNavigation)
+                    .WithMany(p => p.PhieuThu)
+                    .HasForeignKey(d => d.IdDaiLy)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
         }
     }

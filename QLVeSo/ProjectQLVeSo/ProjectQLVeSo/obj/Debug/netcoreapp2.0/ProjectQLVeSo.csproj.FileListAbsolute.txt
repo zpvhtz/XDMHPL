@@ -31,3 +31,14 @@ C:\Users\DELL PC\Documents\GitHub\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\
 C:\Users\DELL PC\Documents\GitHub\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.AssemblyInfo.cs
 C:\Users\DELL PC\Documents\GitHub\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.dll
 C:\Users\DELL PC\Documents\GitHub\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.pdb
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.csproj.CoreCompileInputs.cache
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.AssemblyInfoInputs.cache
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.AssemblyInfo.cs
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.dll
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.pdb
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.deps.json
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.runtimeconfig.json
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.runtimeconfig.dev.json
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.dll
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.pdb
+C:\Project\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.csprojAssemblyReference.cache
