@@ -25,7 +25,7 @@ namespace ProjectQLVeSo
         {
             services.AddMvc();
             var connect = Configuration.GetConnectionString("QLVeSoDB");
-            services.AddDbContext<QlVeSoContext>(opt => opt.UseSqlServer(connect));
+            services.AddDbContext<QLVeSoContext>(opt => opt.UseSqlServer(connect));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

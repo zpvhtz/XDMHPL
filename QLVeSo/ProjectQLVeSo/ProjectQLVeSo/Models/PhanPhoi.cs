@@ -7,12 +7,12 @@ namespace ProjectQLVeSo.Models
     {
         public Guid Id { get; set; }
         public Guid IdDaiLy { get; set; }
-        public Guid IdVeSo { get; set; }
+        public Guid IdLoaiVeSo { get; set; }
         public DateTime? Ngay { get; set; }
         public int? SoLuongGiao { get; set; }
         public int? SoLuongBan { get; set; }
 
         public DaiLy IdDaiLyNavigation { get; set; }
-        public LoaiVeSo IdVeSoNavigation { get; set; }
+        public LoaiVeSo IdLoaiVeSoNavigation { get; set; }
     }
 }
