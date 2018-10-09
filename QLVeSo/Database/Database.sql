@@ -39,7 +39,8 @@ CREATE TABLE PhanPhoi
 	IdLoaiVeSo UNIQUEIDENTIFIER NOT NULL, --FK--
 	Ngay DATE,
 	SoLuongGiao INT,
-	SoLuongBan INT
+	SoLuongBan INT,
+	TiLe FLOAT
 )
 
 CREATE TABLE Giai
@@ -132,32 +133,49 @@ INSERT INTO DangKy
 		  ('d361af43-9f6c-4c4b-9b5d-30419b902000','0064e9b1-2992-4258-b800-d4bafc43eaf7', 'cc3cf4fe-9665-4c5f-ada5-c1d14bdd8b78','2018-02-02',100),
 		  ('800ca87b-be3d-4225-abf2-0ba90f1c2d76','44fa4066-84b9-44ec-924b-8ca535314cd3', '758b0c57-d32c-412e-b30d-d55e445f4220','2018-03-06',150)
 
---CREATE PROC ThemSoLuongGiao
---AS
---	--Khai báo con trỏ, lấy giá trị từng row--
---	DECLARE CUR CURSOR FOR
---		SELECT DISTINCT IdDaiLy,SoLuong
---		FROM DangKy
---		ORDER BY NgayDangKy DESC
---	--
---	INSERT INTO PhanPhoi
---		VALUES(NEWID(), 
---GO
-
---select Table2.IdDaiLy, Table2.NgayDangKy, Table2.SoLuong
---from
---	(
---	select  IdDaiLy as TempDaiLy, Max(NgayDangky) as TempNgay
---	from DangKy 
---	group by IdDaiLy 
---	) as Table1, DangKy as Table2
---where Table1.TempDaiLy = Table2.IdDaiLy and Table1.TempNgay=Table2.NgayDangKy
-
-
---select  IdDaiLy as TempDaiLy, Max(NgayDangky) as TempNgay
---	from DangKy 
---	group by IdDaiLy 
-
---	select  IdDaiLy as TempDaiLy, Max(NgayDangky) as TempNgay, sum(SoLuong)
---	from DangKy 
---	group by IdDaiLy,NgayDangKy
+--Hàm tự động tính tỉ lệ--
+CREATE PROC Them_PhanPhoi
+AS
+	--Con trỏ--
+	DECLARE CUR CURSOR FOR
+	SELECT Table2.IdDaiLy, Table2.IdLoaiVeSo, Table2.SoLuong
+	FROM
+	(
+		SELECT IdDaiLy, MAX(NgayDangKy) AS NgayDangKy
+		FROM DangKy
+		GROUP BY IdDaiLy
+	) AS Table1, DangKy as Table2
+	WHERE Table1.IdDaiLy = Table2.IdDaiLy AND Table1.NgayDangKy = Table2.NgayDangKy
+	--
+	DECLARE @IdDaiLy UNIQUEIDENTIFIER
+	DECLARE @IdLoaiVeSo UNIQUEIDENTIFIER
+	DECLARE @SoLuong INT
+	--
+	OPEN CUR
+	FETCH NEXT FROM CUR INTO @IdDaiLy, @IdLoaiVeSo, @SoLuong
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		----
+		DECLARE @TiLe FLOAT
+		SELECT @TiLe = MAX(TiLe)
+		FROM PhanPhoi
+		WHERE IdDaiLy = @IdDaiLy
+		--
+		IF(@TiLe IS NULL)
+		BEGIN
+			--Bỏ vào bảng phân phối--
+			INSERT INTO PhanPhoi(Id, IdDaiLy, IdLoaiVeSo, Ngay, SoLuongGiao)
+				VALUES(NEWID(), @IdDaiLy, @IdLoaiVeSo, CONVERT(DATE, GETDATE()), @SoLuong)
+		END
+		ELSE
+		BEGIN
+			DECLARE @SoLuongGiao INT = CAST((@TiLe * @SoLuong) AS INT)
+			--Bỏ vào bảng phân phối--
+			INSERT INTO PhanPhoi(Id, IdDaiLy, IdLoaiVeSo, Ngay, SoLuongGiao)
+				VALUES(NEWID(), @IdDaiLy, @IdLoaiVeSo, CONVERT(DATE, GETDATE()), @SoLuongGiao)
+		END
+		FETCH NEXT FROM CUR INTO @IdDaiLy, @IdLoaiVeSo, @SoLuong
+	END
+	CLOSE CUR
+	DEALLOCATE CUR
+GO
