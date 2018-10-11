@@ -1,0 +1,26 @@
+﻿@model IEnumerable<LoaiVeSo>
+
+
+<div class="form-group">
+    <label class="col-lg-2 control-label">Mã đại lý</label>
+    <div class="col-lg-9"> <input class="form-control" readonly value="@ViewBag.ThongTinDaiLy.MaDaiLy" name="madailycreate"/> </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-2 control-label">Tên đại lý</label>
+    <div class="col-lg-9"> <input class="form-control" readonly value="@ViewBag.ThongTinDaiLy.Ten"/> </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-2 control-label"> Loại vé số </label>
+    <div class="col-lg-9">
+        <select class="form-control" id="loaiveso" name="idvesocreate">
+            @foreach (var item in Model)
+            {
+                <option value="@item.Id">@item.Tinh</option>
+            }
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-2 control-label"> Số lượng </label>
+    <div class="col-lg-9"> <input class="form-control" type="number" value="0" min="0" name="soluongdangkycreate"/> </div>
+</div>

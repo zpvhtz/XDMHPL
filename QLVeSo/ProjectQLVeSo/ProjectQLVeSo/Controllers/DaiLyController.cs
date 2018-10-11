@@ -16,8 +16,10 @@ namespace ProjectQLVeSo.Controllers
             this.context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string thongbao)
         {
+            if (thongbao != null)
+                ViewBag.ThongBao = thongbao;
             List<DaiLy> list = context.DaiLy.ToList();
             return View(list);
         }
@@ -28,7 +30,7 @@ namespace ProjectQLVeSo.Controllers
             return View("Index", list);
         }
 
-        public IActionResult Create(string macreate, string tencreate, string diachicreate, string dienthoaicreate)
+        public IActionResult CreateDaiLy(string macreate, string tencreate, string diachicreate, string dienthoaicreate)
         {
             DaiLy daily = new DaiLy();
             daily.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
@@ -38,6 +40,40 @@ namespace ProjectQLVeSo.Controllers
             daily.DienThoai = dienthoaicreate;
             daily.TinhTrang = "Không khoá";
             context.DaiLy.Add(daily);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult EditDaiLy(string maedit, string tenedit, string diachiedit, string dienthoaiedit, string tinhtrangedit)
+        {
+            DaiLy daily = context.DaiLy.Where(dl => dl.MaDaiLy == maedit).SingleOrDefault();
+            daily.Ten = tenedit;
+            daily.DiaChi = diachiedit;
+            daily.DienThoai = dienthoaiedit;
+            daily.TinhTrang = tinhtrangedit;
+            context.SaveChanges();
+            string thongbao = "Sửa thành công";
+            return RedirectToAction("Index", "DaiLy", new { thongbao = thongbao });
+        }
+
+        public IActionResult ThongTinDangKy(string ma)
+        {
+            List<LoaiVeSo> list = context.LoaiVeSo.ToList();
+            DaiLy daily = context.DaiLy.Where(dl => dl.MaDaiLy == ma).SingleOrDefault();
+            ViewBag.ThongTinDaiLy = daily;
+            return PartialView("DangKyPartialView", list);
+        }
+
+        public IActionResult CreateDangKy(string madailycreate, string idvesocreate, int soluongdangkycreate)
+        {
+            DaiLy daily = context.DaiLy.Where(dl => dl.MaDaiLy == madailycreate).SingleOrDefault();
+            DangKy dangky = new DangKy();
+            dangky.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
+            dangky.IdDaiLy = daily.Id;
+            dangky.IdLoaiVeSo = Guid.Parse(idvesocreate.ToUpper());
+            dangky.NgayDangKy = DateTime.Now;
+            dangky.SoLuong = soluongdangkycreate;
+            context.DangKy.Add(dangky);
             context.SaveChanges();
             return RedirectToAction("Index");
         }
