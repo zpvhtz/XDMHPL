@@ -32,16 +32,28 @@ namespace ProjectQLVeSo.Controllers
 
         public IActionResult CreateDaiLy(string macreate, string tencreate, string diachicreate, string dienthoaicreate)
         {
-            DaiLy daily = new DaiLy();
-            daily.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
-            daily.MaDaiLy = macreate;
-            daily.Ten = tencreate;
-            daily.DiaChi = diachicreate;
-            daily.DienThoai = dienthoaicreate;
-            daily.TinhTrang = "Không khoá";
-            context.DaiLy.Add(daily);
-            context.SaveChanges();
-            return RedirectToAction("Index");
+            //Thông báo
+            string thongbao = "";
+            //Kiểm tra mã có trùng chưa
+            DaiLy daily;
+            daily = context.DaiLy.Where(dl => dl.MaDaiLy == macreate).SingleOrDefault();
+            if(daily == null)
+            {
+                daily.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
+                daily.MaDaiLy = macreate;
+                daily.Ten = tencreate;
+                daily.DiaChi = diachicreate;
+                daily.DienThoai = dienthoaicreate;
+                daily.TinhTrang = "Không khoá";
+                context.DaiLy.Add(daily);
+                context.SaveChanges();
+                thongbao = "Thêm thành công";
+            }
+            else
+            {
+                thongbao = "Mã bị trùng";
+            }            
+            return RedirectToAction("Index", "DaiLy", new { thongbao = thongbao });
         }
 
         public IActionResult EditDaiLy(string maedit, string tenedit, string diachiedit, string dienthoaiedit, string tinhtrangedit)
@@ -75,7 +87,8 @@ namespace ProjectQLVeSo.Controllers
             dangky.SoLuong = soluongdangkycreate;
             context.DangKy.Add(dangky);
             context.SaveChanges();
-            return RedirectToAction("Index");
+            string thongbao = "Thêm thành công";
+            return RedirectToAction("Index", "DaiLy", new { thongbao = thongbao });
         }
 
         public IActionResult ThongTin(string iddaily)

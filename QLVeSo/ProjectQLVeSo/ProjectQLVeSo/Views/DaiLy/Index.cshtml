@@ -125,50 +125,50 @@
             <!-- End DaiLy -->
         </div>
         @*<div>
-            <!-- Dang ky -->
-            <div class="panel-heading">
-                Đăng ký
-            </div> <!-- Tieu de-->
+                <!-- Dang ky -->
+                <div class="panel-heading">
+                    Đăng ký
+                </div> <!-- Tieu de-->
 
-            <div class="panel-body">
-                <div class="col-lg-6">
-                    <button class="btn btn-danger" data-toggle="collapse" data-target="#demo"> Tìm kiếm nâng cao </button>
-                </div>
-                <div class="col-lg-6">
-                    <button class="btn btn-info" style="float:right"> Tìm kiếm </button>
-                    <div class="col-lg-8" style="float:right"> <input class="form-control" placeholder="Nội dung tìm kiếm" /> </div>
-                </div>
-            </div> <!-- Button -->
-            <!-- collapse -->
-            <div class="panel-body collapse" id="demo">
-                <div class="form-group col-lg-6">
-                    <label> Tên đại lý </label>
-                    <input class="form-control" />
-                </div>
-                <div class="form-group col-lg-6">
-                    <label> Loại vé số </label>
-                    <input class="form-control" />
-                </div>
-                <div class="form-group col-lg-6">
-                    <div><label> Ngày đăng ký</label></div>
-                    <div class="col-lg-1" style="margin-top:5px"> Từ </div>
-                    <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
-                    <div class="col-lg-1" style="margin-top:5px"> Đến </div>
-                    <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
-                </div>
-                <div class="form-group col-lg-6">
-                    <label> Tên đại lý </label>
-                    <input class="form-control" />
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-12">
-                        <button class="btn btn-success" style="float:right"> Tìm </button>
-                        <button class="btn btn-default" style="float:right;margin-right:5px" data-toggle="collapse" data-target="#demo"> Hủy </button>
+                <div class="panel-body">
+                    <div class="col-lg-6">
+                        <button class="btn btn-danger" data-toggle="collapse" data-target="#demo"> Tìm kiếm nâng cao </button>
                     </div>
-                </div>
-            </div> <!-- Tim kiem nang cao -->
-            <!-- End collapse -->
-        </div>*@
+                    <div class="col-lg-6">
+                        <button class="btn btn-info" style="float:right"> Tìm kiếm </button>
+                        <div class="col-lg-8" style="float:right"> <input class="form-control" placeholder="Nội dung tìm kiếm" /> </div>
+                    </div>
+                </div> <!-- Button -->
+                <!-- collapse -->
+                <div class="panel-body collapse" id="demo">
+                    <div class="form-group col-lg-6">
+                        <label> Tên đại lý </label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label> Loại vé số </label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <div><label> Ngày đăng ký</label></div>
+                        <div class="col-lg-1" style="margin-top:5px"> Từ </div>
+                        <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
+                        <div class="col-lg-1" style="margin-top:5px"> Đến </div>
+                        <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label> Tên đại lý </label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <button class="btn btn-success" style="float:right"> Tìm </button>
+                            <button class="btn btn-default" style="float:right;margin-right:5px" data-toggle="collapse" data-target="#demo"> Hủy </button>
+                        </div>
+                    </div>
+                </div> <!-- Tim kiem nang cao -->
+                <!-- End collapse -->
+            </div>*@
     </div>
 </section>
 
@@ -335,5 +335,12 @@
                 });
             });
         });
+    </script>
+}
+
+@if (ViewBag.ThongBao != null)
+{
+    <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
     </script>
 }

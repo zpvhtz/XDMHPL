@@ -17,9 +17,12 @@ namespace ProjectQLVeSo.Controllers
             this.context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string thongbao)
         {
-            List<PhanPhoi> list = context.PhanPhoi.OrderBy(pp => pp.Id)
+            if (thongbao != null)
+                ViewBag.ThongBao = thongbao;
+            List<PhanPhoi> list = context.PhanPhoi.OrderBy(pp => pp.Ngay)
+                                                  .ThenBy(pp => pp.IdDaiLy)
                                                   .Include(pp => pp.IdDaiLyNavigation)
                                                   .Include(pp => pp.IdLoaiVeSoNavigation)
                                                   .ToList();
@@ -81,6 +84,59 @@ namespace ProjectQLVeSo.Controllers
                 }
             }
             return View("Index", list);
+        }
+
+        public IActionResult CapNhat()
+        {
+            string thongbao = "";
+            PhanPhoi phanphoi = context.PhanPhoi.OrderByDescending(pp => pp.Ngay).FirstOrDefault();
+            if (phanphoi != null)
+            {
+                if (DateTime.Today.Date == phanphoi.Ngay)
+                {
+                    thongbao = "Hôm nay đã cập nhật";
+                }
+                else
+                {
+                    context.Database.ExecuteSqlCommand("EXEC Them_PhanPhoi");
+                    thongbao = "Cập nhật thành công";
+                }
+            }
+            else
+            {
+                context.Database.ExecuteSqlCommand("EXEC Them_PhanPhoi");
+                thongbao = "Cập nhật thành công";
+            }            
+            return RedirectToAction("Index", "PhanPhoi", new { thongbao = thongbao });
+        }
+
+        public IActionResult Edit(string idedit, int slgedit, string slbedit)
+        {
+            string thongbao = "";
+            PhanPhoi phanphoi = context.PhanPhoi.Where(pp => pp.Id.ToString() == idedit).SingleOrDefault();
+            if(slgedit == phanphoi.SoLuongGiao && slbedit == null)
+            {
+                thongbao = "Không thay đổi dữ liệu";
+            }
+            else
+            {
+                if(slbedit != null)
+                {
+                    if(int.Parse(slbedit) > slgedit)
+                    {
+                        thongbao = "Số lượng bán phải ít hơn bằng số lượng giao";
+                    }
+                    else
+                    {
+                        phanphoi.SoLuongBan = int.Parse(slbedit);
+                        if (slgedit != phanphoi.SoLuongGiao)
+                            phanphoi.SoLuongGiao = slgedit;
+                        context.SaveChanges();
+                        thongbao = "Sửa thành công";
+                    }
+                }
+            }
+            return RedirectToAction("Index", "PhanPhoi", new { thongbao = thongbao });
         }
     }
 }

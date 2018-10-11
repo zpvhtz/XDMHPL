@@ -28,7 +28,7 @@ CREATE TABLE DangKy
 	Id UNIQUEIDENTIFIER PRIMARY KEY,
 	IdDaiLy UNIQUEIDENTIFIER NOT NULL, --FK--
 	IdLoaiVeSo UNIQUEIDENTIFIER NOT NULL, --FK--
-	NgayDangKy DATE,
+	NgayDangKy DATETIME,
 	SoLuong INT
 )
 
@@ -65,7 +65,7 @@ CREATE TABLE CongNo
 	Id UNIQUEIDENTIFIER PRIMARY KEY,
 	MaCongNo VARCHAR(10) UNIQUE NOT NULL,
 	IdDaiLy UNIQUEIDENTIFIER NOT NULL, --FK--
-	Ngay DATE,
+	Ngay DATETIME,
 	TongTien FLOAT
 )
 
@@ -74,7 +74,7 @@ CREATE TABLE PhieuThu
 	Id UNIQUEIDENTIFIER PRIMARY KEY,
 	MaPhieuThu VARCHAR(10) UNIQUE NOT NULL,
 	IdDaiLy UNIQUEIDENTIFIER NOT NULL, --FK--
-	Ngay DATE,
+	Ngay DATETIME,
 	TongTien FLOAT
 )
 
@@ -83,7 +83,6 @@ ALTER TABLE DangKy
 	ADD
 		CONSTRAINT FK_DangKy_DaiLy_IdDaiLy FOREIGN KEY (IdDaiLy) REFERENCES DaiLy(Id),
 		CONSTRAINT FK_DangKy_LoaiVeSo_IdLoaiVeSo FOREIGN KEY (IdLoaiVeSo) REFERENCES LoaiVeSo(Id)
-GO
 
 ALTER TABLE PhanPhoi
 	ADD
@@ -157,28 +156,49 @@ AS
 	WHILE @@FETCH_STATUS = 0 --Nếu con trỏ còn dữ liệu để trỏ đến--
 	BEGIN
 		----
-		DECLARE @TiLe FLOAT
-		SELECT @TiLe = AVG(TiLe)
-		FROM PhanPhoi
-		WHERE Id IN 
-		(
-			SELECT TOP 3 Id
-			FROM PhanPhoi
-			ORDER BY Ngay DESC
-		)
-		--
-		IF(@TiLe IS NULL)
+		IF(@SoLuong != 0)
 		BEGIN
-			--Bỏ vào bảng phân phối--
-			INSERT INTO PhanPhoi(Id, IdDaiLy, IdLoaiVeSo, Ngay, SoLuongGiao)
-				VALUES(NEWID(), @IdDaiLy, @IdLoaiVeSo, CONVERT(DATE, GETDATE()), @SoLuong)
-		END
-		ELSE
-		BEGIN
-			DECLARE @SoLuongGiao INT = CAST((@TiLe * @SoLuong) AS INT)
-			--Bỏ vào bảng phân phối--
-			INSERT INTO PhanPhoi(Id, IdDaiLy, IdLoaiVeSo, Ngay, SoLuongGiao)
-				VALUES(NEWID(), @IdDaiLy, @IdLoaiVeSo, CONVERT(DATE, GETDATE()), @SoLuongGiao)
+			--Kiểm tra nếu đã tồn tại trong bảng hay chưa--
+			IF EXISTS
+			(
+				SELECT TOP 1 *
+				FROM PhanPhoi
+				WHERE IdDaiLy = @IdDaiLy
+			)
+			BEGIN
+				DECLARE @CheckTiLe FLOAT
+				--
+				SELECT @CheckTiLe = TiLe
+				FROM PhanPhoi
+				WHERE IdDaiLy = @IdDaiLy
+				--
+				IF(@CheckTiLe IS NOT NULL)
+				BEGIN
+					--Tính tỉ lệ--
+					DECLARE @TiLe FLOAT
+					--
+					SELECT @TiLe = AVG(TiLe)
+					FROM PhanPhoi
+					WHERE Id IN 
+					(
+						SELECT TOP 3 Id
+						FROM PhanPhoi
+						WHERE IdDaiLy = @IdDaiLy
+						ORDER BY Ngay DESC
+					)
+					--Insert vào bảng--
+					DECLARE @SoLuongGiao INT = CAST((@TiLe / 100 * @SoLuong) AS INT)
+					--Bỏ vào bảng phân phối--
+					INSERT INTO PhanPhoi(Id, IdDaiLy, IdLoaiVeSo, Ngay, SoLuongGiao)
+						VALUES(NEWID(), @IdDaiLy, @IdLoaiVeSo, CONVERT(DATE, GETDATE()), @SoLuongGiao)
+				END
+			END
+			ELSE
+			BEGIN
+				--Bỏ vào bảng phân phối--
+				INSERT INTO PhanPhoi(Id, IdDaiLy, IdLoaiVeSo, Ngay, SoLuongGiao)
+					VALUES(NEWID(), @IdDaiLy, @IdLoaiVeSo, CONVERT(DATE, GETDATE()), @SoLuong)
+			END
 		END
 		FETCH NEXT FROM CUR INTO @IdDaiLy, @IdLoaiVeSo, @SoLuong
 	END
@@ -190,39 +210,46 @@ GO
 CREATE TRIGGER TG_Them_TiLe ON PhanPhoi AFTER UPDATE
 AS
 	DECLARE @Id UNIQUEIDENTIFIER
-	DECLARE @SoLuongGiao INT
+	DECLARE @SoLuongGiaoInserted INT
+	DECLARE @SoLuongGiaoDeleted INT
 	DECLARE @SoLuongBan INT
 	DECLARE @TongTiLe FLOAT
 	--
-	SELECT @Id = Id, @SoLuongGiao = SoLuongGiao, @SoLuongBan = SoLuongBan
+	SELECT @SoLuongGiaoInserted = SoLuongGiao
 	FROM inserted
 	--
-	SET @TongTiLe = (CAST(@SoLuongBan AS FLOAT) / CAST(@SoLuongGiao AS FLOAT)) * 100
+	SELECT @SoLuongGiaoDeleted = SoLuongGiao
+	FROM deleted
 	--
-	UPDATE PhanPhoi
-	SET TiLe = @TongTiLe
-	WHERE Id = @Id
+	SELECT @SoLuongBan = SoLuongBan
+	FROM inserted
+	--
+	IF(@SoLuongGiaoInserted = @SoLuongGiaoDeleted)
+	BEGIN
+		IF(@SoLuongBan IS NOT NULL)
+		BEGIN
+			SELECT @Id = Id, @SoLuongGiaoInserted = SoLuongGiao, @SoLuongBan = SoLuongBan
+			FROM inserted
+			--
+			SET @TongTiLe = (CAST(@SoLuongBan AS FLOAT) / CAST(@SoLuongGiaoInserted AS FLOAT)) * 100
+			--
+			UPDATE PhanPhoi
+			SET TiLe = @TongTiLe
+			WHERE Id = @Id
+		END
+	END
+	ELSE
+	BEGIN
+		IF(@SoLuongBan IS NOT NULL)
+		BEGIN
+			SELECT @Id = Id, @SoLuongGiaoInserted = SoLuongGiao, @SoLuongBan = SoLuongBan
+			FROM inserted
+			--
+			SET @TongTiLe = (CAST(@SoLuongBan AS FLOAT) / CAST(@SoLuongGiaoInserted AS FLOAT)) * 100
+			--
+			UPDATE PhanPhoi
+			SET TiLe = @TongTiLe
+			WHERE Id = @Id
+		END
+	END
 GO
-
-EXEC Them_PhanPhoi
-
-SELECT *
-FROM PhanPhoi
-
-SELECT *
-FROM DaiLy
-
-SELECT *
-FROM DangKy
-
---DECLARE @TEST UNIQUEIDENTIFIER
---SELECT @TEST = Id
---FROM DaiLy
-
---PRINT @TEST
---PRINT LOWER(NEWID())
---select *
---from DaiLy
-
-SELECT *
-FROM PhanPhoi pp JOIN DaiLy dl ON pp.IdDaiLy = dl.Id

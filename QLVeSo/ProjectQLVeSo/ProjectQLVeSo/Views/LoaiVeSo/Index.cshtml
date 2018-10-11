@@ -141,15 +141,19 @@
     </div>
 </div>
 
-<!-- Đưa data vào modal khi edit -->
-<script>
+<!-- Đưa data vào modal khi edit -->*<script>
     $(".btnEdit").click(function () {
-        var ma = $(this).closest("tr").find(".item-ma").text();
-        var tinh = $(this).closest("tr").find(".item-tinh").text();
-        var tinhtrang = $(this).closest("tr").find(".item-tinhtrang").text();
-        
+        let ma = $(this).closest('tr').find('.item-ma').text();
+        let tinh = $(this).closest('tr').find('.item-tinh').text();
+
         $(".ma-edit").val(ma.trim());
         $(".tinh-edit").val(tinh.trim());
-        $(".tinhtrang-edit").val(tinhtrang.trim());
     });
 </script>
+
+@if(ViewBag.ThongBao != null)
+{
+    <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+    </script>
+}
