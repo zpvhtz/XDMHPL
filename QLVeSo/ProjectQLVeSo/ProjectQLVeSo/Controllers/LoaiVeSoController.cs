@@ -45,7 +45,7 @@ namespace ProjectQLVeSo.Controllers
                 if (vs == null)
                 {
                     vs = new LoaiVeSo();
-                    vs.Id = Guid.NewGuid();
+                    vs.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
                     vs.MaLoaiVeSo = ma;
                     vs.Tinh = tinh;
                     vs.TinhTrang = "Không khoá";

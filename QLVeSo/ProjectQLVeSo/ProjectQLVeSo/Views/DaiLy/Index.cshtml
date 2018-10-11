@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<DaiLy>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/MainLayout.cshtml";
@@ -21,8 +22,10 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <button class="btn btn-info" style="float:right"> Tìm kiếm </button>
-                        <div class="col-lg-8" style="float:right"> <input class="form-control" placeholder="Nội dung tìm kiếm" /> </div>
+                        <form asp-controller="DaiLy" asp-action="Search" method="get">
+                            <button type="submit" class="btn btn-info" style="float:right"> Tìm kiếm </button>
+                            <div class="col-lg-8" style="float:right"> <input class="form-control" placeholder="Nội dung tìm kiếm" name="txtSearch" /> </div>
+                        </form>
                     </div>
                 </div>  <!-- Button -->
                 <!-- collapse -->
@@ -56,129 +59,11 @@
                     </div>
                 </div>
 
-                </div> <!-- Tim kiem nang cao -->
-                <!-- End collapse -->
+            </div> <!-- Tim kiem nang cao -->
+            <!-- End collapse -->
 
-                <div>
-                    <table class="table" ui-jq="footable" ui-options='{
-        "paging": {
-          "enabled": true
-        },
-        "filtering": {
-          "enabled": true
-        },
-        "sorting": {
-          "enabled": true
-        }}'>
-                        <thead>
-                            <tr>
-                                <th>Tên đại lý</th>
-                                <th>Địa chỉ</th>
-                                <th>Điện thoại</th>
-                                <th>Tình trạng</th>
-                                <th> </th>
-                                <th> </th>
-                                <th> </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr data-expanded="true">
-                                <td>Model.TenDaiLy</td>
-                                <td>Model.DiaChi</td>
-                                <td>Model.DienThoai</td>
-                                <td>Model.TinhTrang</td>
-                                <td> <button class="btn btn-danger"> Xóa </button></td>
-                                <td> <button class="btn btn-warning"> Sửa </button></td>
-                                <td> <button class="btn btn-success" data-toggle="modal" data-target="#DangKy"> Thêm đăng ký </button> </td>
-                            </tr>
-                            <tr data-expanded="true">
-                                <td>Model.TenDaiLy</td>
-                                <td>Model.DiaChi</td>
-                                <td>Model.DienThoai</td>
-                                <td>Model.TinhTrang</td>
-                                <td> <button class="btn btn-danger"> Xóa </button></td>
-                                <td> <button class="btn btn-warning"> Sửa </button></td>
-                                <td> <button class="btn btn-success" data-toggle="modal" data-target="#DangKy"> Thêm đăng ký </button> </td>
-                            </tr>
-                            <tr data-expanded="true">
-                                <td>Model.TenDaiLy</td>
-                                <td>Model.DiaChi</td>
-                                <td>Model.DienThoai</td>
-                                <td>Model.TinhTrang</td>
-                                <td> <button class="btn btn-danger"> Xóa </button></td>
-                                <td> <button class="btn btn-warning"> Sửa </button></td>
-                                <td> <button class="btn btn-success" data-toggle="modal" data-target="#DangKy"> Thêm đăng ký </button> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>  <!-- Bang -->
-
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-5 text-center">
-                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-                        </div>
-                        <div class="col-sm-7 text-right text-center-xs">
-                            <ul class="pagination pagination-sm m-t-none m-b-none">
-                                <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-                                <li><a href="">1</a></li>
-                                <li><a href="">2</a></li>
-                                <li><a href="">3</a></li>
-                                <li><a href="">4</a></li>
-                                <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </footer> <!-- Phan trang -->
-                <!-- End DaiLy -->
-            </div>
             <div>
-                <!-- Dang ky -->
-                <div class="panel-heading">
-                    Đăng ký
-                </div> <!-- Tieu de-->
-
-                <div class="panel-body">
-                    <div class="col-lg-6">                        
-                        <button class="btn btn-danger" data-toggle="collapse" data-target="#demo"> Tìm kiếm nâng cao </button>
-                    </div>
-                    <div class="col-lg-6">
-                        <button class="btn btn-info" style="float:right"> Tìm kiếm </button>
-                        <div class="col-lg-8" style="float:right"> <input class="form-control" placeholder="Nội dung tìm kiếm" /> </div>
-                    </div>
-                </div> <!-- Button -->
-                <!-- collapse -->
-                <div class="panel-body collapse" id="demo">
-                    <div class="form-group col-lg-6">
-                        <label> Tên đại lý </label>
-                        <input class="form-control" />
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label> Loại vé số </label>
-                        <input class="form-control" />
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <div><label> Ngày đăng ký</label></div>
-                        <div class="col-lg-1" style="margin-top:5px"> Từ </div>
-                        <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
-                        <div class="col-lg-1" style="margin-top:5px"> Đến </div>
-                        <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label> Tên đại lý </label>
-                        <input class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-12">
-                            <button class="btn btn-success" style="float:right"> Tìm </button>
-                            <button class="btn btn-default" style="float:right;margin-right:5px" data-toggle="collapse" data-target="#demo"> Hủy </button>
-                        </div>
-                    </div>
-                </div> <!-- Tim kiem nang cao -->
-                <!-- End collapse -->
-
-                <div>
-                    <table class="table" ui-jq="footable" ui-options='{
+                <table class="table" ui-jq="footable" ui-options='{
         "paging": {
           "enabled": true
         },
@@ -188,65 +73,101 @@
         "sorting": {
           "enabled": true
         }}'>
-                        <thead>
-                            <tr>
-                                <th>Tên đại lý</th>
-                                <th> Loại vé số </th>
-                                <th>Ngày đăng ký</th>
-                                <th>Số lượng</th>
-                                <th> </th>
-                                <th> </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Mã đại lý</th>
+                            <th>Tên đại lý</th>
+                            <th>Địa chỉ</th>
+                            <th>Điện thoại</th>
+                            <th>Tình trạng</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr data-expanded="true">
-                                <td>Model.TenDaiLy</td>
-                                <td>Model.LoaiVeSo</td>
-                                <td>Model.NgayDangKy</td>
-                                <td>Model.SoLuong</td>
-                                <td> <button class="btn btn-danger"> Xóa </button></td>
-                                <td> <button class="btn btn-warning"> Sửa </button></td>
+                                <td class="iddaily">@item.Id</td>
+                                <td>@item.MaDaiLy</td>
+                                <td>@item.Ten</td>
+                                <td>@item.DiaChi</td>
+                                <td>@item.DienThoai</td>
+                                <td>@item.TinhTrang</td>
+                                <td><button class="btn btn-warning"> Sửa </button></td>
+                                <td><button class="btn btn-primary btnThongTin" data-toggle="modal" data-target="#informationModal"> Thông tin đăng ký </button></td>
+                                <td><button class="btn btn-success" data-toggle="modal" data-target="#DangKy"> Thêm đăng ký </button></td>
                             </tr>
-                            <tr data-expanded="true">
-                                <td>Model.TenDaiLy</td>
-                                <td>Model.LoaiVeSo</td>
-                                <td>Model.NgayDangKy</td>
-                                <td>Model.SoLuong</td>
-                                <td> <button class="btn btn-danger"> Xóa </button></td>
-                                <td> <button class="btn btn-warning"> Sửa </button></td>
-                            </tr>
-                            <tr data-expanded="true">
-                                <td>Model.TenDaiLy</td>
-                                <td>Model.LoaiVeSo</td>
-                                <td>Model.NgayDangKy</td>
-                                <td>Model.SoLuong</td>
-                                <td> <button class="btn btn-danger"> Xóa </button></td>
-                                <td> <button class="btn btn-warning"> Sửa </button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> <!-- Bang -->
+                        }
+                    </tbody>
+                </table>
+            </div>  <!-- Bang -->
 
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-5 text-center">
-                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-                        </div>
-                        <div class="col-sm-7 text-right text-center-xs">
-                            <ul class="pagination pagination-sm m-t-none m-b-none">
-                                <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-                                <li><a href="">1</a></li>
-                                <li><a href="">2</a></li>
-                                <li><a href="">3</a></li>
-                                <li><a href="">4</a></li>
-                                <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-                            </ul>
-                        </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-5 text-center">
+                        <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
                     </div>
-                </footer> <!-- Phan trang -->
-                <!-- End Dang Ky -->
+                    <div class="col-sm-7 text-right text-center-xs">
+                        <ul class="pagination pagination-sm m-t-none m-b-none">
+                            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
+                            <li><a href="">1</a></li>
+                            <li><a href="">2</a></li>
+                            <li><a href="">3</a></li>
+                            <li><a href="">4</a></li>
+                            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer> <!-- Phan trang -->
+            <!-- End DaiLy -->
+        </div>
+        <div>
+            <!-- Dang ky -->
+            <div class="panel-heading">
+                Đăng ký
+            </div> <!-- Tieu de-->
 
-            </div>
+            <div class="panel-body">
+                <div class="col-lg-6">
+                    <button class="btn btn-danger" data-toggle="collapse" data-target="#demo"> Tìm kiếm nâng cao </button>
+                </div>
+                <div class="col-lg-6">
+                    <button class="btn btn-info" style="float:right"> Tìm kiếm </button>
+                    <div class="col-lg-8" style="float:right"> <input class="form-control" placeholder="Nội dung tìm kiếm" /> </div>
+                </div>
+            </div> <!-- Button -->
+            <!-- collapse -->
+            <div class="panel-body collapse" id="demo">
+                <div class="form-group col-lg-6">
+                    <label> Tên đại lý </label>
+                    <input class="form-control" />
+                </div>
+                <div class="form-group col-lg-6">
+                    <label> Loại vé số </label>
+                    <input class="form-control" />
+                </div>
+                <div class="form-group col-lg-6">
+                    <div><label> Ngày đăng ký</label></div>
+                    <div class="col-lg-1" style="margin-top:5px"> Từ </div>
+                    <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
+                    <div class="col-lg-1" style="margin-top:5px"> Đến </div>
+                    <div class="col-lg-5"> <input type="date" class="form-control" /> </div>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label> Tên đại lý </label>
+                    <input class="form-control" />
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <button class="btn btn-success" style="float:right"> Tìm </button>
+                        <button class="btn btn-default" style="float:right;margin-right:5px" data-toggle="collapse" data-target="#demo"> Hủy </button>
+                    </div>
+                </div>
+            </div> <!-- Tim kiem nang cao -->
+            <!-- End collapse -->
         </div>
     </div>
 </section>
@@ -259,30 +180,54 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Thêm đại lý</h4>
             </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
+            <form class="form-horizontal" asp-action="Create" asp-controller="DaiLy" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"> Mã đại lý </label>
+                        <div class="col-lg-9"> <input class="form-control" name="macreate" required /> </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label"> Tên đại lý </label>
-                        <div class="col-lg-9"> <input class="form-control" /> </div>
+                        <div class="col-lg-9"> <input class="form-control" name="tencreate" /> </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label"> Địa chỉ </label>
-                        <div class="col-lg-9"> <input class="form-control" /> </div>
+                        <div class="col-lg-9"> <input class="form-control" name="diachicreate" /> </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label"> Số điện thoại </label>
-                        <div class="col-lg-9"> <input class="form-control" type="tel" /> </div>
+                        <div class="col-lg-9"> <input class="form-control" type="tel" name="dienthoaicreate" /> </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal">Thêm</button>
-            </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div> <!-- Đại lý -->
+<!-- Modal thông tin-->
+<div class="modal fade" id="informationModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thông tin</h4>
+            </div>
+            <form asp-controller="LoaiVeSo" asp-action="Add" method="post">
+                <div class="modal-body" id="modal-thongtin">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="DangKy" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -315,7 +260,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label"> Số lượng </label>
-                        <div class="col-lg-9"> <input class="form-control" type="number" /> </div> 
+                        <div class="col-lg-9"> <input class="form-control" type="number" /> </div>
                     </div>
                 </form>
             </div>
@@ -326,3 +271,24 @@
         </div>
     </div>
 </div> <!-- Đăng ký -->
+
+@section Scripts{
+    <script>
+        $(function () {
+            $(".btnThongTin").click(function () {
+                let ma = $(this).closest('tr').find('.iddaily').text();
+                $.ajax({
+                    url: "/DaiLy/ThongTin",
+                    type: "get",
+                    data: { "iddaily": ma },
+                    success: function (data) {
+                        $("#modal-thongtin").html(data);
+                    },
+                    error: function (data) {
+                        alert("Error: " + data);
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -105,35 +105,36 @@ ALTER TABLE PhieuThu
 
 --ADD DATA--
 INSERT INTO LoaiVeSo
-	VALUES('ee5a75e6-89c5-461e-b11b-d3e23d78f550', 'VSBT', N'Bến Tre', N'Không khoá'),
-		  ('730d0c60-2546-4854-b88a-6ddfbfe11cbb', 'VSLA', N'Long An', N'Không khoá'),
-	      ('570b0397-2061-4add-8563-2e965322cf01', 'VSCM', N'Cà Mau', N'Không khoá'),
-		  ('cc3cf4fe-9665-4c5f-ada5-c1d14bdd8b78', 'VSVT', N'Vũng Tàu', N'Không khoá'),
-		  ('4e8b9ef4-cbff-40d5-ae44-2ff4f3c6bbfb', 'VSCT', N'Cần Thơ', N'Không khoá'),
-		  ('5469fda6-ae0f-4772-9bec-757a2ae4245f', 'VSBL', N'Bạc Liêu', N'Không khoá'),
-		  ('0219a36f-e572-4921-ad4e-c920ff75cf23', 'VSVL', N'Vĩnh Long', N'Không khoá'),
-		  ('543571f0-c178-4f29-a7c9-603be01d1a8a', 'VSRG', N'Rạch giá', N'Không khoá'),
-		  ('758b0c57-d32c-412e-b30d-d55e445f4220', 'VSLX', N'Long Xuyên', N'Không khoá'),
-	      ('dba7fa9b-c5aa-4541-985d-8e27131468f8', 'VSCL', N'Cao Lãnh', N'Không khoá'),
-		  ('de25f16c-43f4-4a41-9089-7f21c0fdb26f', 'VSTA', N'Tân An', N'Không khoá'),
-		  ('5cf29f46-bc5b-4b4f-b6a4-cfa74057764f', 'VSBH', N'Biên Hoà', N'Không khoá'),
-		  ('f7e693cc-2cc9-4141-b6bf-d90bb1d7bd63', 'VSPT', N'Phan Thiết', N'Không khoá'),
-		  ('aa0a7b91-85e6-4d14-ae3b-ad1a6be67d65', 'VSPR', N'Phan Rang', N'Không khoá')
+	VALUES('EE5A75E6-89C5-461E-B11B-D3E23D78F550', 'VSBT', N'Bến Tre', N'Không khoá'),
+		  ('730D0C60-2546-4854-B88A-6DDFBFE11CBB', 'VSLA', N'Long An', N'Không khoá'),
+	      ('570B0397-2061-4ADD-8563-2E965322CF01', 'VSCM', N'Cà Mau', N'Không khoá'),
+		  ('CC3CF4FE-9665-4C5F-ADA5-C1D14BDD8B78', 'VSVT', N'Vũng Tàu', N'Không khoá'),
+		  ('4E8B9EF4-CBFF-40D5-AE44-2FF4F3C6BBFB', 'VSCT', N'Cần Thơ', N'Không khoá'),
+		  ('5469FDA6-AE0F-4772-9BEC-757A2AE4245F', 'VSBL', N'Bạc Liêu', N'Không khoá'),
+		  ('0219A36F-E572-4921-AD4E-C920FF75CF23', 'VSVL', N'Vĩnh Long', N'Không khoá'),
+		  ('543571F0-C178-4F29-A7C9-603BE01D1A8A', 'VSRG', N'Rạch giá', N'Không khoá'),
+		  ('758B0C57-D32C-412E-B30D-D55E445F4220', 'VSLX', N'Long Xuyên', N'Không khoá'),
+	      ('DBA7FA9B-C5AA-4541-985D-8E27131468F8', 'VSCL', N'Cao Lãnh', N'Không khoá'),
+		  ('DE25F16C-43F4-4A41-9089-7F21C0FDB26F', 'VSTA', N'Tân An', N'Không khoá'),
+		  ('5CF29F46-BC5B-4B4F-B6A4-CFA74057764F', 'VSBH', N'Biên Hoà', N'Không khoá'),
+		  ('F7E693CC-2CC9-4141-B6BF-D90BB1D7BD63', 'VSPT', N'Phan Thiết', N'Không khoá'),
+		  ('AA0A7B91-85E6-4D14-AE3B-AD1A6BE67D65', 'VSPR', N'Phan Rang', N'Không khoá')
 
 INSERT INTO DaiLy
-	VALUES('1d627550-fdcb-4df8-8141-a5ad9900fb2b','DL01',N'Đại lý 1',N'26 Nguuyễn Trãi',N'0935263748',N'Không khoá'),
-		  ('0064e9b1-2992-4258-b800-d4bafc43eaf7','DL02',N'Đại lý 2',N'73 An Dương Vương',N'0943728574',N'Không khoá'),
-		  ('44fa4066-84b9-44ec-924b-8ca535314cd3','DL03',N'Đại lý 3',N'94 Kinh Dương Vương',N'0912345673',N'Không khoá'),
-		  ('4411c19d-e4c2-46b6-8aa1-0fde5a36234d','DL04',N'Đại lý 4',N'122 Vĩnh Viễn',N'0962835263',N'Không khoá'),
-		  ('74cdbb04-a926-4221-83c3-9643b846199b','DL05',N'Đại lý 5',N'12 Hoà Hảo',N'0946372839',N'Không khoá')
+	VALUES('1D627550-FDCB-4DF8-8141-A5AD9900FB2B','DL01',N'Đại lý 1',N'26 Nguuyễn Trãi',N'0935263748',N'Không khoá'),
+		  ('0064E9B1-2992-4258-B800-D4BAFC43EAF7','DL02',N'Đại lý 2',N'73 An Dương Vương',N'0943728574',N'Không khoá'),
+		  ('44FA4066-84B9-44EC-924B-8CA535314CD3','DL03',N'Đại lý 3',N'94 Kinh Dương Vương',N'0912345673',N'Không khoá'),
+		  ('4411C19D-E4C2-46B6-8AA1-0FDE5A36234D','DL04',N'Đại lý 4',N'122 Vĩnh Viễn',N'0962835263',N'Không khoá'),
+		  ('74CDBB04-A926-4221-83C3-9643B846199B','DL05',N'Đại lý 5',N'12 Hoà Hảo',N'0946372839',N'Không khoá')
 
 INSERT INTO DangKy
-	VALUES('397c5455-1fd5-4bb3-9743-7d04affaa522','1d627550-fdcb-4df8-8141-a5ad9900fb2b', 'ee5a75e6-89c5-461e-b11b-d3e23d78f550','2018-05-01',50),
-		  ('e1017914-e230-4926-a553-fff6ecfabbb7','1d627550-fdcb-4df8-8141-a5ad9900fb2b', '730d0c60-2546-4854-b88a-6ddfbfe11cbb','2018-06-01',80),
-		  ('d361af43-9f6c-4c4b-9b5d-30419b902000','0064e9b1-2992-4258-b800-d4bafc43eaf7', 'cc3cf4fe-9665-4c5f-ada5-c1d14bdd8b78','2018-02-02',100),
-		  ('800ca87b-be3d-4225-abf2-0ba90f1c2d76','44fa4066-84b9-44ec-924b-8ca535314cd3', '758b0c57-d32c-412e-b30d-d55e445f4220','2018-03-06',150)
+	VALUES('397C5455-1FD5-4BB3-9743-7D04AFFAA522','1D627550-FDCB-4DF8-8141-A5AD9900FB2B', 'EE5A75E6-89C5-461E-B11B-D3E23D78F550','2018-05-01',50),
+		  ('E1017914-E230-4926-A553-FFF6ECFABBB7','1D627550-FDCB-4DF8-8141-A5AD9900FB2B', '730D0C60-2546-4854-B88A-6DDFBFE11CBB','2018-06-01',80),
+		  ('D361AF43-9F6C-4C4B-9B5D-30419B902000','0064E9B1-2992-4258-B800-D4BAFC43EAF7', 'CC3CF4FE-9665-4C5F-ADA5-C1D14BDD8B78','2018-02-02',100),
+		  ('800CA87B-BE3D-4225-ABF2-0BA90F1C2D76','44FA4066-84B9-44EC-924B-8CA535314CD3', '758B0C57-D32C-412E-B30D-D55E445F4220','2018-03-06',150)
+GO
 
---Hàm tự động tính tỉ lệ--
+--Hàm tự động thêm số lượng giao--
 CREATE PROC Them_PhanPhoi
 AS
 	--Con trỏ--
@@ -152,14 +153,19 @@ AS
 	DECLARE @SoLuong INT
 	--
 	OPEN CUR
-	FETCH NEXT FROM CUR INTO @IdDaiLy, @IdLoaiVeSo, @SoLuong
-	WHILE @@FETCH_STATUS = 0
+	FETCH NEXT FROM CUR INTO @IdDaiLy, @IdLoaiVeSo, @SoLuong --Chạy từng dòng trong table đã khai báo trên--
+	WHILE @@FETCH_STATUS = 0 --Nếu con trỏ còn dữ liệu để trỏ đến--
 	BEGIN
 		----
 		DECLARE @TiLe FLOAT
-		SELECT @TiLe = MAX(TiLe)
+		SELECT @TiLe = AVG(TiLe)
 		FROM PhanPhoi
-		WHERE IdDaiLy = @IdDaiLy
+		WHERE Id IN 
+		(
+			SELECT TOP 3 Id
+			FROM PhanPhoi
+			ORDER BY Ngay DESC
+		)
 		--
 		IF(@TiLe IS NULL)
 		BEGIN
@@ -179,3 +185,44 @@ AS
 	CLOSE CUR
 	DEALLOCATE CUR
 GO
+
+--Tính tỉ lệ sau khi thêm số vé bán được--
+CREATE TRIGGER TG_Them_TiLe ON PhanPhoi AFTER UPDATE
+AS
+	DECLARE @Id UNIQUEIDENTIFIER
+	DECLARE @SoLuongGiao INT
+	DECLARE @SoLuongBan INT
+	DECLARE @TongTiLe FLOAT
+	--
+	SELECT @Id = Id, @SoLuongGiao = SoLuongGiao, @SoLuongBan = SoLuongBan
+	FROM inserted
+	--
+	SET @TongTiLe = (CAST(@SoLuongBan AS FLOAT) / CAST(@SoLuongGiao AS FLOAT)) * 100
+	--
+	UPDATE PhanPhoi
+	SET TiLe = @TongTiLe
+	WHERE Id = @Id
+GO
+
+EXEC Them_PhanPhoi
+
+SELECT *
+FROM PhanPhoi
+
+SELECT *
+FROM DaiLy
+
+SELECT *
+FROM DangKy
+
+--DECLARE @TEST UNIQUEIDENTIFIER
+--SELECT @TEST = Id
+--FROM DaiLy
+
+--PRINT @TEST
+--PRINT LOWER(NEWID())
+--select *
+--from DaiLy
+
+SELECT *
+FROM PhanPhoi pp JOIN DaiLy dl ON pp.IdDaiLy = dl.Id

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<DangKy>
+
+<div class="table-responsive">
+    <table class="table table-striped b-t b-light">
+        <thead>
+            <tr>
+                <th>Tên đại lý</th>
+                <th>Tỉnh</th>
+                <th>Ngày đăng ký</th>
+                <th>Số lượng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="item-id">@item.IdDaiLyNavigation.Ten</td>
+                    <td class="item-ma">@item.IdLoaiVeSoNavigation.Tinh</td>
+                    <td class="item-tinh">@item.NgayDangKy.Value.ToShortDateString()</td>
+                    <td class="item-tinhtrang">@item.SoLuong</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

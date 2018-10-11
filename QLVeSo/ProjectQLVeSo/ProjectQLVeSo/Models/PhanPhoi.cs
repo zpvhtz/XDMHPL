@@ -11,6 +11,7 @@ namespace ProjectQLVeSo.Models
         public DateTime? Ngay { get; set; }
         public int? SoLuongGiao { get; set; }
         public int? SoLuongBan { get; set; }
+        public double? TiLe { get; set; }
 
         public DaiLy IdDaiLyNavigation { get; set; }
         public LoaiVeSo IdLoaiVeSoNavigation { get; set; }
