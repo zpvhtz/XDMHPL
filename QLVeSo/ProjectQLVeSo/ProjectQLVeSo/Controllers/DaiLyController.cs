@@ -11,16 +11,27 @@ namespace ProjectQLVeSo.Controllers
     public class DaiLyController : Controller
     {
         private readonly QLVeSoContext context;
+        const int pageSize = 10;
+        int pageNumber = 1;
         public DaiLyController(QLVeSoContext context)
         {
             this.context = context;
         }
 
-        public IActionResult Index(string thongbao)
+        public int TongSoTrang()
+        {
+            List<DaiLy> list = context.DaiLy.ToList();
+            return ((list.Count / pageSize) + 1);
+        }
+
+        public IActionResult Index(string thongbao, int? pagenumber)
         {
             if (thongbao != null)
                 ViewBag.ThongBao = thongbao;
-            List<DaiLy> list = context.DaiLy.ToList();
+            pageNumber = pagenumber ?? 1;
+            List<DaiLy> list = context.DaiLy.Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToList();
+            ViewBag.TongTrang = TongSoTrang();
+            ViewBag.TrangHienTai = pageNumber;
             return View(list);
         }
 

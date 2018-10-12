@@ -12,20 +12,33 @@ namespace ProjectQLVeSo.Controllers
     public class PhanPhoiController : Controller
     {
         private readonly QLVeSoContext context;
+        const int pageSize = 10;
+        int pageNumber = 1;
+
         public PhanPhoiController(QLVeSoContext context)
         {
             this.context = context;
         }
+        public int TongSoTrang()
+        {
+            List<PhanPhoi> list = context.PhanPhoi.ToList();
+            return ((list.Count / pageSize) + 1);
+        }
 
-        public IActionResult Index(string thongbao)
+        public IActionResult Index(string thongbao, int? pagenumber)
         {
             if (thongbao != null)
                 ViewBag.ThongBao = thongbao;
+            pageNumber = pagenumber ?? 1;
             List<PhanPhoi> list = context.PhanPhoi.OrderBy(pp => pp.Ngay)
                                                   .ThenBy(pp => pp.IdDaiLy)
                                                   .Include(pp => pp.IdDaiLyNavigation)
                                                   .Include(pp => pp.IdLoaiVeSoNavigation)
+                                                  .Skip(pageSize * (pageNumber - 1))
+                                                  .Take(pageSize)
                                                   .ToList();
+            ViewBag.TongTrang = TongSoTrang();
+            ViewBag.TrangHienTai = pageNumber;
             return View(list);
         }
 
