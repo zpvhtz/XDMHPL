@@ -38,7 +38,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<CongNo>(entity =>
             {
                 entity.HasIndex(e => e.MaCongNo)
-                    .HasName("UQ__CongNo__E452A01F78C97C53")
+                    .HasName("UQ__CongNo__E452A01F861F5B06")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -59,7 +59,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<DaiLy>(entity =>
             {
                 entity.HasIndex(e => e.MaDaiLy)
-                    .HasName("UQ__DaiLy__069B00B21FAA345E")
+                    .HasName("UQ__DaiLy__069B00B2F0A19C78")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -100,7 +100,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<Giai>(entity =>
             {
                 entity.HasIndex(e => e.MaGiai)
-                    .HasName("UQ__Giai__747065BF80CB9C35")
+                    .HasName("UQ__Giai__747065BF01D2AC26")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -109,12 +109,14 @@ namespace ProjectQLVeSo.Models
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
+
+                entity.Property(e => e.TenGiai).HasMaxLength(20);
             });
 
             modelBuilder.Entity<KetQuaXoSo>(entity =>
             {
                 entity.HasIndex(e => e.MaKetQua)
-                    .HasName("UQ__KetQuaXo__D5B3102BDC8232A1")
+                    .HasName("UQ__KetQuaXo__D5B3102BA70F75F9")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -144,7 +146,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<LoaiVeSo>(entity =>
             {
                 entity.HasIndex(e => e.MaLoaiVeSo)
-                    .HasName("UQ__LoaiVeSo__4AFD9B5E3F500AB2")
+                    .HasName("UQ__LoaiVeSo__4AFD9B5EC3366021")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -179,7 +181,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<PhieuThu>(entity =>
             {
                 entity.HasIndex(e => e.MaPhieuThu)
-                    .HasName("UQ__PhieuThu__1D8B9C681B8B9A25")
+                    .HasName("UQ__PhieuThu__1D8B9C6810E88269")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
