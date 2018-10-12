@@ -29,7 +29,7 @@ namespace ProjectQLVeSo.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-MEMEU1K\\THANHETN;Database=QLVeSo;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=HEOBAYMAU;Database=QLVeSo;Integrated Security=True;");
             }
         }
 
@@ -38,7 +38,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<CongNo>(entity =>
             {
                 entity.HasIndex(e => e.MaCongNo)
-                    .HasName("UQ__CongNo__E452A01F45213913")
+                    .HasName("UQ__CongNo__E452A01F861F5B06")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -48,7 +48,7 @@ namespace ProjectQLVeSo.Models
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Ngay).HasColumnType("date");
+                entity.Property(e => e.Ngay).HasColumnType("datetime");
 
                 entity.HasOne(d => d.IdDaiLyNavigation)
                     .WithMany(p => p.CongNo)
@@ -59,7 +59,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<DaiLy>(entity =>
             {
                 entity.HasIndex(e => e.MaDaiLy)
-                    .HasName("UQ__DaiLy__069B00B2DD19138A")
+                    .HasName("UQ__DaiLy__069B00B2F0A19C78")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -84,18 +84,23 @@ namespace ProjectQLVeSo.Models
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.NgayDangKy).HasColumnType("date");
+                entity.Property(e => e.NgayDangKy).HasColumnType("datetime");
 
                 entity.HasOne(d => d.IdDaiLyNavigation)
                     .WithMany(p => p.DangKy)
                     .HasForeignKey(d => d.IdDaiLy)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.IdLoaiVeSoNavigation)
+                    .WithMany(p => p.DangKy)
+                    .HasForeignKey(d => d.IdLoaiVeSo)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Giai>(entity =>
             {
                 entity.HasIndex(e => e.MaGiai)
-                    .HasName("UQ__Giai__747065BF86130EB6")
+                    .HasName("UQ__Giai__747065BF01D2AC26")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -104,12 +109,14 @@ namespace ProjectQLVeSo.Models
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
+
+                entity.Property(e => e.TenGiai).HasMaxLength(20);
             });
 
             modelBuilder.Entity<KetQuaXoSo>(entity =>
             {
                 entity.HasIndex(e => e.MaKetQua)
-                    .HasName("UQ__KetQuaXo__D5B3102BAB554113")
+                    .HasName("UQ__KetQuaXo__D5B3102BA70F75F9")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -139,7 +146,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<LoaiVeSo>(entity =>
             {
                 entity.HasIndex(e => e.MaLoaiVeSo)
-                    .HasName("UQ__LoaiVeSo__4AFD9B5EF6167D61")
+                    .HasName("UQ__LoaiVeSo__4AFD9B5EC3366021")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -174,7 +181,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<PhieuThu>(entity =>
             {
                 entity.HasIndex(e => e.MaPhieuThu)
-                    .HasName("UQ__PhieuThu__1D8B9C6813CEF9A1")
+                    .HasName("UQ__PhieuThu__1D8B9C6810E88269")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -184,7 +191,7 @@ namespace ProjectQLVeSo.Models
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Ngay).HasColumnType("date");
+                entity.Property(e => e.Ngay).HasColumnType("datetime");
 
                 entity.HasOne(d => d.IdDaiLyNavigation)
                     .WithMany(p => p.PhieuThu)

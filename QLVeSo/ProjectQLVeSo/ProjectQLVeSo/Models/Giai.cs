@@ -12,6 +12,8 @@ namespace ProjectQLVeSo.Models
 
         public Guid Id { get; set; }
         public string MaGiai { get; set; }
+        public string TenGiai { get; set; }
+        public int? SoLuong { get; set; }
         public double? GiaiThuong { get; set; }
 
         public ICollection<KetQuaXoSo> KetQuaXoSo { get; set; }
