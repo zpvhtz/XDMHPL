@@ -13368,11 +13368,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\DELL PC\\Documents\\GitHub\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\ProjectQLVeSo.csproj",
       "projectName": "ProjectQLVeSo",
       "projectPath": "C:\\Users\\DELL PC\\Documents\\GitHub\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\ProjectQLVeSo.csproj",
       "packagesPath": "C:\\Users\\DELL PC\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\DELL PC\\Documents\\GitHub\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\obj\\",
+=======
+      "projectUniqueName": "D:\\Projects\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\ProjectQLVeSo.csproj",
+      "projectName": "ProjectQLVeSo",
+      "projectPath": "D:\\Projects\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\ProjectQLVeSo.csproj",
+      "packagesPath": "C:\\Users\\HeoBayMau\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\XDMHPL\\QLVeSo\\ProjectQLVeSo\\ProjectQLVeSo\\obj\\",
+>>>>>>> 9cfb8ebb1b61438a4cfda0299e37e80d2a2f2bfa
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

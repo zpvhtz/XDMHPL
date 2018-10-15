@@ -10,19 +10,29 @@ namespace ProjectQLVeSo.Controllers
     public class LoaiVeSoController : Controller
     {
         private readonly QLVeSoContext context;
-        const int soluongveso = 10;
+        const int pageSize = 10;
+        int pageNumber = 1;
 
         public LoaiVeSoController(QLVeSoContext context)
         {
             this.context = context;
         }
 
-        public IActionResult Index(string thongbao)
+        public int TongSoTrang()
+        {
+            List<LoaiVeSo> list = context.LoaiVeSo.ToList();
+            return ((list.Count / pageSize) + 1);
+        }
+
+        public IActionResult Index(string thongbao, int? pagenumber)
         {
             if (thongbao != null)
                 ViewBag.ThongBao = thongbao;
+            pageNumber = pagenumber ?? 1;
             List<LoaiVeSo> dsLoaiVeSo = new List<LoaiVeSo>();
-            dsLoaiVeSo = context.LoaiVeSo.OrderBy(vs => vs.Id).ToList();
+            dsLoaiVeSo = context.LoaiVeSo.OrderBy(vs => vs.Id).Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToList();
+            ViewBag.TongTrang = TongSoTrang();
+            ViewBag.TrangHienTai = pageNumber;
             return View(dsLoaiVeSo);
         }
 
