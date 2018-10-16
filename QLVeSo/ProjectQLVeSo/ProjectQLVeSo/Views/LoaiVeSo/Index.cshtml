@@ -12,16 +12,16 @@
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">Thêm</button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">Thêm</button>
                 </div>
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-3">
                     <form asp-controller="LoaiVeSo" asp-action="Search" method="get">
                         <div class="input-group">
-                            <input type="text" class="input-sm form-control" placeholder="Search" name="txtSearch">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm..." name="txtSearch">
                             <span class="input-group-btn">
-                                <button class="btn btn-sm btn-default" type="submit"><i class="fas fa-search"></i></button>
+                                <button class="btn btn-info" type="submit"> Tìm </button>
                             </span>
                         </div>
                     </form>
@@ -47,7 +47,7 @@
                                 <td class="item-tinh">@item.Tinh</td>
                                 <td class="item-tinhtrang">@item.TinhTrang</td>
                                 <td>
-                                    <button type="button" class="btn btn-info btnEdit" data-toggle="modal" data-target="#editModal">Edit</button>
+                                    <button type="button" class="btn btn-warning btnEdit" data-toggle="modal" data-target="#editModal">Sửa</button>
                                 </td>
                             </tr>
                         }
@@ -117,8 +117,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info" value="Tạo">Tạo</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success" value="Tạo">Thêm</button>
                 </div>
             </form>
         </div>

@@ -1,0 +1,356 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<section class="wrapper">
+    <div class="table-agile-info">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Phiếu thu - Công Nợ
+            </div> <!-- Tieu de-->
+            <div class="panel-body">
+                <button class="btn btn-success" data-toggle="modal" data-target="#themphieuthu"> Thêm phiếu thu </button>
+                <button class="btn btn-send" data-toggle="modal" data-target="#themcongno"> Thêm công nợ </button>
+                <button class="btn btn-info" style="float:right"> Tìm kiếm </button>
+                <div class="col-lg-4" style="float:right"> <input type="search" id="myInput" class="form-control" placeholder="Nội dung tìm kiếm" /> </div>
+            </div>
+
+            <!-- modal themphieuthu -->
+
+            <div id="themphieuthu" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Thêm phiếu thu</h4>
+                        </div>
+                        <div class="modal-body" style="margin:auto">
+                            <form>
+                                <div class="form-group">
+                                    <label class="control-label"> Mã phiếu thu </label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Đại lý </label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Ngày thu </label>
+                                    <input type="number" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Tổng tiền </label>
+                                    <input type="number" class="form-control" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Thêm</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--end modal-->
+            <!-- modal themcongno -->
+
+            <div id="themcongno" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Thêm công nợ</h4>
+                        </div>
+                        <div class="modal-body" style="margin:auto">
+                            <form>
+                                <div class="form-group">
+                                    <label class="control-label"> Mã công nợ </label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Đại lý </label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Ngày </label>
+                                    <input type="number" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Tổng tiền </label>
+                                    <input type="number" class="form-control" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-success" data-dismiss="modal">Thêm</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--end modal-->
+            <!--table phieu thu-->
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#giaithuong">Bảng phiếu thu</a></li>
+                <li><a data-toggle="tab" href="#ketqua">Bảng công nợ</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="giaithuong" class="tab-pane fade in active">
+                    <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+                        <thead>
+                            <tr>
+                                <th>Mã phiếu thu</th>
+                                <th>Đại lý</th>
+                                <th>Ngày thu</th>
+                                <th>Tổng tiền</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="myTable">
+                            <tr data-expanded="true">
+                                <td class="">item.Maphieuthu</td>
+                                <td class="">item.Daily</td>
+                                <td class="">item.Ngay</td>
+                                <td> item.Tongtien</td>
+                                <td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaphieuthu"> Sửa </button></td>
+                                <td> <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietphieuthu"> Chi tiết </button></td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+                <div id="ketqua" class="tab-pane fade">
+                    <!--table cong no-->
+                    <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+                        <thead>
+                            <tr>
+                                <th>Mã công nợ</th>
+                                <th>Đại lý</th>
+                                <th>Ngày</th>
+                                <th>Tổng tiền</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="myTable">
+                            <tr data-expanded="true">
+                                <td class="">item.Macongno</td>
+                                <td class="">item.Daily</td>
+                                <td class="">item.Ngay</td>
+                                <td> item.Tongtien</td>
+                                <td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suacongno"> Sửa </button></td>
+                                <td> <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietcongno"> Chi tiết </button></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <!-- end table -->
+
+                </div>
+
+            </div>
+
+            <!-- modal suaphieuthu -->
+
+            <div id="suaphieuthu" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Sửa phiếu thu</h4>
+                        </div>
+                        <div class="modal-body" style="margin:auto">
+                            <form>
+                                <div class="form-group">
+                                    <label class="control-label"> Mã phiếu thu </label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Đại lý</label>
+                                    <input type="number" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Ngày thu </label>
+                                    <input type="datetime" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Tổng tiền </label>
+                                    <input type="number" class="form-control" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Sửa</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- end modal -->
+            <!-- modal suaphieuthu -->
+
+            <div id="suacongno" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Sửa công nợ</h4>
+                        </div>
+                        <div class="modal-body" style="margin:auto">
+                            <form>
+                                <div class="form-group">
+                                    <label class="control-label"> Mã công nợ </label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Đại lý</label>
+                                    <input type="number" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Ngày </label>
+                                    <input type="datetime" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Tổng tiền </label>
+                                    <input type="number" class="form-control" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Sửa</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- end modal -->
+            <!-- modal chitietcongno -->
+
+            <div id="chitietcongno" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Chi tiết công nợ</h4>
+                        </div>
+                        <div class="modal-body panel-body" style="margin:auto">
+                            <form class="panel-body">
+                                <div class="form-group">
+                                    <label>ID</label>
+                                    <input class="form-control" value="ID" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label>Mã công nợ</label>
+                                    <input class="form-control" value="Mã công nợ" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label>Đại lý</label>
+                                    <input class="form-control" value="đại lý" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label>Ngày</label>
+                                    <input class="form-control" value=@DateTime.Now readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label>Tổng tiền</label>
+                                    <input class="form-control" value="Tổng tiền" readonly />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- end modal -->
+            <!-- modal chitietphieuthu -->
+
+            <div id="chitietphieuthu" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Chi tiết phiếu thu</h4>
+                        </div>
+                        <div class="modal-body" style="margin:auto">
+                            <form>
+                                <div class="form-group">
+                                    <label class="control-label"> ID </label>
+                                    <input type="text" class="form-control" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Mã phiếu thu </label>
+                                    <input type="text" class="form-control" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Đại lý </label>
+                                    <input type="text" class="form-control" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Ngày </label>
+                                    <input type="datetime" class="form-control" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Tổng tiền </label>
+                                    <input type="number" class="form-control" readonly />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--end modal-->
+
+        </div>
+    </div>
+</section>
