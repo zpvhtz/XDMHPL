@@ -75,13 +75,6 @@ namespace ProjectQLVeSo.Controllers
             daily.DienThoai = dienthoaiedit;
             daily.TinhTrang = tinhtrangedit;
             context.SaveChanges();
-            if(tinhtrangedit == "Khoá")
-            {
-                DangKy dangky = context.DangKy.Where(dk => dk.IdDaiLy == daily.Id).SingleOrDefault();
-                if(dangky!=null)
-                dangky.SoLuong = 0;
-                context.SaveChanges();
-            }
             string thongbao = "Sửa thành công";
             return RedirectToAction("Index", "DaiLy", new { thongbao = thongbao });
         }

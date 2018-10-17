@@ -18,20 +18,16 @@ namespace ProjectQLVeSo.Controllers
         {
             if (thongbao != null)
                 ViewBag.ThongBao = thongbao;
-            List<Giai> list = context.Giai.OrderByDescending(g => g.TenGiai).ToList();
+            List<Giai> list = context.Giai.OrderBy(g => g.MaGiai).ToList();
             return View(list);
         }
 
-        public IActionResult Create(string macreate, string tencreate, int soluongcreate, float giaithuongcreate)
+        public IActionResult CreateGiai(string macreate, string tencreate, int soluongcreate, float giaithuongcreate)
         {
             string thongbao = "";
             Giai giai;
             giai = context.Giai.Where(g => g.MaGiai == macreate).SingleOrDefault();
             if(giai == null)
-            {
-                thongbao = "Mã giải bị trùng";
-            }
-            else
             {
                 giai = new Giai();
                 giai.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
@@ -43,17 +39,28 @@ namespace ProjectQLVeSo.Controllers
                 context.SaveChanges();
                 thongbao = "Thêm thành công";
             }
+            else
+            {
+                thongbao = "Mã giải bị trùng";
+            }
             return RedirectToAction("Index", "Giai", new { thongbao = thongbao });
         }
 
-        public IActionResult Edit(string maedit, string tenedit, int soluongedit, float giaithuongedit)
+        public IActionResult EditGiai(string maedit, string tenedit, int soluongedit, float giaithuongedit)
         {
             Giai giai = context.Giai.Where(g => g.MaGiai == maedit).SingleOrDefault();
             giai.TenGiai = tenedit;
             giai.SoLuong = soluongedit;
             giai.GiaiThuong = giaithuongedit;
+            context.SaveChanges();
             string thongbao = "Sửa thành công";
             return RedirectToAction("Index", "Giai", new { thongbao = thongbao });
+        }
+
+        public IActionResult ThongTinGiai(string ma)
+        {
+            Giai giai = context.Giai.Where(g => g.MaGiai == ma).SingleOrDefault();
+            return PartialView("ThongTinGiaiPartialView", giai);
         }
     }
 }

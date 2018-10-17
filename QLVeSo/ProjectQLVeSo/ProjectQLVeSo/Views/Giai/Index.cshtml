@@ -28,26 +28,30 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Thêm giải thưởng</h4>
                         </div>
-                        <div class="modal-body" style="margin:auto">
-                            <form>
+                        <form asp-action="CreateGiai" asp-controller="Giai" method="post">
+                            <div class="modal-body" style="margin:auto">
+                                <div class="form-group">
+                                    <label class="control-label"> Mã giải </label>
+                                    <input type="text" class="form-control" name="macreate" />
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label"> Tên giải </label>
-                                    <input type="text" class="form-control" />
+                                    <input type="text" class="form-control" name="tencreate" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Số lượng </label>
-                                    <input type="number" class="form-control" />
+                                    <input type="number" class="form-control" min="0" name="soluongcreate" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Giải thưởng </label>
-                                    <input type="number" class="form-control" />
+                                    <input type="number" class="form-control" min="0" name="giaithuongcreate" />
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal">Thêm</button>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-success">Thêm</button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>
@@ -143,10 +147,10 @@
         }}'>
                         <thead>
                             <tr>
+                                <th>Mã giải</th>
                                 <th>Tên giải</th>
                                 <th>Số lượng</th>
                                 <th>Giải thưởng</th>
-                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -154,11 +158,14 @@
                             @foreach (var item in Model)
                             {
                                 <tr data-expanded="true">
-                                    <td class="">@item.TenGiai</td>
-                                    <td class="">@item.SoLuong</td>
-                                    <td class="">@item.GiaiThuong</td>
-                                    <td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suagiaithuong"> Sửa </button></td>
-                                    <td> <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietgiaithuong"> Chi tiết </button></td>
+                                    <td class="magiai">@item.MaGiai</td>
+                                    <td class="tengiai">@item.TenGiai</td>
+                                    <td class="soluong">@item.SoLuong</td>
+                                    <td class="giaithuong">@item.GiaiThuong</td>
+                                    <td>
+                                        <button class="btn btn-warning btnSuaChiTietGiai" data-toggle="modal" data-target="#suagiaithuong"> Sửa </button>
+                                        <button class="btn btn-danger btnChiTietGiai" data-toggle="modal" data-target="#chitietgiaithuong"> Chi tiết </button>
+                                    </td>
                                 </tr>
 
                             }
@@ -192,7 +199,7 @@
                                 <td class="">item.Tinh</td>
                                 <td class="">item.Ngayxo</td>
                                 <td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaketqua"> Sửa </button></td>
-                                <td> <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietketqua"> Chi tiết </button></td>
+                                <td> <button class="btn btn-danger btnChiTietGiai" data-toggle="modal" data-target="#chitietketqua"> Chi tiết </button></td>
                             </tr>
                         </tbody>
 
@@ -213,33 +220,36 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Sửa giải thưởng</h4>
                         </div>
-                        <div class="modal-body" style="margin:auto">
-                            <form>
+                        <form asp-action="EditGiai" asp-controller="Giai" method="post">
+                            <div class="modal-body" style="margin:auto">
+                                <div class="form-group">
+                                    <label class="control-label"> Id giải </label>
+                                    <input type="text" class="form-control maedit" name="maedit" readonly />
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label"> Tên giải </label>
-                                    <input type="text" class="form-control" />
+                                    <input type="text" class="form-control tenedit" name="tenedit" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Số lượng </label>
-                                    <input type="number" class="form-control" />
+                                    <input type="number" class="form-control soluongedit" name="soluongedit" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Giải thưởng </label>
-                                    <input type="number" class="form-control" />
+                                    <input type="number" class="form-control giaithuongedit" name="giaithuongedit" />
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">Sửa</button>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-warning" >Sửa</button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>
             </div>
 
             <!-- end modal -->
-            
             <!-- modal chitietketqua -->
 
             <div id="chitietketqua" class="modal fade" role="dialog">
@@ -311,48 +321,10 @@
             </div>
 
             <!-- end modal -->
-
             <!-- modal chitietgiaithuong -->
 
             <div id="chitietgiaithuong" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Chi tiết giải thưởng</h4>
-                        </div>
-                        <div class="modal-body" style="margin:auto">
-                            <form>
-                                <div class="form-group">
-                                    <label class="control-label"> ID </label>
-                                    <input type="text" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Mã giải </label>
-                                    <input type="text" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Tên giải </label>
-                                    <input type="text" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Số lượng </label>
-                                    <input type="number" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Giải thưởng </label>
-                                    <input type="number" class="form-control" readonly/>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
-                        </div>
-                    </div>
-
-                </div>
+                
             </div>
 
             <!--end modal-->
@@ -362,13 +334,40 @@
 </section>
 
 <script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     });
-  });
+
+    $(".btnChiTietGiai").click(function () {
+        let ma = $(this).closest('tr').find('.magiai').text();
+        $.ajax({
+            url: "/Giai/ThongTinGiai",
+            type: "get",
+            data: { "ma": ma },
+            success: function (data) {
+                $("#chitietgiaithuong").html(data);
+            },
+            error: function (data) {
+                alert("Error: " + data);
+            }
+        });
+    });
+
+    $(".btnSuaChiTietGiai").click(function () {
+        let ma = $(this).closest('tr').find('.magiai').text();
+        let ten = $(this).closest('tr').find('.tengiai').text();
+        let soluong = $(this).closest('tr').find('.soluong').text();
+        let giaithuong = $(this).closest('tr').find('.giaithuong').text();
+
+        $(".maedit").val(ma);
+        $(".tenedit").val(ten);
+        $(".soluongedit").val(soluong);
+        $(".giaithuongedit").val(giaithuong);
     });
 </script>
 <style>
@@ -376,3 +375,10 @@ $(document).ready(function(){
         text-align: center;
     }
 </style>
+
+@if (ViewBag.ThongBao != null)
+{
+    <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+    </script>
+}

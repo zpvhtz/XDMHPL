@@ -138,7 +138,7 @@ INSERT INTO DangKy
 GO
 
 INSERT INTO Giai
-	VALUES('F101435C-5B2C-4CFA-A7BC-8BA084B927B2', 'GT01', N'Giải nhất', 1, 100000000),
+	VALUES('F101435C-5B2C-4CFA-A7BC-8BA084B927B2', 'GT01', N'Giải đặc biệt', 1, 100000000),
 		  ('0AC9EB03-5337-4DE2-A5DA-BA50D461D629', 'GT02', N'Giải nhất', 1, 50000000),
 		  ('3A105C1F-05CF-4876-994C-650966A1063F', 'GT03', N'Giải nhì', 2, 10000000),
 		  ('A92F5315-9EE3-4446-AAD7-BB6AD4B57BF1', 'GT04', N'Giải ba', 6, 5000000),
@@ -155,11 +155,16 @@ AS
 	SELECT Table2.IdDaiLy, Table2.IdLoaiVeSo, Table2.SoLuong
 	FROM
 	(
-		SELECT IdDaiLy, MAX(NgayDangKy) AS NgayDangKy
+		SELECT DISTINCT IdLoaiVeSo, MAX(NgayDangKy) AS NgayDangKy
 		FROM DangKy
-		GROUP BY IdDaiLy
+		WHERE IdDaiLy IN
+		(
+			SELECT DISTINCT IdDaiLy
+			FROM DangKy
+		)
+		GROUP BY IdLoaiVeSo
 	) AS Table1, DangKy as Table2
-	WHERE Table1.IdDaiLy = Table2.IdDaiLy AND Table1.NgayDangKy = Table2.NgayDangKy
+	WHERE Table1.IdLoaiVeSo = Table2.IdLoaiVeSo AND Table1.NgayDangKy = Table2.NgayDangKy
 	--
 	DECLARE @IdDaiLy UNIQUEIDENTIFIER
 	DECLARE @IdLoaiVeSo UNIQUEIDENTIFIER
@@ -268,8 +273,41 @@ AS
 	END
 GO
 
+--Tự động cho mọi số lượng đăng ký bằng 0 khi bị khoá--
+CREATE TRIGGER TG_Khoa_DaiLy ON DaiLy AFTER UPDATE
+AS
+	DECLARE @TinhTrang NVARCHAR(20)
+	DECLARE @IdDaiLy UNIQUEIDENTIFIER
+	--
+	SELECT @IdDaiLy = Id, @TinhTrang = TinhTrang
+	FROM inserted
+	--
+	IF(@TinhTrang = N'Khoá')
+	BEGIN
+		DECLARE CUR CURSOR FOR
+		SELECT DISTINCT IdLoaiVeSo
+		FROM DangKy
+		WHERE IdDaiLy = '1D627550-FDCB-4DF8-8141-A5AD9900FB2B'
+		GROUP BY IdLoaiVeSo
+		--
+		DECLARE @IdLoaiVeSo UNIQUEIDENTIFIER
+		--
+		OPEN CUR
+		FETCH NEXT FROM CUR INTO @IdLoaiVeSo --Chạy từng dòng trong table đã khai báo trên--
+		WHILE @@FETCH_STATUS = 0 --Nếu con trỏ còn dữ liệu để trỏ đến--
+		BEGIN
+			INSERT INTO DangKy
+				VALUES(NEWID(), @IdDaiLy, @IdLoaiVeSo, GETDATE(), 0)
+			--
+			FETCH NEXT FROM CUR INTO @IdLoaiVeSo
+		END
+		CLOSE CUR
+		DEALLOCATE CUR
+	END
+GO
+
 --Hàm tự động thêm kết quả xổ số--
-CREATE PROC Them_KetQuaXoSo(@IdLoaiVeSo UNIQUEIDENTIFIER)
+ALTER PROC Them_KetQuaXoSo(@IdLoaiVeSo UNIQUEIDENTIFIER)
 AS
 	DECLARE CUR CURSOR FOR
 	SELECT Id, MaGiai, SoLuong
@@ -288,7 +326,7 @@ AS
 		BEGIN
 			DECLARE @MaKetQua VARCHAR(10)
 			--
-			DECLARE @SoTrung VARCHAR(10) = ROUND(RAND() * 100000, 0)
+			DECLARE @SoTrung VARCHAR(20) = ROUND(RAND() * 100000, 0)
 			--
 			SELECT @MaKetQua = MaKetQua
 			FROM KetQuaXoSo
@@ -296,7 +334,11 @@ AS
 			--
 			IF(@MaKetQua IS NULL)
 			BEGIN
-				INSERT INTO KetQuaXoSo VALUES(NEWID(), @IdLoaiVeSo, 'KQXS1', GETDATE(), @IdGiai, @SoTrung)
+			PRINT @IdLoaiVeSo
+			PRINT CONVERT(VARCHAR(36), @IdLoaiVeSo)
+			PRINT @IdGiai
+			PRINT @SoTrung
+				INSERT INTO KetQuaXoSo VALUES(NEWID(), CONVERT(VARCHAR(36), @IdLoaiVeSo), 'KQXS1', CONVERT(DATE, GETDATE()), CONVERT(VARCHAR(36), @IdGiai), @SoTrung)
 			END
 			ELSE
 			BEGIN
@@ -305,9 +347,31 @@ AS
 				SET @MaKetQua = 'KQXS' + CONVERT(VARCHAR, @STT)
 				INSERT INTO KetQuaXoSo VALUES(NEWID(), @IdLoaiVeSo, @MaKetQua, GETDATE(), @IdGiai, @SoTrung)
 			END
+			--
+			SET @I += 1
 		END
 		FETCH NEXT FROM CUR INTO @IdGiai, @MaGiai, @SoLuong
 	END
 	CLOSE CUR
 	DEALLOCATE CUR
 GO
+
+SELECT * FROM LoaiVeSo
+select * from KetQuaXoSo
+exec Them_KetQuaXoSo '570B0397-2061-4ADD-8563-2E965322CF01'
+
+DECLARE @IdLoaiVeSo UNIQUEIDENTIFIER
+DECLARE @MaKetQua VARCHAR(10)
+DECLARE @IdGiai UNIQUEIDENTIFIER
+DECLARE @SoTrung VARCHAR(20)
+
+SET @IdLoaiVeSo = '570B0397-2061-4ADD-8563-2E965322CF01'
+SET @IdGiai = '3A105C1F-05CF-4876-994C-650966A1063F'
+SET @MaKetQua = 'KQXS1'
+SET @SoTrung = '59148'
+
+INSERT INTO KetQuaXoSo
+	VALUES(NEWID(),@IdLoaiVeSo, @MaKetQua, GETDATE(), @IdGiai, @SoTrung)
+
+--INSERT INTO KetQuaXoSo
+--	VALUES(NEWID(), CONVERT(VARCHAR(36), @IdLoaiVeSo), @MaKetQua, GETDATE(), CONVERT(VARCHAR(36), @IdGiai), @SoTrung)
