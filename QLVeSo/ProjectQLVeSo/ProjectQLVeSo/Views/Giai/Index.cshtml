@@ -80,7 +80,7 @@
                                     <select class="form-control" id="sel1">
                                         @foreach (var item in ViewBag.LoaiVeSo)
                                         {
-                                            <option>@item.Tinh</option>
+                                            <option value="@item.Id">@item.Tinh</option>
                                         }
                                     </select>
                                 </div>
@@ -187,19 +187,18 @@
         }}'>
                         <thead>
                             <tr>
-                                <th>Mã kết quả</th>
-                                <th>tỉnh</th>
+                                <th>Tỉnh</th>
                                 <th>Ngày xổ</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            @foreach(var item in ViewBag.KetQuaXoSo)
+                            @foreach(dynamic item in ViewBag.KetQuaChung)
                             {
                                 <tr data-expanded="true">
-                                    <td class="">item.MaKetQua</td>
-                                    <td class="">item.IdLoaiVeSoNavigation.Tinh</td>
-                                    <td class="">item.Ngay</td>
+                                    @*<td class="">@item.GetType().GetProperty("OcCho").GetValue(@item, null)</td>*@
+                                    <td class="">@item.IdLoaiVeSoNavigation.Tinh</td>
+                                    <td class="">@item.Ngay</td>
                                     <td>
                                         <button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaketqua"> Sửa </button>
                                         <button class="btn btn-danger btnChiTietGiai" data-toggle="modal" data-target="#chitietketqua"> Chi tiết </button>

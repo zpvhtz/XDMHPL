@@ -19,6 +19,7 @@ namespace ProjectQLVeSo.Models
         public virtual DbSet<DaiLy> DaiLy { get; set; }
         public virtual DbSet<DangKy> DangKy { get; set; }
         public virtual DbSet<Giai> Giai { get; set; }
+        public virtual DbSet<KetQuaChung> KetQuaChung { get; set; }
         public virtual DbSet<KetQuaXoSo> KetQuaXoSo { get; set; }
         public virtual DbSet<LoaiVeSo> LoaiVeSo { get; set; }
         public virtual DbSet<PhanPhoi> PhanPhoi { get; set; }
@@ -38,7 +39,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<CongNo>(entity =>
             {
                 entity.HasIndex(e => e.MaCongNo)
-                    .HasName("UQ__CongNo__E452A01F861F5B06")
+                    .HasName("UQ__CongNo__E452A01F8CBEF735")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -59,7 +60,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<DaiLy>(entity =>
             {
                 entity.HasIndex(e => e.MaDaiLy)
-                    .HasName("UQ__DaiLy__069B00B2F0A19C78")
+                    .HasName("UQ__DaiLy__069B00B2FEDC8D0F")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -100,7 +101,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<Giai>(entity =>
             {
                 entity.HasIndex(e => e.MaGiai)
-                    .HasName("UQ__Giai__747065BF01D2AC26")
+                    .HasName("UQ__Giai__747065BF8FDFB8DC")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -113,10 +114,22 @@ namespace ProjectQLVeSo.Models
                 entity.Property(e => e.TenGiai).HasMaxLength(20);
             });
 
+            modelBuilder.Entity<KetQuaChung>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Ngay).HasColumnType("date");
+
+                entity.HasOne(d => d.IdLoaiVeSoNavigation)
+                    .WithMany(p => p.KetQuaChung)
+                    .HasForeignKey(d => d.IdLoaiVeSo)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
             modelBuilder.Entity<KetQuaXoSo>(entity =>
             {
                 entity.HasIndex(e => e.MaKetQua)
-                    .HasName("UQ__KetQuaXo__D5B3102BA70F75F9")
+                    .HasName("UQ__KetQuaXo__D5B3102B89F1C47E")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -146,7 +159,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<LoaiVeSo>(entity =>
             {
                 entity.HasIndex(e => e.MaLoaiVeSo)
-                    .HasName("UQ__LoaiVeSo__4AFD9B5EC3366021")
+                    .HasName("UQ__LoaiVeSo__4AFD9B5E3F2F6425")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -181,7 +194,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<PhieuThu>(entity =>
             {
                 entity.HasIndex(e => e.MaPhieuThu)
-                    .HasName("UQ__PhieuThu__1D8B9C6810E88269")
+                    .HasName("UQ__PhieuThu__1D8B9C68F0567E19")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();

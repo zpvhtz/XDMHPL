@@ -80,6 +80,13 @@ CREATE TABLE PhieuThu
 	TongTien FLOAT
 )
 
+CREATE TABLE KetQuaChung
+(
+	Id UNIQUEIDENTIFIER PRIMARY KEY,
+	IdLoaiVeSo UNIQUEIDENTIFIER NOT NULL, --FK--
+	Ngay DATE
+)
+
 --CONSTRAINT--
 ALTER TABLE DangKy
 	ADD
@@ -103,6 +110,10 @@ ALTER TABLE CongNo
 ALTER TABLE PhieuThu
 	ADD
 		CONSTRAINT FK_PhieuThu_DaiLy_IdDaiLy FOREIGN KEY (IdDaiLy) REFERENCES DaiLy(Id)
+
+ALTER TABLE KetQuaChung
+	ADD
+		CONSTRAINT FK_KetQuaChung_LoaiVeSo_IdLoaiVeSo FOREIGN KEY (IdLoaiVeSo) REFERENCES LoaiVeSo(Id)
 
 --ADD DATA--
 INSERT INTO LoaiVeSo
@@ -182,14 +193,14 @@ AS
 			(
 				SELECT TOP 1 *
 				FROM PhanPhoi
-				WHERE IdDaiLy = @IdDaiLy
+				WHERE IdDaiLy = @IdDaiLy AND IdLoaiVeSo = @IdLoaiVeSo
 			)
 			BEGIN
 				DECLARE @CheckTiLe FLOAT
 				--
 				SELECT @CheckTiLe = TiLe
 				FROM PhanPhoi
-				WHERE IdDaiLy = @IdDaiLy
+				WHERE IdDaiLy = @IdDaiLy AND IdLoaiVeSo = @IdLoaiVeSo
 				--
 				IF(@CheckTiLe IS NOT NULL)
 				BEGIN
@@ -307,7 +318,7 @@ AS
 GO
 
 --Hàm tự động thêm kết quả xổ số--
-ALTER PROC Them_KetQuaXoSo(@IdLoaiVeSo UNIQUEIDENTIFIER)
+CREATE PROC Them_KetQuaXoSo(@IdLoaiVeSo UNIQUEIDENTIFIER)
 AS
 	DECLARE CUR CURSOR FOR
 	SELECT Id, MaGiai, SoLuong
@@ -328,24 +339,20 @@ AS
 			--
 			DECLARE @SoTrung VARCHAR(20) = ROUND(RAND() * 100000, 0)
 			--
-			SELECT @MaKetQua = MaKetQua
+			SELECT TOP 1 @MaKetQua = MaKetQua
 			FROM KetQuaXoSo
-			ORDER BY MaKetQua DESC
+			ORDER BY CAST(SUBSTRING(MaKetQua, 5, LEN(MaKetQua)) AS INT) DESC
 			--
 			IF(@MaKetQua IS NULL)
 			BEGIN
-			PRINT @IdLoaiVeSo
-			PRINT CONVERT(VARCHAR(36), @IdLoaiVeSo)
-			PRINT @IdGiai
-			PRINT @SoTrung
-				INSERT INTO KetQuaXoSo VALUES(NEWID(), CONVERT(VARCHAR(36), @IdLoaiVeSo), 'KQXS1', CONVERT(DATE, GETDATE()), CONVERT(VARCHAR(36), @IdGiai), @SoTrung)
+				INSERT INTO KetQuaXoSo VALUES(NEWID(), 'KQXS1', CONVERT(VARCHAR(36), @IdLoaiVeSo), CONVERT(DATE, GETDATE()), CONVERT(VARCHAR(36), @IdGiai), @SoTrung)
 			END
 			ELSE
 			BEGIN
 				DECLARE @STT INT = CAST(SUBSTRING(@MaKetQua, 5, LEN(@MaKetQua)) AS INT)
 				SET @STT = @STT + 1
-				SET @MaKetQua = 'KQXS' + CONVERT(VARCHAR, @STT)
-				INSERT INTO KetQuaXoSo VALUES(NEWID(), @IdLoaiVeSo, @MaKetQua, GETDATE(), @IdGiai, @SoTrung)
+				SET @MaKetQua = 'KQXS' + CONVERT(VARCHAR(8), @STT)
+				INSERT INTO KetQuaXoSo VALUES(NEWID(), @MaKetQua, @IdLoaiVeSo, GETDATE(), @IdGiai, @SoTrung)
 			END
 			--
 			SET @I += 1
@@ -356,22 +363,26 @@ AS
 	DEALLOCATE CUR
 GO
 
---SELECT * FROM LoaiVeSo
---select * from KetQuaXoSo
---exec Them_KetQuaXoSo '570B0397-2061-4ADD-8563-2E965322CF01'
+--Hàm tự động thêm Loại vé số và ngày cho table KetQuaChung--
+CREATE TRIGGER TG_Them_KetQuaChung ON KetQuaXoSo AFTER INSERT
+AS
+	DECLARE @IdLoaiVeSo UNIQUEIDENTIFIER
+	DECLARE @Ngay DATE
+	--
+	SELECT @IdLoaiVeSo = IdLoaiVeSo, @Ngay = Ngay
+	FROM inserted
+	--
+	IF NOT EXISTS
+	(
+		SELECT *
+		FROM KetQuaChung
+		WHERE IdLoaiVeSo = @IdLoaiVeSo AND Ngay = @Ngay
+	)
+	BEGIN
+		INSERT INTO KetQuaChung
+			VALUES(NEWID(), @IdLoaiVeSo, @Ngay)
+	END
+GO
 
---DECLARE @IdLoaiVeSo UNIQUEIDENTIFIER
---DECLARE @MaKetQua VARCHAR(10)
---DECLARE @IdGiai UNIQUEIDENTIFIER
---DECLARE @SoTrung VARCHAR(20)
-
---SET @IdLoaiVeSo = '570B0397-2061-4ADD-8563-2E965322CF01'
---SET @IdGiai = '3A105C1F-05CF-4876-994C-650966A1063F'
---SET @MaKetQua = 'KQXS1'
---SET @SoTrung = '59148'
-
---INSERT INTO KetQuaXoSo
---	VALUES(NEWID(),@IdLoaiVeSo, @MaKetQua, GETDATE(), @IdGiai, @SoTrung)
-
---INSERT INTO KetQuaXoSo
---	VALUES(NEWID(), CONVERT(CHAR(36), @IdLoaiVeSo), @MaKetQua, GETDATE(), CONVERT(CHAR(36), @IdGiai), @SoTrung)
+select * from PhanPhoi
+exec Them_PhanPhoi
