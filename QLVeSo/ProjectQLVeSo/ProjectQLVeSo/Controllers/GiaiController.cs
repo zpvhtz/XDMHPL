@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectQLVeSo.Models;
 
 namespace ProjectQLVeSo.Controllers
@@ -19,6 +20,14 @@ namespace ProjectQLVeSo.Controllers
             if (thongbao != null)
                 ViewBag.ThongBao = thongbao;
             List<Giai> list = context.Giai.OrderBy(g => g.MaGiai).ToList();
+            List<KetQuaXoSo> listkqxs = context.KetQuaXoSo.Include(kq => kq.IdGiaiNavigation)
+                                                          .Include(kq => kq.IdLoaiVeSoNavigation)
+                                                          .OrderByDescending(kq => kq.Ngay)
+                                                          .ThenByDescending(kq => kq.IdLoaiVeSoNavigation.Tinh)
+                                                          .ToList();
+            List<LoaiVeSo> listlvs = context.LoaiVeSo.OrderBy(lvs => lvs.Tinh).ToList();
+            ViewBag.KetQuaXoSo = listkqxs;
+            ViewBag.LoaiVeSo = listlvs;
             return View(list);
         }
 

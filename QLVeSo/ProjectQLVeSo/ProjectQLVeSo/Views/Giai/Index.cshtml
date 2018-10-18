@@ -69,8 +69,8 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Thêm đợt kết quả</h4>
                         </div>
-                        <div class="modal-body panel-body" style="margin:auto">
-                            <form class="panel-body">
+                        <form id="createKQXS">
+                            <div class="modal-body panel-body" style="margin:auto">
                                 <div class="form-group col-lg-6">
                                     <label>Ngày kết quả</label>
                                     <input class="form-control" value=@DateTime.Now readonly />
@@ -78,50 +78,51 @@
                                 <div class="form-group col-lg-6">
                                     <label>Tỉnh</label>
                                     <select class="form-control" id="sel1">
-                                        <option style="background-color:burlywood">Chọn tỉnh</option>
-                                        <option>Đồng Tháp</option>
-                                        <option>Cần Thơ</option>
-                                        <option>Cà Mau</option>
-                                        <option>Bình Dương</option>
+                                        @foreach (var item in ViewBag.LoaiVeSo)
+                                        {
+                                            <option>@item.Tinh</option>
+                                        }
                                     </select>
                                 </div>
-                            </form>
-                            <div class="panel-body">
-                                <h3 style="text-align:center; padding-bottom:2% ;border-bottom:solid #f2f2f2 1px"> Bảng kết quả </h3>
-                                <table class="table tbmodal">
-                                    <thead style="text-align:center">
-                                        <tr>
-                                            <th class="col-lg-2">Tên giải</th>
-                                            <th>Số trúng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model)
-                                        {
+                                <div class="panel-body">
+                                    <h3 style="text-align:center; padding-bottom:2% ;border-bottom:solid #f2f2f2 1px"> Bảng kết quả </h3>
+                                    <table class="table tbmodal">
+                                        <thead style="text-align:center">
                                             <tr>
-                                                <th>@item.TenGiai</th>
-
-                                                @{
-                                                    float t = (float)item.SoLuong;
-                                                    float t2 = 100 / t;
-                                                    var kq = t2 + "%";
-                                                }
-                                                <th>
-                                                    @for (int i = 0; i < item.SoLuong; ++i)
-                                                    {
-                                                        <div style="float:left;width:@kq"> <input style="text-align:center;background-color:#adad85;width:100%;border:solid white 2px;color:white" type="number" /> </div>
-                                                    }
-                                                </th>
+                                                <th class="col-lg-2">Tên giải</th>
+                                                <th>Số trúng</th>
                                             </tr>
-                                        }
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <th>@item.TenGiai</th>
+
+                                                    @{
+                                                        float t = (float)item.SoLuong;
+                                                        float t2 = 100 / t;
+                                                        var kq = t2 + "%";
+                                                    }
+                                                    <th>
+                                                        @for (int i = 0; i < item.SoLuong; ++i)
+                                                        {
+                                                            <div style="float:left;width:@kq" class="divCreateKQXS">
+                                                                <input style="text-align:center;background-color:#adad85;width:100%;border:solid white 2px;color:white" type="number" />
+                                                            </div>
+                                                        }
+                                                    </th>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                            <button type="submit" class="btn btn-success" data-dismiss="modal">Thêm</button>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-success btnCreateKQXS">Thêm</button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>
@@ -190,17 +191,21 @@
                                 <th>tỉnh</th>
                                 <th>Ngày xổ</th>
                                 <th></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            <tr data-expanded="true">
-                                <td class="">item.Maketqua</td>
-                                <td class="">item.Tinh</td>
-                                <td class="">item.Ngayxo</td>
-                                <td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaketqua"> Sửa </button></td>
-                                <td> <button class="btn btn-danger btnChiTietGiai" data-toggle="modal" data-target="#chitietketqua"> Chi tiết </button></td>
-                            </tr>
+                            @foreach(var item in ViewBag.KetQuaXoSo)
+                            {
+                                <tr data-expanded="true">
+                                    <td class="">item.MaKetQua</td>
+                                    <td class="">item.IdLoaiVeSoNavigation.Tinh</td>
+                                    <td class="">item.Ngay</td>
+                                    <td>
+                                        <button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaketqua"> Sửa </button>
+                                        <button class="btn btn-danger btnChiTietGiai" data-toggle="modal" data-target="#chitietketqua"> Chi tiết </button>
+                                    </td>
+                                </tr>   
+                            }
                         </tbody>
 
                     </table>
@@ -368,6 +373,14 @@
         $(".tenedit").val(ten);
         $(".soluongedit").val(soluong);
         $(".giaithuongedit").val(giaithuong);
+    });
+
+    $(".btnCreateKQXS").click(function () {
+        $(".divCreateKQXS").children().each(function () {
+            let nodeName = this.nodeName.toLowerCase();
+            if (nodeName == "input" && $(this).attr('type') == "number")
+                alert($(this).val());
+        });
     });
 </script>
 <style>
