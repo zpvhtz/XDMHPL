@@ -14,6 +14,7 @@ namespace ProjectQLVeSo.Models
         public string MaGiai { get; set; }
         public string TenGiai { get; set; }
         public int? SoLuong { get; set; }
+        public int? So { get; set; }
         public double? GiaiThuong { get; set; }
 
         public ICollection<KetQuaXoSo> KetQuaXoSo { get; set; }

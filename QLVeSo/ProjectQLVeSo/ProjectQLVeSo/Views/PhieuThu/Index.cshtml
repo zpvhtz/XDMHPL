@@ -1,9 +1,8 @@
-﻿
+﻿@model IEnumerable<PhieuThu>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
-
 <section class="wrapper">
     <div class="table-agile-info">
         <div class="panel panel-default">
@@ -13,56 +12,48 @@
             <div class="panel-body">
                 <button class="btn btn-success" data-toggle="modal" data-target="#themphieuthu"> Thêm phiếu thu </button>
                 <button class="btn btn-send" data-toggle="modal" data-target="#themcongno"> Thêm công nợ </button>
-                <button class="btn btn-info" style="float:right"> Tìm kiếm </button>
-                <div class="col-lg-4" style="float:right"> <input type="search" id="myInput" class="form-control" placeholder="Nội dung tìm kiếm" /> </div>
+                <form asp-controller="PhieuThu" asp-action="Search" method="get">
+                    <button type="submit" class="btn btn-info" style="float:right"> Tìm kiếm </button>
+                    <div class="col-lg-4" style="float:right"> <input type="search" id="myInput" class="form-control" placeholder="Nội dung tìm kiếm" name="key" /> </div>
+                </form>
             </div>
-
             <!-- modal themphieuthu -->
-
             <div id="themphieuthu" class="modal fade" role="dialog">
                 <div class="modal-dialog">
-
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Thêm phiếu thu</h4>
                         </div>
-                        <div class="modal-body" style="margin:auto">
-                            <form>
+                        <form asp-controller="PhieuThu" asp-action="Create" method="post">
+                            <div class="modal-body" style="margin:auto">
+
                                 <div class="form-group">
                                     <label class="control-label"> Mã phiếu thu </label>
-                                    <input type="text" class="form-control" />
+                                    <input type="text" class="form-control" id="maphieuthu" name="maphieuthu" />
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label"> Đại lý </label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Ngày thu </label>
-                                    <input type="number" class="form-control" />
+                                    <label class="control-label">Mã đại lý </label>
+                                    <input type="text" class="form-control" id="madaily" name="madaily" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Tổng tiền </label>
-                                    <input type="number" class="form-control" />
+                                    <input type="number" class="form-control" id="tongtien" name="tongtien" />
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal">Thêm</button>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-success" value="Tạo">Thêm</button>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
             </div>
-
             <!--end modal-->
             <!-- modal themcongno -->
-
             <div id="themcongno" class="modal fade" role="dialog">
                 <div class="modal-dialog">
-
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
@@ -94,10 +85,8 @@
                             <button type="submit" class="btn btn-success" data-dismiss="modal">Thêm</button>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <!--end modal-->
             <!--table phieu thu-->
             <ul class="nav nav-tabs">
@@ -119,6 +108,7 @@
                         <thead>
                             <tr>
                                 <th>Mã phiếu thu</th>
+                                <th>Mã đại lý</th>
                                 <th>Đại lý</th>
                                 <th>Ngày thu</th>
                                 <th>Tổng tiền</th>
@@ -127,17 +117,19 @@
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            <tr data-expanded="true">
-                                <td class="">item.Maphieuthu</td>
-                                <td class="">item.Daily</td>
-                                <td class="">item.Ngay</td>
-                                <td> item.Tongtien</td>
-                                <td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaphieuthu"> Sửa </button></td>
-                                <td> <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietphieuthu"> Chi tiết </button></td>
-                            </tr>
-
+                            @foreach (var item in Model)
+                            {
+                                <tr data-expanded="true">
+                                    <td class="item-maphieuthu">@item.MaPhieuThu</td>
+                                    <td class="item-madaily">@item.IdDaiLyNavigation.MaDaiLy</td>
+                                    <td class="item-daily">@item.IdDaiLyNavigation.Ten</td>
+                                    <td class="item-ngaythu">@item.Ngay</td>
+                                    <td class="item-tongtien"> @item.TongTien</td>
+                                    <td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaphieuthu"> Sửa </button></td>
+                                    <td> <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietphieuthu"> Chi tiết </button></td>
+                                </tr>
+                            }
                         </tbody>
-
                     </table>
                 </div>
                 <div id="ketqua" class="tab-pane fade">
@@ -154,78 +146,76 @@
         }}'>
                         <thead>
                             <tr>
-                                <th>Mã công nợ</th>
+                                <th>Mã đại lý</th>
                                 <th>Đại lý</th>
-                                <th>Ngày</th>
                                 <th>Tổng tiền</th>
-                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
                             <tr data-expanded="true">
-                                <td class="">item.Macongno</td>
-                                <td class="">item.Daily</td>
-                                <td class="">item.Ngay</td>
-                                <td> item.Tongtien</td>
-                                <td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suacongno"> Sửa </button></td>
-                                <td> <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietcongno"> Chi tiết </button></td>
+                                @foreach (var item in ViewBag.CongNo)
+                                {
+                                <td class="madailycongno">@item.GetType().GetProperty("MaDaiLy").GetValue(@item, null)</td>
+                                    @foreach(var item2 in ViewBag.DaiLy)
+                                    {
+                                        if(item2.MaDaiLy == item.GetType().GetProperty("MaDaiLy").GetValue(@item, null))
+                                        {
+                                            <td class="">@item2.Ten</td>
+                                        }
+                                    }
+                                    <td>@item.GetType().GetProperty("TongTien").GetValue(@item, null)</td>
+                                    <td>
+                                        @*<button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suacongno"> Sửa </button>*@
+                                        <button class="btn btn-danger btnChiTietCongNo" data-toggle="modal" data-target="#chitietcongno"> Chi tiết </button>
+                                    </td>
+                                }
                             </tr>
                         </tbody>
-
                     </table>
                     <!-- end table -->
-
                 </div>
-
             </div>
-
             <!-- modal suaphieuthu -->
-
             <div id="suaphieuthu" class="modal fade" role="dialog">
                 <div class="modal-dialog">
-
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Sửa phiếu thu</h4>
                         </div>
-                        <div class="modal-body" style="margin:auto">
-                            <form>
+                        <form asp-controller="PhieuThu" asp-action="Edit" method="post">
+                            <div class="modal-body" style="margin:auto">
                                 <div class="form-group">
-                                    <label class="control-label"> Mã phiếu thu </label>
-                                    <input type="text" class="form-control" />
+                                    <label class="control-label"> Mã phiếu thu</label>
+                                    <input type="text" class="form-control maphieuthu-edit" name="maphieuthu" />
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label"> Đại lý</label>
-                                    <input type="number" class="form-control" />
+                                    <label class="control-label"> Mã đại lý</label>
+                                    <input type="text" class="form-control madaily-edit" name="madaily" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Ngày thu </label>
-                                    <input type="datetime" class="form-control" />
+                                    <input type="datetime-local" class="form-control ngaythu-edit" name="ngaythu" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Tổng tiền </label>
-                                    <input type="number" class="form-control" />
+                                    <input type="number" class="form-control tongtien-edit" name="tongtien" />
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">Sửa</button>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-warning" value="Sửa">Sửa</button>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
             </div>
-
             <!-- end modal -->
-            <!-- modal suaphieuthu -->
-
+            <!-- modal suacongno -->
             <div id="suacongno" class="modal fade" role="dialog">
                 <div class="modal-dialog">
-
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
@@ -257,60 +247,17 @@
                             <button type="button" class="btn btn-warning" data-dismiss="modal">Sửa</button>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <!-- end modal -->
             <!-- modal chitietcongno -->
-
             <div id="chitietcongno" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-lg">
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Chi tiết công nợ</h4>
-                        </div>
-                        <div class="modal-body panel-body" style="margin:auto">
-                            <form class="panel-body">
-                                <div class="form-group">
-                                    <label>ID</label>
-                                    <input class="form-control" value="ID" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label>Mã công nợ</label>
-                                    <input class="form-control" value="Mã công nợ" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label>Đại lý</label>
-                                    <input class="form-control" value="đại lý" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label>Ngày</label>
-                                    <input class="form-control" value=@DateTime.Now readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label>Tổng tiền</label>
-                                    <input class="form-control" value="Tổng tiền" readonly />
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
-                        </div>
-                    </div>
-
-                </div>
             </div>
-
             <!-- end modal -->
             <!-- modal chitietphieuthu -->
-
             <div id="chitietphieuthu" class="modal fade" role="dialog">
                 <div class="modal-dialog">
-
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
@@ -325,19 +272,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Mã phiếu thu </label>
-                                    <input type="text" class="form-control" readonly />
+                                    <input type="text" class="form-control maphieuthu-Detail" readonly />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Đại lý </label>
-                                    <input type="text" class="form-control" readonly />
+                                    <input type="text" class="form-control daily-Detail" readonly />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Ngày </label>
-                                    <input type="datetime" class="form-control" readonly />
+                                    <input type="date" class="form-control ngaythu-Detail" readonly />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Tổng tiền </label>
-                                    <input type="number" class="form-control" readonly />
+                                    <input type="number" class="form-control tongtien-Detail" readonly />
                                 </div>
                             </form>
                         </div>
@@ -345,12 +292,97 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <!--end modal-->
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-5 text-center">
 
+                    </div>
+                    <div class="col-sm-7 text-right text-center-xs">
+                        <ul class="pagination pagination-sm m-t-none m-b-none">
+                            @if (ViewBag.TrangHienTai == 1)
+                            {
+                                <li><a><i class="fa fa-chevron-left"></i></a></li>
+                            }
+                            else
+                            {
+                                <li><a asp-controller="Phieuthu" asp-action="Index" asp-route-pagenumber="@Html.Raw(@ViewBag.TrangHienTai - 1)"><i class="fa fa-chevron-left"></i></a></li>
+                            }
+                            @for (int i = 1; i <= ViewBag.TongTrang; i++)
+                            {
+                                @if (i == ViewBag.TrangHienTai)
+                                {
+                                    <li><a><b>@i</b></a></li>
+                                }
+                                else
+                                {
+                                    <li><a asp-controller="PhieuThu" asp-action="Index" asp-route-pagenumber="@i">@i</a></li>
+                                }
+                            }
+                            @if (ViewBag.TrangHienTai == ViewBag.TongTrang)
+                            {
+                                <li><a><i class="fa fa-chevron-right"></i></a></li>
+                            }
+                            else
+                            {
+                                <li><a asp-controller="PhieuThu" asp-action="Index" asp-route-pagenumber="@Html.Raw(@ViewBag.TrangHienTai + 1)"><i class="fa fa-chevron-right"></i></a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 </section>
+
+<script>
+    $(function () {
+        $(".btnSuaDaiLy").click(function () {
+            let maphieuthu = $(this).closest('tr').find('.item-maphieuthu').text();
+            let madaily = $(this).closest('tr').find('.item-madaily').text();
+            let ngaythu = $(this).closest('tr').find('.item-ngaythu').text();
+            let tongtien = $(this).closest('tr').find('.item-tongtien').text();
+
+            $(".maphieuthu-edit").val(maphieuthu.trim());
+            $(".madaily-edit").val(madaily.trim());
+            $(".ngaythu-edit").val(ngaythu.trim());
+            $(".tongtien-edit").val(tongtien.trim());
+        });
+
+        $(".btnChitietDaiLy").click(function () {
+            let maphieuthu = $(this).closest('tr').find('.item-maphieuthu').text();
+            let daily = $(this).closest('tr').find('.item-daily').text();
+            let ngaythu = $(this).closest('tr').find('.item-ngaythu').text();
+            let tongtien = $(this).closest('tr').find('.item-tongtien').text();
+
+            $(".maphieuthu-Detail").val(maphieuthu.trim());
+            $(".daily-Detail").val(daily.trim());
+            $(".ngaythu-Detail").val(ngaythu.trim());
+            $(".tongtien-Detail").val(tongtien.trim());
+        });
+
+        $(".btnChiTietCongNo").click(function () {
+            let madaily = $(this).closest('tr').find('.madailycongno').text();
+            $.ajax({
+                url: "/PhieuThu/ThongTinCongNo",
+                type: "get",
+                data: { "ma": madaily },
+                success: function (data) {
+                    $("#chitietcongno").html(data);
+                },
+                error: function (data) {
+                    alert("Error: " + data);
+                }
+            });
+        });
+    });
+</script>
+
+@if (ViewBag.ThongBao != null)
+{
+    <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+    </script>
+}

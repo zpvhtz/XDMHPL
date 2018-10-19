@@ -4,90 +4,108 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ProjectQLVeSo.Models;
 
 namespace ProjectQLVeSo.Controllers
 {
     public class PhieuThuController : Controller
     {
-        // GET: PhieuThu
-        public ActionResult Index()
+        private readonly QLVeSoContext context;
+        const int pageSize = 10;
+        int pageNumber = 1;
+        public PhieuThuController(QLVeSoContext context)
         {
-            return View();
+            this.context = context;
+        }
+
+        public int TongSoTrang()
+        {
+            List<PhieuThu> list = context.PhieuThu.ToList();
+            return ((list.Count / pageSize) + 1);
+        }
+
+        // GET: PhieuThu
+        public IActionResult Index(string thongbao, int? pagenumber)
+        {
+            if (thongbao != null)
+                ViewBag.ThongBao = thongbao;
+            pageNumber = pagenumber ?? 1;
+            List<PhieuThu> dsPhieuThu = context.PhieuThu.OrderBy(pt => pt.MaPhieuThu).Include(pt => pt.IdDaiLyNavigation).Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToList();
+            ViewBag.TongTrang = TongSoTrang();
+            ViewBag.TrangHienTai = pageNumber;
+            //Công nợ
+            var dsCongNo = context.CongNo.Join(context.DaiLy, a => a.IdDaiLy, b => b.Id, (a,b) => new
+            {
+                MaDaiLy = b.MaDaiLy,
+                TongTien = a.TongTien
+            })
+            .GroupBy(cn => cn.MaDaiLy)
+            .Select(cn => new { MaDaiLy = cn.Key, TongTien = cn.Sum(tt => tt.TongTien) }).ToList();
+            ViewBag.CongNo = dsCongNo;
+            //Bảng phụ cho công nợ
+            List<DaiLy> dsDaiLy = context.DaiLy.ToList();
+            ViewBag.DaiLy = dsDaiLy;
+            return View(dsPhieuThu);
         }
 
         // GET: PhieuThu/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Search(string key)
         {
-            return View();
+            List<PhieuThu> list = context.PhieuThu.Where(pt => pt.IdDaiLyNavigation.Ten.Contains(key)).Include(pt => pt.IdDaiLyNavigation).ToList();
+            return View("Index", list);
         }
 
         // GET: PhieuThu/Create
-        public ActionResult Create()
+        public IActionResult Create(string maphieuthu, string madaily, double tongtien)
         {
-            return View();
-        }
-
-        // POST: PhieuThu/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            //Thông báo
+            string thongbao = "";
+            //Kiểm tra mã có trùng chưa
+            PhieuThu pt = context.PhieuThu.Where(p => p.MaPhieuThu == maphieuthu).FirstOrDefault();
+            DaiLy daily = context.DaiLy.Where(p => p.MaDaiLy == madaily).SingleOrDefault();
+            if (pt == null)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
+                PhieuThu ptnew = new PhieuThu();
+                ptnew.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
+                ptnew.MaPhieuThu = maphieuthu;
+                ptnew.IdDaiLy = daily.Id;
+                ptnew.Ngay = DateTime.Now;
+                ptnew.TongTien = tongtien;
+                context.PhieuThu.Add(ptnew);
+                context.SaveChanges();
+                thongbao = "Thêm thành công";
             }
-            catch
+            else
             {
-                return View();
+                thongbao = "Mã bị trùng";
             }
+            return RedirectToAction("Index", "PhieuThu", new { thongbao = thongbao });
         }
 
         // GET: PhieuThu/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(string maphieuthu, string madaily, DateTime ngaythu, double tongtien)
         {
-            return View();
+            //Thông báo
+            string thongbao = "";
+            //Sửa
+            PhieuThu pt = context.PhieuThu.Where(p => p.MaPhieuThu == maphieuthu).SingleOrDefault();
+            DaiLy daily = context.DaiLy.Where(p => p.MaDaiLy == madaily).SingleOrDefault();
+            pt.MaPhieuThu = maphieuthu;
+            pt.IdDaiLy = daily.Id;
+            pt.Ngay = ngaythu;
+            pt.TongTien = tongtien;
+            context.SaveChanges();
+            thongbao = "Sửa thành công";
+            return RedirectToAction("Index", "PhieuThu", new { thongbao = thongbao });
         }
 
-        // POST: PhieuThu/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult ThongTinCongNo(string ma)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: PhieuThu/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: PhieuThu/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            List<CongNo> dsCongNo = context.CongNo.Where(cn => cn.IdDaiLyNavigation.MaDaiLy == ma)
+                                                  .Include(cn => cn.IdDaiLyNavigation)
+                                                  .ToList();
+            return PartialView("ChiTietCongNoPartialView", dsCongNo);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿CREATE DATABASE QLVeSo
+﻿ CREATE DATABASE QLVeSo
 GO
 --
 USE QLVeSo
@@ -49,6 +49,7 @@ CREATE TABLE Giai
 	MaGiai VARCHAR(10) UNIQUE NOT NULL,
 	TenGiai NVARCHAR(20),
 	SoLuong INT,
+	So INT,
 	GiaiThuong FLOAT
 )
 
@@ -149,13 +150,13 @@ INSERT INTO DangKy
 GO
 
 INSERT INTO Giai
-	VALUES('F101435C-5B2C-4CFA-A7BC-8BA084B927B2', 'GT01', N'Giải đặc biệt', 1, 100000000),
-		  ('0AC9EB03-5337-4DE2-A5DA-BA50D461D629', 'GT02', N'Giải nhất', 1, 50000000),
-		  ('3A105C1F-05CF-4876-994C-650966A1063F', 'GT03', N'Giải nhì', 2, 10000000),
-		  ('A92F5315-9EE3-4446-AAD7-BB6AD4B57BF1', 'GT04', N'Giải ba', 6, 5000000),
-		  ('D8141097-2D65-4479-8CE1-E7A829437B01', 'GT05', N'Giải tư', 4, 1000000),
-		  ('4DD94283-19AB-4332-9436-68CF3CCB91D1', 'GT06', N'Giải năm', 6, 500000),
-		  ('51B7F172-B28B-4D6A-A659-B53F2D80A0DC', 'GT07', N'Giải sáu', 3, 200000)
+	VALUES('F101435C-5B2C-4CFA-A7BC-8BA084B927B2', 'GT01', N'Giải đặc biệt', 1, 6, 100000000),
+		  ('0AC9EB03-5337-4DE2-A5DA-BA50D461D629', 'GT02', N'Giải nhất', 1, 5, 50000000),
+		  ('3A105C1F-05CF-4876-994C-650966A1063F', 'GT03', N'Giải nhì', 2, 5, 10000000),
+		  ('A92F5315-9EE3-4446-AAD7-BB6AD4B57BF1', 'GT04', N'Giải ba', 6, 5, 5000000),
+		  ('D8141097-2D65-4479-8CE1-E7A829437B01', 'GT05', N'Giải tư', 4, 5, 1000000),
+		  ('4DD94283-19AB-4332-9436-68CF3CCB91D1', 'GT06', N'Giải năm', 6, 4, 500000),
+		  ('51B7F172-B28B-4D6A-A659-B53F2D80A0DC', 'GT07', N'Giải sáu', 3, 4, 200000)
 GO
 
 --Hàm tự động thêm số lượng giao--
@@ -213,7 +214,7 @@ AS
 					(
 						SELECT TOP 3 Id
 						FROM PhanPhoi
-						WHERE IdDaiLy = @IdDaiLy
+						WHERE IdDaiLy = @IdDaiLy AND IdLoaiVeSo = @IdLoaiVeSo
 						ORDER BY Ngay DESC
 					)
 					--Insert vào bảng--
@@ -384,5 +385,42 @@ AS
 	END
 GO
 
-select * from PhanPhoi
-exec Them_PhanPhoi
+--Hàm tự động thêm công nợ sau đi có số lượng bán--
+CREATE TRIGGER TG_Them_CongNo ON PhanPhoi AFTER UPDATE
+AS
+	DECLARE @TiLe FLOAT
+	DECLARE @SoLuongBan INT
+	DECLARE @IdDaiLy UNIQUEIDENTIFIER
+	--
+	SELECT @IdDaiLy = IdDaiLy, @SoLuongBan = SoLuongBan, @TiLe = TiLe
+	FROM inserted
+	--
+	IF(@TiLe IS NOT NULL)
+	BEGIN
+		DECLARE @MaCongNo VARCHAR(10)
+		DECLARE @TongTien FLOAT
+		DECLARE @GiaTriMoiVe FLOAT = 10000
+		DECLARE @TiLeHoaHong FLOAT = 0.1
+		--
+		SET @TongTien = CAST(@SoLuongBan AS FLOAT) * @GiaTriMoiVe * (1 - @TiLeHoaHong)
+		--Tính mã công nợ--
+		SELECT TOP 1 @MaCongNo = MaCongNo
+		FROM CongNo
+		ORDER BY CAST(SUBSTRING(MaCongNo, 3, LEN(MaCongNo)) AS INT) DESC
+		--
+		IF(@MaCongNo IS NULL)
+		BEGIN
+			INSERT INTO CongNo
+				VALUES(NEWID(), 'CN1', @IdDaiLy, GETDATE(), @TongTien)
+		END
+		ELSE
+		BEGIN
+			DECLARE @STT INT = CAST(SUBSTRING(@MaCongNo, 3, LEN(@MaCongNo)) AS INT)
+			SET @STT = @STT + 1
+			SET @MaCongNo = 'CN' + CONVERT(VARCHAR(8), @STT)
+			--Thêm công nợ--
+			INSERT INTO CongNo
+				VALUES(NEWID(), @MaCongNo, @IdDaiLy, GETDATE(), @TongTien)
+		END
+	END
+GO

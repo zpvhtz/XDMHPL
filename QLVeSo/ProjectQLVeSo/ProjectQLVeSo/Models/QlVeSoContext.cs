@@ -39,7 +39,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<CongNo>(entity =>
             {
                 entity.HasIndex(e => e.MaCongNo)
-                    .HasName("UQ__CongNo__E452A01F8CBEF735")
+                    .HasName("UQ__CongNo__E452A01FFF0E1F2F")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -60,7 +60,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<DaiLy>(entity =>
             {
                 entity.HasIndex(e => e.MaDaiLy)
-                    .HasName("UQ__DaiLy__069B00B2FEDC8D0F")
+                    .HasName("UQ__DaiLy__069B00B286472C06")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -101,7 +101,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<Giai>(entity =>
             {
                 entity.HasIndex(e => e.MaGiai)
-                    .HasName("UQ__Giai__747065BF8FDFB8DC")
+                    .HasName("UQ__Giai__747065BF62E2B4A1")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -129,7 +129,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<KetQuaXoSo>(entity =>
             {
                 entity.HasIndex(e => e.MaKetQua)
-                    .HasName("UQ__KetQuaXo__D5B3102B89F1C47E")
+                    .HasName("UQ__KetQuaXo__D5B3102BD8A2E211")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -159,7 +159,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<LoaiVeSo>(entity =>
             {
                 entity.HasIndex(e => e.MaLoaiVeSo)
-                    .HasName("UQ__LoaiVeSo__4AFD9B5E3F2F6425")
+                    .HasName("UQ__LoaiVeSo__4AFD9B5E06B4B614")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -194,7 +194,7 @@ namespace ProjectQLVeSo.Models
             modelBuilder.Entity<PhieuThu>(entity =>
             {
                 entity.HasIndex(e => e.MaPhieuThu)
-                    .HasName("UQ__PhieuThu__1D8B9C68F0567E19")
+                    .HasName("UQ__PhieuThu__1D8B9C689E48E0C4")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
