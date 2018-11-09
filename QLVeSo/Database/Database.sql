@@ -1,4 +1,4 @@
-﻿CREATE DATABASE QLVeSo
+﻿ CREATE DATABASE QLVeSo
 GO
 --
 USE QLVeSo
@@ -49,6 +49,7 @@ CREATE TABLE Giai
 	MaGiai VARCHAR(10) UNIQUE NOT NULL,
 	TenGiai NVARCHAR(20),
 	SoLuong INT,
+	So INT,
 	GiaiThuong FLOAT
 )
 
@@ -80,6 +81,13 @@ CREATE TABLE PhieuThu
 	TongTien FLOAT
 )
 
+CREATE TABLE KetQuaChung
+(
+	Id UNIQUEIDENTIFIER PRIMARY KEY,
+	IdLoaiVeSo UNIQUEIDENTIFIER NOT NULL, --FK--
+	Ngay DATE
+)
+
 --CONSTRAINT--
 ALTER TABLE DangKy
 	ADD
@@ -104,6 +112,10 @@ ALTER TABLE PhieuThu
 	ADD
 		CONSTRAINT FK_PhieuThu_DaiLy_IdDaiLy FOREIGN KEY (IdDaiLy) REFERENCES DaiLy(Id)
 
+ALTER TABLE KetQuaChung
+	ADD
+		CONSTRAINT FK_KetQuaChung_LoaiVeSo_IdLoaiVeSo FOREIGN KEY (IdLoaiVeSo) REFERENCES LoaiVeSo(Id)
+
 --ADD DATA--
 INSERT INTO LoaiVeSo
 	VALUES('EE5A75E6-89C5-461E-B11B-D3E23D78F550', 'VSBT', N'Bến Tre', N'Không khoá'),
@@ -123,7 +135,7 @@ INSERT INTO LoaiVeSo
 GO
 
 INSERT INTO DaiLy
-	VALUES('1D627550-FDCB-4DF8-8141-A5AD9900FB2B','DL01',N'Đại lý 1',N'26 Nguuyễn Trãi',N'0935263748',N'Không khoá'),
+	VALUES('1D627550-FDCB-4DF8-8141-A5AD9900FB2B','DL01',N'Đại lý 1',N'26 Nguyễn Trãi',N'0935263748',N'Không khoá'),
 		  ('0064E9B1-2992-4258-B800-D4BAFC43EAF7','DL02',N'Đại lý 2',N'73 An Dương Vương',N'0943728574',N'Không khoá'),
 		  ('44FA4066-84B9-44EC-924B-8CA535314CD3','DL03',N'Đại lý 3',N'94 Kinh Dương Vương',N'0912345673',N'Không khoá'),
 		  ('4411C19D-E4C2-46B6-8AA1-0FDE5A36234D','DL04',N'Đại lý 4',N'122 Vĩnh Viễn',N'0962835263',N'Không khoá'),
@@ -138,13 +150,13 @@ INSERT INTO DangKy
 GO
 
 INSERT INTO Giai
-	VALUES('F101435C-5B2C-4CFA-A7BC-8BA084B927B2', 'GT01', N'Giải nhất', 1, 100000000),
-		  ('0AC9EB03-5337-4DE2-A5DA-BA50D461D629', 'GT02', N'Giải nhất', 1, 50000000),
-		  ('3A105C1F-05CF-4876-994C-650966A1063F', 'GT03', N'Giải nhì', 2, 10000000),
-		  ('A92F5315-9EE3-4446-AAD7-BB6AD4B57BF1', 'GT04', N'Giải ba', 6, 5000000),
-		  ('D8141097-2D65-4479-8CE1-E7A829437B01', 'GT05', N'Giải tư', 4, 1000000),
-		  ('4DD94283-19AB-4332-9436-68CF3CCB91D1', 'GT06', N'Giải năm', 6, 500000),
-		  ('51B7F172-B28B-4D6A-A659-B53F2D80A0DC', 'GT07', N'Giải sáu', 3, 200000)
+	VALUES('F101435C-5B2C-4CFA-A7BC-8BA084B927B2', 'GT01', N'Giải đặc biệt', 1, 6, 100000000),
+		  ('0AC9EB03-5337-4DE2-A5DA-BA50D461D629', 'GT02', N'Giải nhất', 1, 5, 50000000),
+		  ('3A105C1F-05CF-4876-994C-650966A1063F', 'GT03', N'Giải nhì', 2, 5, 10000000),
+		  ('A92F5315-9EE3-4446-AAD7-BB6AD4B57BF1', 'GT04', N'Giải ba', 6, 5, 5000000),
+		  ('D8141097-2D65-4479-8CE1-E7A829437B01', 'GT05', N'Giải tư', 4, 5, 1000000),
+		  ('4DD94283-19AB-4332-9436-68CF3CCB91D1', 'GT06', N'Giải năm', 6, 4, 500000),
+		  ('51B7F172-B28B-4D6A-A659-B53F2D80A0DC', 'GT07', N'Giải sáu', 3, 4, 200000)
 GO
 
 --Hàm tự động thêm số lượng giao--
@@ -155,11 +167,16 @@ AS
 	SELECT Table2.IdDaiLy, Table2.IdLoaiVeSo, Table2.SoLuong
 	FROM
 	(
-		SELECT IdDaiLy, MAX(NgayDangKy) AS NgayDangKy
+		SELECT DISTINCT IdLoaiVeSo, MAX(NgayDangKy) AS NgayDangKy
 		FROM DangKy
-		GROUP BY IdDaiLy
+		WHERE IdDaiLy IN
+		(
+			SELECT DISTINCT IdDaiLy
+			FROM DangKy
+		)
+		GROUP BY IdLoaiVeSo
 	) AS Table1, DangKy as Table2
-	WHERE Table1.IdDaiLy = Table2.IdDaiLy AND Table1.NgayDangKy = Table2.NgayDangKy
+	WHERE Table1.IdLoaiVeSo = Table2.IdLoaiVeSo AND Table1.NgayDangKy = Table2.NgayDangKy
 	--
 	DECLARE @IdDaiLy UNIQUEIDENTIFIER
 	DECLARE @IdLoaiVeSo UNIQUEIDENTIFIER
@@ -177,14 +194,14 @@ AS
 			(
 				SELECT TOP 1 *
 				FROM PhanPhoi
-				WHERE IdDaiLy = @IdDaiLy
+				WHERE IdDaiLy = @IdDaiLy AND IdLoaiVeSo = @IdLoaiVeSo
 			)
 			BEGIN
 				DECLARE @CheckTiLe FLOAT
 				--
 				SELECT @CheckTiLe = TiLe
 				FROM PhanPhoi
-				WHERE IdDaiLy = @IdDaiLy
+				WHERE IdDaiLy = @IdDaiLy AND IdLoaiVeSo = @IdLoaiVeSo
 				--
 				IF(@CheckTiLe IS NOT NULL)
 				BEGIN
@@ -197,7 +214,7 @@ AS
 					(
 						SELECT TOP 3 Id
 						FROM PhanPhoi
-						WHERE IdDaiLy = @IdDaiLy
+						WHERE IdDaiLy = @IdDaiLy AND IdLoaiVeSo = @IdLoaiVeSo
 						ORDER BY Ngay DESC
 					)
 					--Insert vào bảng--
@@ -268,6 +285,39 @@ AS
 	END
 GO
 
+--Tự động cho mọi số lượng đăng ký bằng 0 khi bị khoá--
+CREATE TRIGGER TG_Khoa_DaiLy ON DaiLy AFTER UPDATE
+AS
+	DECLARE @TinhTrang NVARCHAR(20)
+	DECLARE @IdDaiLy UNIQUEIDENTIFIER
+	--
+	SELECT @IdDaiLy = Id, @TinhTrang = TinhTrang
+	FROM inserted
+	--
+	IF(@TinhTrang = N'Khoá')
+	BEGIN
+		DECLARE CUR CURSOR FOR
+		SELECT DISTINCT IdLoaiVeSo
+		FROM DangKy
+		WHERE IdDaiLy = '1D627550-FDCB-4DF8-8141-A5AD9900FB2B'
+		GROUP BY IdLoaiVeSo
+		--
+		DECLARE @IdLoaiVeSo UNIQUEIDENTIFIER
+		--
+		OPEN CUR
+		FETCH NEXT FROM CUR INTO @IdLoaiVeSo --Chạy từng dòng trong table đã khai báo trên--
+		WHILE @@FETCH_STATUS = 0 --Nếu con trỏ còn dữ liệu để trỏ đến--
+		BEGIN
+			INSERT INTO DangKy
+				VALUES(NEWID(), @IdDaiLy, @IdLoaiVeSo, GETDATE(), 0)
+			--
+			FETCH NEXT FROM CUR INTO @IdLoaiVeSo
+		END
+		CLOSE CUR
+		DEALLOCATE CUR
+	END
+GO
+
 --Hàm tự động thêm kết quả xổ số--
 CREATE PROC Them_KetQuaXoSo(@IdLoaiVeSo UNIQUEIDENTIFIER)
 AS
@@ -288,26 +338,89 @@ AS
 		BEGIN
 			DECLARE @MaKetQua VARCHAR(10)
 			--
-			DECLARE @SoTrung VARCHAR(10) = ROUND(RAND() * 100000, 0)
+			DECLARE @SoTrung VARCHAR(20) = ROUND(RAND() * 100000, 0)
 			--
-			SELECT @MaKetQua = MaKetQua
+			SELECT TOP 1 @MaKetQua = MaKetQua
 			FROM KetQuaXoSo
-			ORDER BY MaKetQua DESC
+			ORDER BY CAST(SUBSTRING(MaKetQua, 5, LEN(MaKetQua)) AS INT) DESC
 			--
 			IF(@MaKetQua IS NULL)
 			BEGIN
-				INSERT INTO KetQuaXoSo VALUES(NEWID(), @IdLoaiVeSo, 'KQXS1', GETDATE(), @IdGiai, @SoTrung)
+				INSERT INTO KetQuaXoSo VALUES(NEWID(), 'KQXS1', CONVERT(VARCHAR(36), @IdLoaiVeSo), CONVERT(DATE, GETDATE()), CONVERT(VARCHAR(36), @IdGiai), @SoTrung)
 			END
 			ELSE
 			BEGIN
 				DECLARE @STT INT = CAST(SUBSTRING(@MaKetQua, 5, LEN(@MaKetQua)) AS INT)
 				SET @STT = @STT + 1
-				SET @MaKetQua = 'KQXS' + CONVERT(VARCHAR, @STT)
-				INSERT INTO KetQuaXoSo VALUES(NEWID(), @IdLoaiVeSo, @MaKetQua, GETDATE(), @IdGiai, @SoTrung)
+				SET @MaKetQua = 'KQXS' + CONVERT(VARCHAR(8), @STT)
+				INSERT INTO KetQuaXoSo VALUES(NEWID(), @MaKetQua, @IdLoaiVeSo, GETDATE(), @IdGiai, @SoTrung)
 			END
+			--
+			SET @I += 1
 		END
 		FETCH NEXT FROM CUR INTO @IdGiai, @MaGiai, @SoLuong
 	END
 	CLOSE CUR
 	DEALLOCATE CUR
+GO
+
+--Hàm tự động thêm Loại vé số và ngày cho table KetQuaChung--
+CREATE TRIGGER TG_Them_KetQuaChung ON KetQuaXoSo AFTER INSERT
+AS
+	DECLARE @IdLoaiVeSo UNIQUEIDENTIFIER
+	DECLARE @Ngay DATE
+	--
+	SELECT @IdLoaiVeSo = IdLoaiVeSo, @Ngay = Ngay
+	FROM inserted
+	--
+	IF NOT EXISTS
+	(
+		SELECT *
+		FROM KetQuaChung
+		WHERE IdLoaiVeSo = @IdLoaiVeSo AND Ngay = @Ngay
+	)
+	BEGIN
+		INSERT INTO KetQuaChung
+			VALUES(NEWID(), @IdLoaiVeSo, @Ngay)
+	END
+GO
+
+--Hàm tự động thêm công nợ sau đi có số lượng bán--
+CREATE TRIGGER TG_Them_CongNo ON PhanPhoi AFTER UPDATE
+AS
+	DECLARE @TiLe FLOAT
+	DECLARE @SoLuongBan INT
+	DECLARE @IdDaiLy UNIQUEIDENTIFIER
+	--
+	SELECT @IdDaiLy = IdDaiLy, @SoLuongBan = SoLuongBan, @TiLe = TiLe
+	FROM inserted
+	--
+	IF(@TiLe IS NOT NULL)
+	BEGIN
+		DECLARE @MaCongNo VARCHAR(10)
+		DECLARE @TongTien FLOAT
+		DECLARE @GiaTriMoiVe FLOAT = 10000
+		DECLARE @TiLeHoaHong FLOAT = 0.1
+		--
+		SET @TongTien = CAST(@SoLuongBan AS FLOAT) * @GiaTriMoiVe * (1 - @TiLeHoaHong)
+		--Tính mã công nợ--
+		SELECT TOP 1 @MaCongNo = MaCongNo
+		FROM CongNo
+		ORDER BY CAST(SUBSTRING(MaCongNo, 3, LEN(MaCongNo)) AS INT) DESC
+		--
+		IF(@MaCongNo IS NULL)
+		BEGIN
+			INSERT INTO CongNo
+				VALUES(NEWID(), 'CN1', @IdDaiLy, GETDATE(), @TongTien)
+		END
+		ELSE
+		BEGIN
+			DECLARE @STT INT = CAST(SUBSTRING(@MaCongNo, 3, LEN(@MaCongNo)) AS INT)
+			SET @STT = @STT + 1
+			SET @MaCongNo = 'CN' + CONVERT(VARCHAR(8), @STT)
+			--Thêm công nợ--
+			INSERT INTO CongNo
+				VALUES(NEWID(), @MaCongNo, @IdDaiLy, GETDATE(), @TongTien)
+		END
+	END
 GO

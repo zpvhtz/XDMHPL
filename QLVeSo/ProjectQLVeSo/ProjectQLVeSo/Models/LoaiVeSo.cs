@@ -8,6 +8,7 @@ namespace ProjectQLVeSo.Models
         public LoaiVeSo()
         {
             DangKy = new HashSet<DangKy>();
+            KetQuaChung = new HashSet<KetQuaChung>();
             KetQuaXoSo = new HashSet<KetQuaXoSo>();
             PhanPhoi = new HashSet<PhanPhoi>();
         }
@@ -18,6 +19,7 @@ namespace ProjectQLVeSo.Models
         public string TinhTrang { get; set; }
 
         public ICollection<DangKy> DangKy { get; set; }
+        public ICollection<KetQuaChung> KetQuaChung { get; set; }
         public ICollection<KetQuaXoSo> KetQuaXoSo { get; set; }
         public ICollection<PhanPhoi> PhanPhoi { get; set; }
     }
