@@ -72,11 +72,18 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 CREATE TABLE [dbo].[LoaiCuoc](
+	[STT] [int] IDENTITY(1,1) NOT NULL,
+	[MaLoaiCuoc] [varchar](10) NOT NULL,
 	[TG_BatDau] [time](7) NOT NULL,
 	[TG_KetThuc] [time](7) NOT NULL,
+	[NgayApdung] [datetime] NOT NULL,
 	[GiaCuoc] [decimal](18, 0) NOT NULL,
 	[Status] [bit] NOT NULL
-) ON [PRIMARY]
+PRIMARY KEY
+(
+	[STT] ASC
+)
+)
 
 SET ANSI_NULLS ON
 GO
@@ -130,11 +137,13 @@ INSERT [dbo].[Sim] ([MaSim], [SoSim], [Status]) VALUES (11, N'81115750140', 1)
 INSERT [dbo].[Sim] ([MaSim], [SoSim], [Status]) VALUES (12, N'89215660137', 1)
 
 /*LoaiCuoc*/
-INSERT [dbo].[LoaiCuoc] ([TG_BatDau], [TG_KetThuc], [GiaCuoc], [Status]) VALUES (CAST(N'07:00:00' AS Time), CAST(N'23:00:00' AS Time), CAST(200 AS Decimal(18, 0)), 1)
-INSERT [dbo].[LoaiCuoc] ([TG_BatDau], [TG_KetThuc], [GiaCuoc], [Status]) VALUES (CAST(N'23:00:00' AS Time), CAST(N'07:00:00' AS Time), CAST(150 AS Decimal(18, 0)), 1)
+SET IDENTITY_INSERT Sim OFF
+SET IDENTITY_INSERT LoaiCuoc ON
+INSERT [dbo].[LoaiCuoc] ([STT],[MaLoaiCuoc],[TG_BatDau], [TG_KetThuc], [NgayApdung], [GiaCuoc], [Status]) VALUES (1,'Ngay',CAST(N'07:00:00' AS Time), CAST(N'23:00:00' AS Time), CAST(N'2018-12-07T21:47:03.000' AS DateTime), CAST(200 AS Decimal(18, 0)), 1)
+INSERT [dbo].[LoaiCuoc] ([STT],[MaLoaiCuoc],[TG_BatDau], [TG_KetThuc], [NgayApdung], [GiaCuoc], [Status]) VALUES (2,'Dem',CAST(N'23:00:00' AS Time), CAST(N'07:00:00' AS Time), CAST(N'2018-12-07T21:47:03.000' AS DateTime), CAST(150 AS Decimal(18, 0)), 1)
 
 /*KhachHang*/
-SET IDENTITY_INSERT SIM OFF
+SET IDENTITY_INSERT LoaiCuoc OFF
 SET IDENTITY_INSERT KhachHang ON
 INSERT [dbo].[KhachHang] ([MaKH], [TenKH], [CMND], [NgheNghiep], [DiaChi], [Status]) VALUES (0, N'CTY TNHH THƯƠNG MẠI HOA LỢI', N'25400649', N'Kinh Doanh', N'284/6, NGUYỄN TRỌNG TUYỂN, P.10, PHÚ NHUẬN', 1)
 INSERT [dbo].[KhachHang] ([MaKH], [TenKH], [CMND], [NgheNghiep], [DiaChi], [Status]) VALUES (2, N'NGUYỄN NGỌC HUỲNH NHƯ', N'25454976', N'Bán Hàng', N'30/32 - NGUYỄN BỈNH KHIÊM - P.1 - GÒ VẤP - TP HCM', 1)
@@ -279,3 +288,4 @@ INSERT [dbo].[CuocGoi] ([MaCuocGoi], [MaSim], [TG_BatDau], [TG_KetThuc], [SoPhut
 INSERT [dbo].[CuocGoi] ([MaCuocGoi], [MaSim], [TG_BatDau], [TG_KetThuc], [SoPhutSD], [trangthai]) VALUES (2906, 8, CAST(N'2018-12-06T06:39:43.000' AS DateTime), CAST(N'2018-12-06T12:58:05.000' AS DateTime), 378, 1)
 INSERT [dbo].[CuocGoi] ([MaCuocGoi], [MaSim], [TG_BatDau], [TG_KetThuc], [SoPhutSD], [trangthai]) VALUES (2907, 6, CAST(N'2018-12-28T12:42:18.000' AS DateTime), CAST(N'2018-12-28T15:17:41.000' AS DateTime), 155, 1)
 INSERT [dbo].[CuocGoi] ([MaCuocGoi], [MaSim], [TG_BatDau], [TG_KetThuc], [SoPhutSD], [trangthai]) VALUES (2908, 3, CAST(N'2018-12-04T02:28:48.000' AS DateTime), CAST(N'2018-12-04T07:12:02.000' AS DateTime), 283, 1)
+ SET IDENTITY_INSERT CuocGoi OFF
