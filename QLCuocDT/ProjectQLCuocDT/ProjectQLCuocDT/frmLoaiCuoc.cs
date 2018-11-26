@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.BUS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,16 @@ namespace ProjectQLCuocDT
 {
     public partial class frmLoaiCuoc : Form
     {
+        LoaiCuocBUS loaicuocbus = new LoaiCuocBUS();
+
         public frmLoaiCuoc()
         {
             InitializeComponent();
+        }
+
+        private void frmLoaiCuoc_Load(object sender, EventArgs e)
+        {
+            dgvLoaiCuoc.DataSource = loaicuocbus.GetLoaiCuocs();
         }
     }
 }

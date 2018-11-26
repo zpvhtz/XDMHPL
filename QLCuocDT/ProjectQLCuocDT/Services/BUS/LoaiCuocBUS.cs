@@ -11,5 +11,9 @@ namespace Services.BUS
     {
         private QLCuocDTEntities db = new QLCuocDTEntities();
         
+        public List<LoaiCuoc> GetLoaiCuocs()
+        {
+            return db.LoaiCuocs.ToList();
+        }
     }
 }

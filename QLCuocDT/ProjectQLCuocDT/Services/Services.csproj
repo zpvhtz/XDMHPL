@@ -96,7 +96,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Database\QLCuocDT.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
