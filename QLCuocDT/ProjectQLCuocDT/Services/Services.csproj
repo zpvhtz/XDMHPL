@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,15 +49,68 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\LoaiCuocBUS.cs" />
+    <Compile Include="Database\CuocGoi.cs">
+      <DependentUpon>QLCuocDT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HoaDonDK.cs">
+      <DependentUpon>QLCuocDT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HoaDonThanhToan.cs">
+      <DependentUpon>QLCuocDT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\KhachHang.cs">
+      <DependentUpon>QLCuocDT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\LoaiCuoc.cs">
+      <DependentUpon>QLCuocDT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\QLCuocDT.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLCuocDT.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\QLCuocDT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLCuocDT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\QLCuocDT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLCuocDT.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Sim.cs">
+      <DependentUpon>QLCuocDT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Database\QLCuocDT.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLCuocDT.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Database\QLCuocDT.edmx.diagram">
+      <DependentUpon>QLCuocDT.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="BUS\" />
-    <Folder Include="Database\" />
+    <Content Include="Database\QLCuocDT.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLCuocDT.edmx</DependentUpon>
+      <LastGenOutput>QLCuocDT.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Database\QLCuocDT.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLCuocDT.edmx</DependentUpon>
+      <LastGenOutput>QLCuocDT.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
