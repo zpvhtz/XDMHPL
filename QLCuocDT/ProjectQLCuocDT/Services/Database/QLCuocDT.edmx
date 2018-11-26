@@ -298,7 +298,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QLCuocDTEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="QLCuocDTEntities" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="CuocGois" EntityType="Self.CuocGoi" />
           <EntitySet Name="HoaDonDKs" EntityType="Self.HoaDonDK" />
           <EntitySet Name="HoaDonThanhToans" EntityType="Self.HoaDonThanhToan" />

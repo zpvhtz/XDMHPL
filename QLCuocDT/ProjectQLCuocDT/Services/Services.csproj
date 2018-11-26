@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\CuocGoiBUS.cs" />
     <Compile Include="BUS\LoaiCuocBUS.cs" />
     <Compile Include="Database\CuocGoi.cs">
       <DependentUpon>QLCuocDT.tt</DependentUpon>
@@ -83,6 +84,8 @@
     <Compile Include="Database\Sim.cs">
       <DependentUpon>QLCuocDT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CuocGoiModel.cs" />
+    <Compile Include="Models\LoaiCuocModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
