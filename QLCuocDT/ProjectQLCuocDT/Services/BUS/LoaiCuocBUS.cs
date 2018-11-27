@@ -67,5 +67,13 @@ namespace Services.BUS
             db.SaveChanges();
             return "Sửa thành công";
         }
+
+        public List<LoaiCuoc> SearchLoaiCuoc(string search)
+        {
+            List<LoaiCuoc> list = db.LoaiCuocs.Where(lc => lc.MaLoaiCuoc.Contains(search) ||
+                                                           lc.GiaCuoc.ToString().Contains(search))
+                                              .ToList();
+            return list;
+        }
     }
 }

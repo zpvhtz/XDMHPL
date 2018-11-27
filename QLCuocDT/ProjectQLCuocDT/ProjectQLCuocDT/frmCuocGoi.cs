@@ -155,5 +155,19 @@ namespace ProjectQLCuocDT
             }
             return tgkt;
         }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            if (txtTimKiem.Text == "")
+            {
+                MessageBox.Show("Nhập vào thông tin cần tìm kiếm");
+            }
+            else
+            {
+                string search = txtTimKiem.Text;
+                dgvCuocGoi.DataSource = cuocgoibus.SearchCuocGoi(search);
+                GetFirstValueDataGridView();
+            }
+        }
     }
 }

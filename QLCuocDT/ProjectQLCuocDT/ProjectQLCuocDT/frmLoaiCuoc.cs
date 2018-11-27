@@ -142,5 +142,19 @@ namespace ProjectQLCuocDT
             dgvLoaiCuoc.DataSource = loaicuocbus.GetLoaiCuocs();
             GetFirstValueDataGridView();
         }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            if(txtTimKiem.Text == "")
+            {
+                MessageBox.Show("Nhập vào thông tin cần tìm kiếm");
+            }
+            else
+            {
+                string search = txtTimKiem.Text;
+                dgvLoaiCuoc.DataSource = loaicuocbus.SearchLoaiCuoc(search);
+                GetFirstValueDataGridView();
+            }
+        }
     }
 }

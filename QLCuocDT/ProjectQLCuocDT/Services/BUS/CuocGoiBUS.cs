@@ -58,5 +58,14 @@ namespace Services.BUS
             db.SaveChanges();
             return "Thay đổi thành công";
         }
+
+        public List<CuocGoi> SearchCuocGoi(string search)
+        {
+            List<CuocGoi> list = db.CuocGois.Where(c => c.MaCuocGoi.ToString().Contains(search) ||
+                                                        c.MaSim.ToString().Contains(search) ||
+                                                        c.Sim.SoSim.Contains(search))
+                                            .ToList();
+            return list;
+        }
     }
 }
