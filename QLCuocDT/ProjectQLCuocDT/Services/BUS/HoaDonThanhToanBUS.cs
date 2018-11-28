@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services.BUS
 {
-    public class HoaDonThanhToanBUS
+    public partial class HoaDonThanhToanBUS
     {
         private QLCuocDTEntities db = new QLCuocDTEntities();
 

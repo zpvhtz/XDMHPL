@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BUS\CuocGoiBUS.cs" />
     <Compile Include="BUS\HoaDonThanhToanBUS.cs" />
+    <Compile Include="BUS\HoaDonThanhToanBUS_Email.cs" />
     <Compile Include="BUS\LoaiCuocBUS.cs" />
     <Compile Include="Database\CuocGoi.cs">
       <DependentUpon>QLCuocDT.tt</DependentUpon>

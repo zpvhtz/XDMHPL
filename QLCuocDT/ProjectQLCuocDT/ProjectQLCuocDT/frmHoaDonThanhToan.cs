@@ -1,4 +1,5 @@
 ﻿using Services.BUS;
+using Services.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -78,6 +79,11 @@ namespace ProjectQLCuocDT
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
             RefreshPage();
+        }
+
+        private async void btnGuiEmail_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(await hoadonthanhtoanbus.ActivationMail());
         }
     }
 }
