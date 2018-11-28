@@ -12,8 +12,6 @@ AS
 	--
 	SELECT @MaKH = hd.MaKH, @MaSim = i.MaSim, @TG_BatDau = TG_BatDau, @TG_KetThuc = TG_KetThuc
 	FROM inserted i JOIN HoaDonDK hd ON i.MaSim = hd.MaSim
-
-	PRINT @MaKH
 	--
 	SET @TG_Loop = @TG_BatDau
 	WHILE(@TG_Loop < @TG_KetThuc)
@@ -21,10 +19,19 @@ AS
 		DECLARE @GiaCuoc DECIMAL(18, 0)
 		DECLARE @TG_Goi TIME = CONVERT(TIME, DATEADD(MINUTE, 1, @TG_Loop))
 		--
-		SELECT @GiaCuoc = GiaCuoc
-		FROM LoaiCuoc
-		WHERE (@TG_Loop >= NgayApdung) AND (@TG_Goi BETWEEN TG_BatDau AND TG_KetThuc) AND (Status = 1)
-		ORDER BY NgayApdung DESC
+		IF(@TG_Goi >= '07:00:00' AND @TG_Goi < '23:00:00')
+		BEGIN
+			SELECT @GiaCuoc = GiaCuoc
+			FROM LoaiCuoc
+			WHERE (@TG_Loop >= NgayApdung) AND (TG_BatDau = '07:00:00') AND (Status = 1)
+			ORDER BY NgayApdung DESC
+		END
+		ELSE
+		BEGIN
+			SELECT @GiaCuoc = GiaCuoc
+			FROM LoaiCuoc
+			WHERE (@TG_Loop >= NgayApdung) AND (TG_BatDau = '23:00:00') AND (Status = 1)
+		END
 		--
 		SET @TongTien = @TongTien + @GiaCuoc
 		SET @TG_Loop = DATEADD(MINUTE, 1, @TG_Loop)
@@ -34,20 +41,16 @@ AS
 	(
 		SELECT *
 		FROM HoaDonThanhToan
-		WHERE (MaSim = @MaSim) AND (MONTH(GETDATE()) = MONTH(NgayHD))
+		WHERE (MaSim = @MaSim) AND (MONTH(NgayHD) = MONTH(@TG_BatDau))
 	)
 	BEGIN
 		UPDATE HoaDonThanhToan
-		SET ThanhTien = ThanhTien + @TongTien
-		WHERE (MaSim = @MaSim) AND (MONTH(GETDATE()) = MONTH(NgayHD))
+		SET ThanhTien = ThanhTien + @TongTien, NgayHD = @TG_BatDau
+		WHERE (MaSim = @MaSim) AND (MONTH(NgayHD) = MONTH(@TG_BatDau))
 	END
 	ELSE
 	BEGIN
 		INSERT INTO HoaDonThanhToan(MaKH, MaSim, CuocThueBao, NgayHD, ThanhToan, ThanhTien, Status)
-			VALUES(@MaKH, @MaSim, 50000, GETDATE(), 0, @TongTien, 1)
+			VALUES(@MaKH, @MaSim, 50000, @TG_BatDau, 0, @TongTien, 1)
 	END
 GO
-
-INSERT INTO CuocGoi(MaSim, TG_BatDau, TG_KetThuc, SoPhutSD, trangthai)
-	VALUES (11, '07:01:01', '07:02:01', 1, 1)
-select * from CuocGoi
