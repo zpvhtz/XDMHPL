@@ -78,7 +78,7 @@ namespace ProjectQLCuocDT
         private void btnSua_Click(object sender, EventArgs e)
         {
             string maloaicuoc = txtMaLoaiCuoc.Text;
-            TimeSpan tgbd = TimeSpan.Parse(dtpTGKT.Value.ToString("HH:mm:ss"));
+            TimeSpan tgbd = TimeSpan.Parse(dtpTGBD.Value.ToString("HH:mm:ss"));
             TimeSpan tgkt = TimeSpan.Parse(dtpTGKT.Value.ToString("HH:mm:ss"));
             DateTime ngayapdung = dtpNgayApDung.Value;
             decimal giacuoc = decimal.Parse(numericGiaCuoc.Value.ToString());

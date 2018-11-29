@@ -14,6 +14,7 @@
           <Property Name="TG_BatDau" Type="datetime" Nullable="false" />
           <Property Name="TG_KetThuc" Type="datetime" Nullable="false" />
           <Property Name="SoPhutSD" Type="int" Nullable="false" />
+          <Property Name="PhiCuocGoi" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="trangthai" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="HoaDonDK">
@@ -47,7 +48,8 @@
           <Property Name="TenKH" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CMND" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NgheNghiep" Type="nvarchar" MaxLength="50" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="LoaiCuoc">
@@ -172,6 +174,7 @@
           <Property Name="TG_BatDau" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TG_KetThuc" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SoPhutSD" Type="Int32" Nullable="false" />
+          <Property Name="PhiCuocGoi" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="trangthai" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sim" Relationship="Self.FK_CuocGoi_Sim" FromRole="CuocGoi" ToRole="Sim" />
         </EntityType>
@@ -210,7 +213,8 @@
           <Property Name="TenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CMND" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NgheNghiep" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="HoaDonDKs" Relationship="Self.FK_HoaDonDK_KhachHang" FromRole="KhachHang" ToRole="HoaDonDK" />
           <NavigationProperty Name="HoaDonThanhToans" Relationship="Self.FK_HoaDonThanhToan_KhachHang" FromRole="KhachHang" ToRole="HoaDonThanhToan" />
@@ -340,6 +344,7 @@
                 <ScalarProperty Name="TG_BatDau" ColumnName="TG_BatDau" />
                 <ScalarProperty Name="TG_KetThuc" ColumnName="TG_KetThuc" />
                 <ScalarProperty Name="SoPhutSD" ColumnName="SoPhutSD" />
+                <ScalarProperty Name="PhiCuocGoi" ColumnName="PhiCuocGoi" />
                 <ScalarProperty Name="trangthai" ColumnName="trangthai" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -377,6 +382,7 @@
                 <ScalarProperty Name="CMND" ColumnName="CMND" />
                 <ScalarProperty Name="NgheNghiep" ColumnName="NgheNghiep" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>

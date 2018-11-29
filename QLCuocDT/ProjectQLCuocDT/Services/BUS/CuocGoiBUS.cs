@@ -46,6 +46,7 @@ namespace Services.BUS
             cuocgoi.TG_BatDau = tgbd;
             cuocgoi.TG_KetThuc = tgkt;
             cuocgoi.SoPhutSD = sophutsd;
+            cuocgoi.PhiCuocGoi = 0;
             cuocgoi.trangthai = true;
             db.CuocGois.Add(cuocgoi);
             db.SaveChanges();
