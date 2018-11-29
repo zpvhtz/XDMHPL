@@ -19,6 +19,7 @@ namespace Services.Database
         public System.DateTime TG_BatDau { get; set; }
         public System.DateTime TG_KetThuc { get; set; }
         public int SoPhutSD { get; set; }
+        public decimal PhiCuocGoi { get; set; }
         public bool trangthai { get; set; }
     
         public virtual Sim Sim { get; set; }

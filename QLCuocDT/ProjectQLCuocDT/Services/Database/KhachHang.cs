@@ -26,6 +26,7 @@ namespace Services.Database
         public string CMND { get; set; }
         public string NgheNghiep { get; set; }
         public string DiaChi { get; set; }
+        public string Email { get; set; }
         public bool Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
