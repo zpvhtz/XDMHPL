@@ -85,5 +85,101 @@ namespace ProjectQLCuocDT
         {
             MessageBox.Show(await hoadonthanhtoanbus.ActivationMail());
         }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            if(cbbFilter.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn mục cần lọc");
+            }
+            else
+            {
+                string filteritem = "";
+                string filter = "null";
+
+                switch (cbbFilter.SelectedItem.ToString())
+                {
+                    case "Thành tiền":
+                        filteritem = cbbFilter.SelectedItem.ToString();
+                        decimal thanhtienmin = numericFilterThanhTienMin.Value;
+                        decimal thanhtienmax = numericFilterThanhTienMax.Value;
+                        dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.FilterHoaDonThanhToan(filteritem, filter, null, null, thanhtienmin, thanhtienmax);
+                        GetFirstValueDataGridView();
+                        break;
+                    case "Ngày tạo":
+                        filteritem = cbbFilter.SelectedItem.ToString();
+                        DateTime ngaybdtao = dtpFilterNgayBDTao.Value;
+                        DateTime ngaykttao = dtpFilterNgayKTTao.Value;
+                        dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.FilterHoaDonThanhToan(filteritem, filter, ngaybdtao, ngaykttao, 0, 0);
+                        GetFirstValueDataGridView();
+                        break;
+                    case "Thanh toán":
+                        if (cbbFilterThanhToan.SelectedItem == null)
+                        {
+                            MessageBox.Show("Vui lòng chọn tình trạng thanh toán để lọc");
+                        }
+                        else
+                        {
+                            filteritem = cbbFilter.SelectedItem.ToString();
+                            filter = cbbFilterThanhToan.SelectedItem.ToString();
+                            dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.FilterHoaDonThanhToan(filteritem, filter, null, null, 0, 0);
+                            GetFirstValueDataGridView();
+                        }
+                        break;
+                    case "Tình trạng":
+                        if (cbbTinhTrang.SelectedItem == null)
+                        {
+                            MessageBox.Show("Vui lòng chọn tình trạng để lọc");
+                        }
+                        else
+                        {
+                            filteritem = cbbFilter.SelectedItem.ToString();
+                            filter = cbbTinhTrang.SelectedItem.ToString();
+                            dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.FilterHoaDonThanhToan(filteritem, filter, null, null, 0, 0);
+                            GetFirstValueDataGridView();
+                        }
+                        break;
+                }
+            }
+        }
+
+        private void cbbFilter_SelectedValueChanged(object sender, EventArgs e)
+        {
+            switch (cbbFilter.SelectedItem.ToString())
+            {
+                case "Thành tiền":
+                    dtpFilterNgayBDTao.Visible = false;
+                    dtpFilterNgayKTTao.Visible = false;
+                    numericFilterThanhTienMin.Visible = true;
+                    numericFilterThanhTienMax.Visible = true;
+                    cbbFilterThanhToan.Visible = false;
+                    cbbFilterTinhTrang.Visible = false;
+                    break;
+                case "Ngày tạo":
+                    dtpFilterNgayBDTao.Visible = true;
+                    dtpFilterNgayKTTao.Visible = true;
+                    numericFilterThanhTienMin.Visible = false;
+                    numericFilterThanhTienMax.Visible = false;
+                    cbbFilterThanhToan.Visible = false;
+                    cbbFilterTinhTrang.Visible = false;
+                    break;
+                case "Thanh toán":
+                    dtpFilterNgayBDTao.Visible = false;
+                    dtpFilterNgayKTTao.Visible = false;
+                    numericFilterThanhTienMin.Visible = false;
+                    numericFilterThanhTienMax.Visible = false;
+                    cbbFilterThanhToan.Visible = true;
+                    cbbFilterTinhTrang.Visible = false;
+                    break;
+                case "Tình trạng":
+                    dtpFilterNgayBDTao.Visible = false;
+                    dtpFilterNgayKTTao.Visible = false;
+                    numericFilterThanhTienMin.Visible = false;
+                    numericFilterThanhTienMax.Visible = false;
+                    cbbFilterThanhToan.Visible = false;
+                    cbbFilterTinhTrang.Visible = true;
+                    break;
+            }
+        }
     }
 }

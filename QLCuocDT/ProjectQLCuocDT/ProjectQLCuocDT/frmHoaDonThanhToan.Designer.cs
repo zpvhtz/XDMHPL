@@ -31,7 +31,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnLamMoi = new System.Windows.Forms.Button();
-            this.btnThem = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.txtMaHoaDon = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -60,19 +59,30 @@
             this.txtSoSim = new System.Windows.Forms.TextBox();
             this.numericThanhTien = new System.Windows.Forms.NumericUpDown();
             this.numericCuocThueBao = new System.Windows.Forms.NumericUpDown();
-            this.btnTimKiem = new System.Windows.Forms.Button();
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cbbThanhToan = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cbbFilter = new System.Windows.Forms.ComboBox();
+            this.cbbFilterThanhToan = new System.Windows.Forms.ComboBox();
+            this.cbbFilterTinhTrang = new System.Windows.Forms.ComboBox();
+            this.dtpFilterNgayBDTao = new System.Windows.Forms.DateTimePicker();
+            this.dtpFilterNgayKTTao = new System.Windows.Forms.DateTimePicker();
+            this.numericFilterThanhTienMin = new System.Windows.Forms.NumericUpDown();
+            this.numericFilterThanhTienMax = new System.Windows.Forms.NumericUpDown();
+            this.btnFilter = new System.Windows.Forms.Button();
+            this.btnTimKiem = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDonThanhToan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericThanhTien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCuocThueBao)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFilterThanhTienMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFilterThanhTienMax)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLamMoi
             // 
-            this.btnLamMoi.Location = new System.Drawing.Point(500, 15);
+            this.btnLamMoi.Location = new System.Drawing.Point(450, 15);
             this.btnLamMoi.Name = "btnLamMoi";
             this.btnLamMoi.Size = new System.Drawing.Size(85, 30);
             this.btnLamMoi.TabIndex = 2;
@@ -80,18 +90,9 @@
             this.btnLamMoi.UseVisualStyleBackColor = true;
             this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
             // 
-            // btnThem
-            // 
-            this.btnThem.Location = new System.Drawing.Point(200, 15);
-            this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(85, 30);
-            this.btnThem.TabIndex = 0;
-            this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = true;
-            // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(350, 15);
+            this.btnSua.Location = new System.Drawing.Point(300, 15);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(85, 30);
             this.btnSua.TabIndex = 1;
@@ -137,7 +138,6 @@
             this.panel1.Controls.Add(this.btnGuiEmail);
             this.panel1.Controls.Add(this.btnLamMoi);
             this.panel1.Controls.Add(this.btnSua);
-            this.panel1.Controls.Add(this.btnThem);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(0, 659);
@@ -147,7 +147,7 @@
             // 
             // btnGuiEmail
             // 
-            this.btnGuiEmail.Location = new System.Drawing.Point(650, 15);
+            this.btnGuiEmail.Location = new System.Drawing.Point(600, 15);
             this.btnGuiEmail.Name = "btnGuiEmail";
             this.btnGuiEmail.Size = new System.Drawing.Size(85, 30);
             this.btnGuiEmail.TabIndex = 3;
@@ -186,7 +186,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvHoaDonThanhToan.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvHoaDonThanhToan.Location = new System.Drawing.Point(0, 336);
+            this.dgvHoaDonThanhToan.Location = new System.Drawing.Point(0, 362);
             this.dgvHoaDonThanhToan.MultiSelect = false;
             this.dgvHoaDonThanhToan.Name = "dgvHoaDonThanhToan";
             this.dgvHoaDonThanhToan.ReadOnly = true;
@@ -396,23 +396,12 @@
             this.numericCuocThueBao.Size = new System.Drawing.Size(200, 24);
             this.numericCuocThueBao.TabIndex = 45;
             // 
-            // btnTimKiem
-            // 
-            this.btnTimKiem.BackgroundImage = global::ProjectQLCuocDT.Properties.Resources.icons8_search_40;
-            this.btnTimKiem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnTimKiem.Location = new System.Drawing.Point(616, 298);
-            this.btnTimKiem.Name = "btnTimKiem";
-            this.btnTimKiem.Size = new System.Drawing.Size(24, 24);
-            this.btnTimKiem.TabIndex = 48;
-            this.btnTimKiem.UseVisualStyleBackColor = true;
-            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
-            // 
             // txtTimKiem
             // 
             this.txtTimKiem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTimKiem.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtTimKiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTimKiem.Location = new System.Drawing.Point(410, 298);
+            this.txtTimKiem.Location = new System.Drawing.Point(230, 318);
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(200, 24);
             this.txtTimKiem.TabIndex = 47;
@@ -421,7 +410,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(335, 300);
+            this.label9.Location = new System.Drawing.Point(155, 320);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(69, 18);
             this.label9.TabIndex = 46;
@@ -439,11 +428,144 @@
             this.cbbThanhToan.Size = new System.Drawing.Size(200, 24);
             this.cbbThanhToan.TabIndex = 49;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(503, 320);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(33, 18);
+            this.label10.TabIndex = 50;
+            this.label10.Text = "Lọc";
+            // 
+            // cbbFilter
+            // 
+            this.cbbFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbFilter.FormattingEnabled = true;
+            this.cbbFilter.Items.AddRange(new object[] {
+            "Ngày tạo",
+            "Thanh toán",
+            "Thành tiền",
+            "Tình trạng"});
+            this.cbbFilter.Location = new System.Drawing.Point(542, 318);
+            this.cbbFilter.Name = "cbbFilter";
+            this.cbbFilter.Size = new System.Drawing.Size(100, 24);
+            this.cbbFilter.TabIndex = 51;
+            this.cbbFilter.SelectedValueChanged += new System.EventHandler(this.cbbFilter_SelectedValueChanged);
+            // 
+            // cbbFilterThanhToan
+            // 
+            this.cbbFilterThanhToan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbFilterThanhToan.FormattingEnabled = true;
+            this.cbbFilterThanhToan.Items.AddRange(new object[] {
+            "Chưa thanh toán",
+            "Đã thanh toán"});
+            this.cbbFilterThanhToan.Location = new System.Drawing.Point(648, 318);
+            this.cbbFilterThanhToan.Name = "cbbFilterThanhToan";
+            this.cbbFilterThanhToan.Size = new System.Drawing.Size(206, 24);
+            this.cbbFilterThanhToan.TabIndex = 52;
+            this.cbbFilterThanhToan.Visible = false;
+            // 
+            // cbbFilterTinhTrang
+            // 
+            this.cbbFilterTinhTrang.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbFilterTinhTrang.FormattingEnabled = true;
+            this.cbbFilterTinhTrang.Items.AddRange(new object[] {
+            "Khoá",
+            "Không khoá"});
+            this.cbbFilterTinhTrang.Location = new System.Drawing.Point(648, 318);
+            this.cbbFilterTinhTrang.Name = "cbbFilterTinhTrang";
+            this.cbbFilterTinhTrang.Size = new System.Drawing.Size(206, 24);
+            this.cbbFilterTinhTrang.TabIndex = 53;
+            // 
+            // dtpFilterNgayBDTao
+            // 
+            this.dtpFilterNgayBDTao.CustomFormat = "dd/MM/yyyy";
+            this.dtpFilterNgayBDTao.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFilterNgayBDTao.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFilterNgayBDTao.Location = new System.Drawing.Point(648, 318);
+            this.dtpFilterNgayBDTao.Name = "dtpFilterNgayBDTao";
+            this.dtpFilterNgayBDTao.Size = new System.Drawing.Size(100, 24);
+            this.dtpFilterNgayBDTao.TabIndex = 55;
+            this.dtpFilterNgayBDTao.Value = new System.DateTime(2018, 11, 26, 13, 34, 23, 0);
+            this.dtpFilterNgayBDTao.Visible = false;
+            // 
+            // dtpFilterNgayKTTao
+            // 
+            this.dtpFilterNgayKTTao.CustomFormat = "dd/MM/yyyy";
+            this.dtpFilterNgayKTTao.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFilterNgayKTTao.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFilterNgayKTTao.Location = new System.Drawing.Point(754, 318);
+            this.dtpFilterNgayKTTao.Name = "dtpFilterNgayKTTao";
+            this.dtpFilterNgayKTTao.Size = new System.Drawing.Size(100, 24);
+            this.dtpFilterNgayKTTao.TabIndex = 56;
+            this.dtpFilterNgayKTTao.Value = new System.DateTime(2018, 11, 26, 13, 34, 23, 0);
+            this.dtpFilterNgayKTTao.Visible = false;
+            // 
+            // numericFilterThanhTienMin
+            // 
+            this.numericFilterThanhTienMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericFilterThanhTienMin.Location = new System.Drawing.Point(648, 318);
+            this.numericFilterThanhTienMin.Maximum = new decimal(new int[] {
+            -1530494977,
+            232830,
+            0,
+            0});
+            this.numericFilterThanhTienMin.Name = "numericFilterThanhTienMin";
+            this.numericFilterThanhTienMin.Size = new System.Drawing.Size(100, 24);
+            this.numericFilterThanhTienMin.TabIndex = 57;
+            this.numericFilterThanhTienMin.Visible = false;
+            // 
+            // numericFilterThanhTienMax
+            // 
+            this.numericFilterThanhTienMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericFilterThanhTienMax.Location = new System.Drawing.Point(754, 318);
+            this.numericFilterThanhTienMax.Maximum = new decimal(new int[] {
+            -1530494977,
+            232830,
+            0,
+            0});
+            this.numericFilterThanhTienMax.Name = "numericFilterThanhTienMax";
+            this.numericFilterThanhTienMax.Size = new System.Drawing.Size(100, 24);
+            this.numericFilterThanhTienMax.TabIndex = 58;
+            this.numericFilterThanhTienMax.Visible = false;
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.BackgroundImage = global::ProjectQLCuocDT.Properties.Resources.icons8_filter_40;
+            this.btnFilter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFilter.Location = new System.Drawing.Point(860, 318);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(24, 24);
+            this.btnFilter.TabIndex = 54;
+            this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
+            // 
+            // btnTimKiem
+            // 
+            this.btnTimKiem.BackgroundImage = global::ProjectQLCuocDT.Properties.Resources.icons8_search_40;
+            this.btnTimKiem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnTimKiem.Location = new System.Drawing.Point(436, 318);
+            this.btnTimKiem.Name = "btnTimKiem";
+            this.btnTimKiem.Size = new System.Drawing.Size(24, 24);
+            this.btnTimKiem.TabIndex = 48;
+            this.btnTimKiem.UseVisualStyleBackColor = true;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
+            // 
             // frmHoaDonThanhToan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.numericFilterThanhTienMax);
+            this.Controls.Add(this.numericFilterThanhTienMin);
+            this.Controls.Add(this.dtpFilterNgayKTTao);
+            this.Controls.Add(this.dtpFilterNgayBDTao);
+            this.Controls.Add(this.btnFilter);
+            this.Controls.Add(this.cbbFilterTinhTrang);
+            this.Controls.Add(this.cbbFilterThanhToan);
+            this.Controls.Add(this.cbbFilter);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.cbbThanhToan);
             this.Controls.Add(this.btnTimKiem);
             this.Controls.Add(this.txtTimKiem);
@@ -474,6 +596,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDonThanhToan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericThanhTien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCuocThueBao)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFilterThanhTienMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFilterThanhTienMax)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -482,7 +606,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnLamMoi;
-        private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.TextBox txtMaHoaDon;
         private System.Windows.Forms.Label label7;
@@ -515,5 +638,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.ComboBox cbbThanhToan;
         private System.Windows.Forms.Button btnGuiEmail;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cbbFilter;
+        private System.Windows.Forms.ComboBox cbbFilterThanhToan;
+        private System.Windows.Forms.ComboBox cbbFilterTinhTrang;
+        private System.Windows.Forms.Button btnFilter;
+        private System.Windows.Forms.DateTimePicker dtpFilterNgayBDTao;
+        private System.Windows.Forms.DateTimePicker dtpFilterNgayKTTao;
+        private System.Windows.Forms.NumericUpDown numericFilterThanhTienMin;
+        private System.Windows.Forms.NumericUpDown numericFilterThanhTienMax;
     }
 }
