@@ -64,6 +64,12 @@
     <Compile Include="frmCuocGoi.Designer.cs">
       <DependentUpon>frmCuocGoi.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmHoaDonDK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHoaDonDK.Designer.cs">
+      <DependentUpon>frmHoaDonDK.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmHoaDonThanhToan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,16 +82,28 @@
     <Compile Include="frmLoaiCuoc.Designer.cs">
       <DependentUpon>frmLoaiCuoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSim.Designer.cs">
+      <DependentUpon>frmSim.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmCuocGoi.resx">
       <DependentUpon>frmCuocGoi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHoaDonDK.resx">
+      <DependentUpon>frmHoaDonDK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHoaDonThanhToan.resx">
       <DependentUpon>frmHoaDonThanhToan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLoaiCuoc.resx">
       <DependentUpon>frmLoaiCuoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSim.resx">
+      <DependentUpon>frmSim.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

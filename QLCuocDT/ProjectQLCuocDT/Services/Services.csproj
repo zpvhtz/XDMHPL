@@ -50,9 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS\CuocGoiBUS.cs" />
+    <Compile Include="BUS\HoaDonDKBUS.cs" />
     <Compile Include="BUS\HoaDonThanhToanBUS.cs" />
     <Compile Include="BUS\HoaDonThanhToanBUS_Email.cs" />
+    <Compile Include="BUS\KhachHangBUS.cs" />
     <Compile Include="BUS\LoaiCuocBUS.cs" />
+    <Compile Include="BUS\SimBUS.cs" />
     <Compile Include="Database\CuocGoi.cs">
       <DependentUpon>QLCuocDT.tt</DependentUpon>
     </Compile>
@@ -87,8 +90,10 @@
       <DependentUpon>QLCuocDT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CuocGoiModel.cs" />
+    <Compile Include="Models\HoaDonDKModel.cs" />
     <Compile Include="Models\HoaDonThanhToanModel.cs" />
     <Compile Include="Models\LoaiCuocModel.cs" />
+    <Compile Include="Models\SimModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
