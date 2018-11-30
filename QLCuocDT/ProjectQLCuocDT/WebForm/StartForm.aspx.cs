@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Services.BUS;
 using Services.Database;
 
 public partial class StartFrom : System.Web.UI.Page
 {
-    //QLCuocDTEntities db = new QLCuocDTEntities();
     QLCuocDTEntities qLCuocDT = new QLCuocDTEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
