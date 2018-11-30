@@ -57,29 +57,68 @@ namespace ProjectQLVeSo.Controllers
         }
 
         // GET: PhieuThu/Create
-        public IActionResult Create(string maphieuthu, string madaily, double tongtien)
+        public IActionResult Create(string madaily, double tongtienno, double tongtienthu)
         {
             //Thông báo
             string thongbao = "";
+            if(tongtienno < tongtienthu)
+            {
+                thongbao = "Tiền thu không lớn hơn tiền nợ";
+                return RedirectToAction("Index", "PhieuThu", new { thongbao = thongbao });
+            }
             //Kiểm tra mã có trùng chưa
-            PhieuThu pt = context.PhieuThu.Where(p => p.MaPhieuThu == maphieuthu).FirstOrDefault();
+            PhieuThu pt = context.PhieuThu.OrderByDescending(pthu => pthu.MaPhieuThu).FirstOrDefault();
             DaiLy daily = context.DaiLy.Where(p => p.MaDaiLy == madaily).SingleOrDefault();
+
             if (pt == null)
             {
-                PhieuThu ptnew = new PhieuThu();
-                ptnew.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
-                ptnew.MaPhieuThu = maphieuthu;
-                ptnew.IdDaiLy = daily.Id;
-                ptnew.Ngay = DateTime.Now;
-                ptnew.TongTien = tongtien;
-                context.PhieuThu.Add(ptnew);
+                PhieuThu phieuthu = new PhieuThu();
+                phieuthu.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
+                phieuthu.MaPhieuThu = "PT1";
+                phieuthu.IdDaiLy = daily.Id;
+                phieuthu.Ngay = DateTime.Now;
+                phieuthu.TongTien = tongtienthu;
+                context.PhieuThu.Add(phieuthu);
                 context.SaveChanges();
                 thongbao = "Thêm thành công";
             }
             else
             {
-                thongbao = "Mã bị trùng";
+                string maphieuthu = pt.MaPhieuThu;
+                maphieuthu = maphieuthu.Substring(2);
+                int newmaphieuthu = int.Parse(maphieuthu);
+                newmaphieuthu += 1;
+                maphieuthu = "PT" + newmaphieuthu.ToString();
+
+                PhieuThu phieuthu = new PhieuThu();
+                phieuthu.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
+                phieuthu.MaPhieuThu = maphieuthu;
+                phieuthu.IdDaiLy = daily.Id;
+                phieuthu.Ngay = DateTime.Now;
+                phieuthu.TongTien = tongtienthu;
+                context.PhieuThu.Add(phieuthu);
+                context.SaveChanges();
+                thongbao = "Thêm thành công";
             }
+
+            CongNo oldcongno = context.CongNo.OrderByDescending(cn => cn.MaCongNo).FirstOrDefault();
+            string macongno = oldcongno.MaCongNo;
+            macongno = macongno.Substring(2);
+            int newmacongno = int.Parse(macongno);
+            newmacongno += 1;
+            macongno = "CN" + newmacongno.ToString();
+
+            //Cập nhật lại công nợ
+            CongNo congno = new CongNo();
+            congno.Id = Guid.Parse(Guid.NewGuid().ToString().ToUpper());
+            congno.MaCongNo = macongno;
+            congno.IdDaiLy = daily.Id;
+            congno.Ngay = DateTime.Now;
+            congno.TongTien = -(tongtienthu);
+
+            context.CongNo.Add(congno);
+            context.SaveChanges();
+
             return RedirectToAction("Index", "PhieuThu", new { thongbao = thongbao });
         }
 

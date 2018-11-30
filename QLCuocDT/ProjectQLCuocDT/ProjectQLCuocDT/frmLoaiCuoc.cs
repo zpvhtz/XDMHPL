@@ -140,7 +140,8 @@ namespace ProjectQLCuocDT
             //dgvLoaiCuoc.DataSource = null;
             //dgvLoaiCuoc.Rows.Clear();
             dgvLoaiCuoc.DataSource = loaicuocbus.GetLoaiCuocs();
-            GetFirstValueDataGridView();
+            if(dgvLoaiCuoc.Rows.Count > 0)
+                GetFirstValueDataGridView();
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
@@ -154,6 +155,81 @@ namespace ProjectQLCuocDT
                 string search = txtTimKiem.Text;
                 dgvLoaiCuoc.DataSource = loaicuocbus.SearchLoaiCuoc(search);
                 GetFirstValueDataGridView();
+            }
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            if (cbbFilter.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn mục cần lọc");
+            }
+            else
+            {
+                string filteritem = "";
+                string filter = "null";
+
+                switch (cbbFilter.SelectedItem.ToString())
+                {
+                    case "Ngày áp dụng":
+                        filteritem = cbbFilter.SelectedItem.ToString();
+                        DateTime ngaybdapdung = dtpFilterNgayBDApDung.Value;
+                        DateTime ngayktapdung = dtpFilterNgayKTApDung.Value;
+                        dgvLoaiCuoc.DataSource = loaicuocbus.FilterLoaiCuoc(filteritem, filter, ngaybdapdung, ngayktapdung, 0, 0);
+                        break;
+                    case "Giá cước":
+                        filteritem = cbbFilter.SelectedItem.ToString();
+                        decimal giacuocmin = numericFilterGiaCuocMin.Value;
+                        decimal giacuocmax = numericFilterGiaCuocMax.Value;
+                        dgvLoaiCuoc.DataSource = loaicuocbus.FilterLoaiCuoc(filteritem, filter, null, null, giacuocmin, giacuocmax);
+                        break;
+                    case "Tình trạng":
+                        filteritem = cbbFilter.SelectedItem.ToString();
+                        if(cbbFilterTinhTrang.SelectedItem == null)
+                        {
+                            MessageBox.Show("Vui lòng chọn tình trạng để lọc");
+                            return;
+                        }
+                        else
+                        {
+                            filter = cbbFilterTinhTrang.SelectedItem.ToString();
+                            dgvLoaiCuoc.DataSource = loaicuocbus.FilterLoaiCuoc(filteritem, filter, null, null, 0, 0);
+                        }
+                        break;
+                }
+                
+                if(dgvLoaiCuoc.Rows.Count > 0)
+                {
+                    GetFirstValueDataGridView();
+                }
+            }
+        }
+
+        private void cbbFilter_SelectedValueChanged(object sender, EventArgs e)
+        {
+            switch (cbbFilter.SelectedItem.ToString())
+            {
+                case "Ngày áp dụng":
+                    dtpFilterNgayBDApDung.Visible = true;
+                    dtpFilterNgayKTApDung.Visible = true;
+                    numericFilterGiaCuocMax.Visible = false;
+                    numericFilterGiaCuocMin.Visible = false;
+                    cbbFilterTinhTrang.Visible = false;
+                    break;
+                case "Giá cước":
+                    dtpFilterNgayBDApDung.Visible = false;
+                    dtpFilterNgayKTApDung.Visible = false;
+                    numericFilterGiaCuocMax.Visible = true;
+                    numericFilterGiaCuocMin.Visible = true;
+                    cbbFilterTinhTrang.Visible = false;
+                    break;
+                case "Tình trạng":
+                    dtpFilterNgayBDApDung.Visible = false;
+                    dtpFilterNgayKTApDung.Visible = false;
+                    numericFilterGiaCuocMax.Visible = false;
+                    numericFilterGiaCuocMin.Visible = false;
+                    cbbFilterTinhTrang.Visible = true;
+                    break;
             }
         }
     }

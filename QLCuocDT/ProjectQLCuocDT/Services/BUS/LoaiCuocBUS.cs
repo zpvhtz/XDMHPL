@@ -75,5 +75,54 @@ namespace Services.BUS
                                               .ToList();
             return list;
         }
+
+        public List<LoaiCuocModel> FilterLoaiCuoc(string filteritem, string filter, DateTime? ngaybdapdung, DateTime? ngayktapdung, decimal giacuocmin, decimal giacuocmax)
+        {
+            List<LoaiCuocModel> list = new List<LoaiCuocModel>();
+            switch(filteritem)
+            {
+                case "Ngày áp dụng":
+                    list = db.LoaiCuocs.Where(lc => lc.NgayApdung >= ngaybdapdung && lc.NgayApdung <= ngayktapdung)
+                                       .Select(lc => new LoaiCuocModel
+                                       {
+                                           STT = lc.STT,
+                                           MaLoaiCuoc = lc.MaLoaiCuoc,
+                                           TG_BatDau = lc.TG_BatDau,
+                                           TG_KetThuc = lc.TG_KetThuc,
+                                           NgayApdung = lc.NgayApdung,
+                                           GiaCuoc = lc.GiaCuoc,
+                                           Status = lc.Status == true ? "Không khoá" : "Khoá"
+                                       }).ToList();
+                    break;
+                case "Giá cước":
+                    list = db.LoaiCuocs.Where(lc => lc.GiaCuoc >= giacuocmin && lc.GiaCuoc <= giacuocmax)
+                                       .Select(lc => new LoaiCuocModel
+                                       {
+                                           STT = lc.STT,
+                                           MaLoaiCuoc = lc.MaLoaiCuoc,
+                                           TG_BatDau = lc.TG_BatDau,
+                                           TG_KetThuc = lc.TG_KetThuc,
+                                           NgayApdung = lc.NgayApdung,
+                                           GiaCuoc = lc.GiaCuoc,
+                                           Status = lc.Status == true ? "Không khoá" : "Khoá"
+                                       }).ToList();
+                    break;
+                case "Tình trạng":
+                    bool tinhtrang = filter == "Không khoá" ? true : false;
+                    list = db.LoaiCuocs.Where(lc => lc.Status == tinhtrang)
+                                       .Select(lc => new LoaiCuocModel
+                                       {
+                                           STT = lc.STT,
+                                           MaLoaiCuoc = lc.MaLoaiCuoc,
+                                           TG_BatDau = lc.TG_BatDau,
+                                           TG_KetThuc = lc.TG_KetThuc,
+                                           NgayApdung = lc.NgayApdung,
+                                           GiaCuoc = lc.GiaCuoc,
+                                           Status = lc.Status == true ? "Không khoá" : "Khoá"
+                                       }).ToList();
+                    break;
+            }
+            return list;
+        }
     }
 }

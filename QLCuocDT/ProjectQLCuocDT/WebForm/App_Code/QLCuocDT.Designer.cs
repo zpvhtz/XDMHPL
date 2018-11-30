@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿// T4 code generation is enabled for model 'C:\Users\DELL PC\Documents\GitHub\XDMHPL\QLCuocDT\ProjectQLCuocDT\WebForm\App_Code\QLCuocDT.edmx'. 
+=======
+﻿// T4 code generation is enabled for model '\\Mac\Home\Downloads\PM phân lớp\Random_File\WebForm\App_Code\QLCuocDT.edmx'. 
+>>>>>>> master
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

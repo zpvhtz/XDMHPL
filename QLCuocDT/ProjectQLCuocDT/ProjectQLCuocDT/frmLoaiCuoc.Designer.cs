@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMaLoaiCuoc = new System.Windows.Forms.TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -62,9 +62,19 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.btnTimKiem = new System.Windows.Forms.Button();
+            this.numericFilterGiaCuocMax = new System.Windows.Forms.NumericUpDown();
+            this.numericFilterGiaCuocMin = new System.Windows.Forms.NumericUpDown();
+            this.dtpFilterNgayKTApDung = new System.Windows.Forms.DateTimePicker();
+            this.dtpFilterNgayBDApDung = new System.Windows.Forms.DateTimePicker();
+            this.btnFilter = new System.Windows.Forms.Button();
+            this.cbbFilterTinhTrang = new System.Windows.Forms.ComboBox();
+            this.cbbFilter = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLoaiCuoc)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericGiaCuoc)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFilterGiaCuocMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFilterGiaCuocMin)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -164,14 +174,14 @@
             this.dgvLoaiCuoc.AllowUserToAddRows = false;
             this.dgvLoaiCuoc.AllowUserToResizeRows = false;
             this.dgvLoaiCuoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvLoaiCuoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvLoaiCuoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvLoaiCuoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLoaiCuoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -181,14 +191,14 @@
             this.Column5,
             this.Column6,
             this.Column7});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvLoaiCuoc.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvLoaiCuoc.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvLoaiCuoc.Location = new System.Drawing.Point(0, 352);
             this.dgvLoaiCuoc.MultiSelect = false;
             this.dgvLoaiCuoc.Name = "dgvLoaiCuoc";
@@ -389,7 +399,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(328, 315);
+            this.label9.Location = new System.Drawing.Point(151, 315);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(69, 18);
             this.label9.TabIndex = 24;
@@ -400,7 +410,7 @@
             this.txtTimKiem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTimKiem.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtTimKiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTimKiem.Location = new System.Drawing.Point(403, 313);
+            this.txtTimKiem.Location = new System.Drawing.Point(226, 313);
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(200, 24);
             this.txtTimKiem.TabIndex = 25;
@@ -409,18 +419,125 @@
             // 
             this.btnTimKiem.BackgroundImage = global::ProjectQLCuocDT.Properties.Resources.icons8_search_40;
             this.btnTimKiem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnTimKiem.Location = new System.Drawing.Point(609, 313);
+            this.btnTimKiem.Location = new System.Drawing.Point(432, 313);
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(24, 24);
             this.btnTimKiem.TabIndex = 26;
             this.btnTimKiem.UseVisualStyleBackColor = true;
             this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
+            // numericFilterGiaCuocMax
+            // 
+            this.numericFilterGiaCuocMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericFilterGiaCuocMax.Location = new System.Drawing.Point(728, 313);
+            this.numericFilterGiaCuocMax.Maximum = new decimal(new int[] {
+            -1530494977,
+            232830,
+            0,
+            0});
+            this.numericFilterGiaCuocMax.Name = "numericFilterGiaCuocMax";
+            this.numericFilterGiaCuocMax.Size = new System.Drawing.Size(100, 24);
+            this.numericFilterGiaCuocMax.TabIndex = 67;
+            this.numericFilterGiaCuocMax.Visible = false;
+            // 
+            // numericFilterGiaCuocMin
+            // 
+            this.numericFilterGiaCuocMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericFilterGiaCuocMin.Location = new System.Drawing.Point(622, 313);
+            this.numericFilterGiaCuocMin.Maximum = new decimal(new int[] {
+            -1530494977,
+            232830,
+            0,
+            0});
+            this.numericFilterGiaCuocMin.Name = "numericFilterGiaCuocMin";
+            this.numericFilterGiaCuocMin.Size = new System.Drawing.Size(100, 24);
+            this.numericFilterGiaCuocMin.TabIndex = 66;
+            this.numericFilterGiaCuocMin.Visible = false;
+            // 
+            // dtpFilterNgayKTApDung
+            // 
+            this.dtpFilterNgayKTApDung.CustomFormat = "dd/MM/yyyy";
+            this.dtpFilterNgayKTApDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFilterNgayKTApDung.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFilterNgayKTApDung.Location = new System.Drawing.Point(728, 313);
+            this.dtpFilterNgayKTApDung.Name = "dtpFilterNgayKTApDung";
+            this.dtpFilterNgayKTApDung.Size = new System.Drawing.Size(100, 24);
+            this.dtpFilterNgayKTApDung.TabIndex = 65;
+            this.dtpFilterNgayKTApDung.Value = new System.DateTime(2018, 11, 26, 13, 34, 23, 0);
+            this.dtpFilterNgayKTApDung.Visible = false;
+            // 
+            // dtpFilterNgayBDApDung
+            // 
+            this.dtpFilterNgayBDApDung.CustomFormat = "dd/MM/yyyy";
+            this.dtpFilterNgayBDApDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFilterNgayBDApDung.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFilterNgayBDApDung.Location = new System.Drawing.Point(622, 313);
+            this.dtpFilterNgayBDApDung.Name = "dtpFilterNgayBDApDung";
+            this.dtpFilterNgayBDApDung.Size = new System.Drawing.Size(100, 24);
+            this.dtpFilterNgayBDApDung.TabIndex = 64;
+            this.dtpFilterNgayBDApDung.Value = new System.DateTime(2018, 11, 26, 13, 34, 23, 0);
+            this.dtpFilterNgayBDApDung.Visible = false;
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.BackgroundImage = global::ProjectQLCuocDT.Properties.Resources.icons8_filter_40;
+            this.btnFilter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFilter.Location = new System.Drawing.Point(834, 313);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(24, 24);
+            this.btnFilter.TabIndex = 63;
+            this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
+            // 
+            // cbbFilterTinhTrang
+            // 
+            this.cbbFilterTinhTrang.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbFilterTinhTrang.FormattingEnabled = true;
+            this.cbbFilterTinhTrang.Items.AddRange(new object[] {
+            "Khoá",
+            "Không khoá"});
+            this.cbbFilterTinhTrang.Location = new System.Drawing.Point(622, 313);
+            this.cbbFilterTinhTrang.Name = "cbbFilterTinhTrang";
+            this.cbbFilterTinhTrang.Size = new System.Drawing.Size(206, 24);
+            this.cbbFilterTinhTrang.TabIndex = 62;
+            // 
+            // cbbFilter
+            // 
+            this.cbbFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbFilter.FormattingEnabled = true;
+            this.cbbFilter.Items.AddRange(new object[] {
+            "Ngày áp dụng",
+            "Giá cước",
+            "Tình trạng"});
+            this.cbbFilter.Location = new System.Drawing.Point(516, 313);
+            this.cbbFilter.Name = "cbbFilter";
+            this.cbbFilter.Size = new System.Drawing.Size(100, 24);
+            this.cbbFilter.TabIndex = 60;
+            this.cbbFilter.SelectedValueChanged += new System.EventHandler(this.cbbFilter_SelectedValueChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(477, 315);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(33, 18);
+            this.label10.TabIndex = 59;
+            this.label10.Text = "Lọc";
+            // 
             // frmLoaiCuoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.numericFilterGiaCuocMax);
+            this.Controls.Add(this.numericFilterGiaCuocMin);
+            this.Controls.Add(this.dtpFilterNgayKTApDung);
+            this.Controls.Add(this.dtpFilterNgayBDApDung);
+            this.Controls.Add(this.btnFilter);
+            this.Controls.Add(this.cbbFilterTinhTrang);
+            this.Controls.Add(this.cbbFilter);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.btnTimKiem);
             this.Controls.Add(this.txtTimKiem);
             this.Controls.Add(this.label9);
@@ -451,6 +568,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvLoaiCuoc)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericGiaCuoc)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFilterGiaCuocMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFilterGiaCuocMin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -490,5 +609,13 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtTimKiem;
         private System.Windows.Forms.Button btnTimKiem;
+        private System.Windows.Forms.NumericUpDown numericFilterGiaCuocMax;
+        private System.Windows.Forms.NumericUpDown numericFilterGiaCuocMin;
+        private System.Windows.Forms.DateTimePicker dtpFilterNgayKTApDung;
+        private System.Windows.Forms.DateTimePicker dtpFilterNgayBDApDung;
+        private System.Windows.Forms.Button btnFilter;
+        private System.Windows.Forms.ComboBox cbbFilterTinhTrang;
+        private System.Windows.Forms.ComboBox cbbFilter;
+        private System.Windows.Forms.Label label10;
     }
 }

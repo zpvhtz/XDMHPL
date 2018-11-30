@@ -13,6 +13,7 @@ namespace Services.Models
         public System.DateTime TG_BatDau { get; set; }
         public System.DateTime TG_KetThuc { get; set; }
         public int SoPhutSD { get; set; }
+        public decimal PhiCuocGoi { get; set; }
         public string trangthai { get; set; }
     }
 }

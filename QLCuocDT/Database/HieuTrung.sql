@@ -1,8 +1,9 @@
 USE QLCuocDT
 GO
 
-ALTER TRIGGER TG_Add_HoaDonThanhToan ON CuocGoi AFTER INSERT
+CREATE TRIGGER TG_Add_HoaDonThanhToan ON CuocGoi AFTER INSERT
 AS
+	DECLARE @MaCuocGoi INT
 	DECLARE @MaKH INT
 	DECLARE @MaSim INT
 	DECLARE @TG_BatDau DATETIME
@@ -10,7 +11,7 @@ AS
 	DECLARE @TG_Loop DATETIME
 	DECLARE @TongTien DECIMAL(18, 0) = 0
 	--
-	SELECT @MaKH = hd.MaKH, @MaSim = i.MaSim, @TG_BatDau = TG_BatDau, @TG_KetThuc = TG_KetThuc
+	SELECT @MaCuocGoi = i.MaCuocGoi, @MaKH = hd.MaKH, @MaSim = i.MaSim, @TG_BatDau = TG_BatDau, @TG_KetThuc = TG_KetThuc
 	FROM inserted i JOIN HoaDonDK hd ON i.MaSim = hd.MaSim
 	--
 	SET @TG_Loop = @TG_BatDau
@@ -47,10 +48,18 @@ AS
 		UPDATE HoaDonThanhToan
 		SET ThanhTien = ThanhTien + @TongTien, NgayHD = @TG_BatDau
 		WHERE (MaSim = @MaSim) AND (MONTH(NgayHD) = MONTH(@TG_BatDau))
+		--
+		UPDATE CuocGoi
+		SET PhiCuocGoi = @TongTien
+		WHERE MaCuocGoi = @MaCuocGoi
 	END
 	ELSE
 	BEGIN
 		INSERT INTO HoaDonThanhToan(MaKH, MaSim, CuocThueBao, NgayHD, ThanhToan, ThanhTien, Status)
 			VALUES(@MaKH, @MaSim, 50000, @TG_BatDau, 0, @TongTien, 1)
+		--
+		UPDATE CuocGoi
+		SET PhiCuocGoi = @TongTien
+		WHERE MaCuocGoi = @MaCuocGoi
 	END
 GO

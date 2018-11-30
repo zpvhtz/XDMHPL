@@ -63,9 +63,29 @@ namespace ProjectQLCuocDT.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_filter_40 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-filter-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_search_40 {
             get {
                 object obj = ResourceManager.GetObject("icons8-search-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap line_border {
+            get {
+                object obj = ResourceManager.GetObject("line-border", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

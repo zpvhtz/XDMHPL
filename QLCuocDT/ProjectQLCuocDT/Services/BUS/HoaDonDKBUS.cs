@@ -60,5 +60,11 @@ namespace Services.BUS
             db.SaveChanges();
             return "Thêm thành công";
         }
+
+        public HoaDonDK GetHoaDonDK(string sosim)
+        {
+            HoaDonDK hoadon = db.HoaDonDKs.Where(hd => hd.Sim.SoSim == sosim).SingleOrDefault();
+            return hoadon;
+        }
     }
 }

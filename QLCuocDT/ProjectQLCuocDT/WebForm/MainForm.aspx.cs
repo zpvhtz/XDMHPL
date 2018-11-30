@@ -17,7 +17,7 @@ public partial class testCalender : System.Web.UI.Page
         nameCustomer = (string)Session["NAMECUSTOMER"];
         listDetail = qLTinhCuocDT.CuocGois.Where(x => x.MaSim == idPhoneNumber).ToList();
         //SearchByMonth(1);
-        lblnameCustomer.Text = nameCustomer.ToUpper() + "'S INFORMATION";
+        lblnameCustomer.Text = nameCustomer.ToUpper();
         Notify("");
     }
 
@@ -30,17 +30,17 @@ public partial class testCalender : System.Web.UI.Page
         SearchByDay(from, to);
     }
 
-    protected void btnSearchByMonth_Click(object sender, EventArgs e)
-    {
-        string selectedValue = ddMonth.SelectedValue;
-        SearchByMonth(int.Parse(selectedValue));
-    }
+    //protected void btnSearchByMonth_Click(object sender, EventArgs e)
+    //{
+    //    string selectedValue = ddMonth.SelectedValue;
+    //    SearchByMonth(int.Parse(selectedValue));
+    //}
 
-    protected void ddMonth_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        string selectedValue = ddMonth.SelectedValue;
-        SearchByMonth(int.Parse(selectedValue));
-    }
+    //protected void ddMonth_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    string selectedValue = ddMonth.SelectedValue;
+    //    SearchByMonth(int.Parse(selectedValue));
+    //}
     #endregion
 
     #region Method
