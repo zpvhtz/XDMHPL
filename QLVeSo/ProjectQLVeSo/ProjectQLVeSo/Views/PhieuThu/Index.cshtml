@@ -10,8 +10,8 @@
                 Phiếu thu - Công Nợ
             </div> <!-- Tieu de-->
             <div class="panel-body">
-                <button class="btn btn-success" data-toggle="modal" data-target="#themphieuthu"> Thêm phiếu thu </button>
-                <button class="btn btn-send" data-toggle="modal" data-target="#themcongno"> Thêm công nợ </button>
+                @*<button class="btn btn-success" data-toggle="modal" data-target="#themphieuthu"> Thêm phiếu thu </button>*@
+                @*<button class="btn btn-send" data-toggle="modal" data-target="#themcongno"> Thêm công nợ </button>*@
                 <form asp-controller="PhieuThu" asp-action="Search" method="get">
                     <button type="submit" class="btn btn-info" style="float:right"> Tìm kiếm </button>
                     <div class="col-lg-4" style="float:right"> <input type="search" id="myInput" class="form-control" placeholder="Nội dung tìm kiếm" name="key" /> </div>
@@ -28,18 +28,17 @@
                         </div>
                         <form asp-controller="PhieuThu" asp-action="Create" method="post">
                             <div class="modal-body" style="margin:auto">
-
-                                <div class="form-group">
-                                    <label class="control-label"> Mã phiếu thu </label>
-                                    <input type="text" class="form-control" id="maphieuthu" name="maphieuthu" />
-                                </div>
                                 <div class="form-group">
                                     <label class="control-label">Mã đại lý </label>
-                                    <input type="text" class="form-control" id="madaily" name="madaily" />
+                                    <input type="text" class="form-control" id="madaily" name="madaily" readonly />
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label"> Tổng tiền </label>
-                                    <input type="number" class="form-control" id="tongtien" name="tongtien" />
+                                    <label class="control-label"> Tổng tiền nợ</label>
+                                    <input type="number" class="form-control" id="tongtienno" name="tongtienno" readonly/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Tổng tiền thu</label>
+                                    <input type="number" class="form-control" id="tongtienthu" name="tongtienthu" />
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -125,7 +124,7 @@
                                     <td class="item-daily">@item.IdDaiLyNavigation.Ten</td>
                                     <td class="item-ngaythu">@item.Ngay</td>
                                     <td class="item-tongtien"> @item.TongTien</td>
-                                    <td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaphieuthu"> Sửa </button></td>
+                                    @*<td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaphieuthu"> Sửa </button></td>*@
                                     <td> <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietphieuthu"> Chi tiết </button></td>
                                 </tr>
                             }
@@ -153,26 +152,27 @@
                             </tr>
                         </thead>
                         <tbody id="myTable">
+                            @foreach (var item in ViewBag.CongNo)
+                            {
                             <tr data-expanded="true">
-                                @foreach (var item in ViewBag.CongNo)
-                                {
                                 <td class="madailycongno">@item.GetType().GetProperty("MaDaiLy").GetValue(@item, null)</td>
-                                    @foreach(var item2 in ViewBag.DaiLy)
+                                @foreach (var item2 in ViewBag.DaiLy)
+                                {
+                                    if (item2.MaDaiLy == item.GetType().GetProperty("MaDaiLy").GetValue(@item, null))
                                     {
-                                        if(item2.MaDaiLy == item.GetType().GetProperty("MaDaiLy").GetValue(@item, null))
-                                        {
-                                            <td class="">@item2.Ten</td>
-                                        }
+                                        <td class="">@item2.Ten</td>
                                     }
-                                    <td>@item.GetType().GetProperty("TongTien").GetValue(@item, null)</td>
-                                    <td>
-                                        @*<button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suacongno"> Sửa </button>*@
-                                        <button class="btn btn-danger btnChiTietCongNo" data-toggle="modal" data-target="#chitietcongno"> Chi tiết </button>
-                                    </td>
                                 }
+                                <td class="item-tongtienno">@item.GetType().GetProperty("TongTien").GetValue(@item, null)</td>
+                                <td>
+                                    @*<button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suacongno"> Sửa </button>*@
+                                    <button class="btn btn-danger btnChiTietCongNo" data-toggle="modal" data-target="#chitietcongno"> Chi tiết </button>
+                                    <button class="btn btn-send btnThu" data-toggle="modal" data-target="#themphieuthu"> Thu </button>
+                                </td>
                             </tr>
-                        </tbody>
-                    </table>
+                            }
+                            </tbody>
+                        </table>
                     <!-- end table -->
                 </div>
             </div>
@@ -266,10 +266,10 @@
                         </div>
                         <div class="modal-body" style="margin:auto">
                             <form>
-                                <div class="form-group">
+                                @*<div class="form-group">
                                     <label class="control-label"> ID </label>
                                     <input type="text" class="form-control" readonly />
-                                </div>
+                                </div>*@
                                 <div class="form-group">
                                     <label class="control-label"> Mã phiếu thu </label>
                                     <input type="text" class="form-control maphieuthu-Detail" readonly />
@@ -356,10 +356,17 @@
             let daily = $(this).closest('tr').find('.item-daily').text();
             let ngaythu = $(this).closest('tr').find('.item-ngaythu').text();
             let tongtien = $(this).closest('tr').find('.item-tongtien').text();
-
+            
+            ngaythu = ngaythu.substring(0, ngaythu.indexOf(' '));
+            let month = ngaythu.substring(0, ngaythu.indexOf('/'));
+            ngaythu = ngaythu.substring(ngaythu.indexOf('/') + 1);
+            let day = ngaythu.substring(0, ngaythu.indexOf('/'));
+            ngaythu = ngaythu.substring(ngaythu.indexOf('/') + 1);
+            let year = ngaythu;
+            
             $(".maphieuthu-Detail").val(maphieuthu.trim());
             $(".daily-Detail").val(daily.trim());
-            $(".ngaythu-Detail").val(ngaythu.trim());
+            $(".ngaythu-Detail").val(`${year}-${month}-${day}`);
             $(".tongtien-Detail").val(tongtien.trim());
         });
 
@@ -376,6 +383,14 @@
                     alert("Error: " + data);
                 }
             });
+        });
+
+        $(".btnThu").click(function () {
+            let madaily = $(this).closest('tr').find('.madailycongno').text();
+            let tongtienno = $(this).closest('tr').find('.item-tongtienno').text();
+
+            $("#madaily").val(madaily);
+            $("#tongtienno").val(tongtienno);
         });
     });
 </script>
