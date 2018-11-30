@@ -39,7 +39,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(147, 151);
+            this.button1.Location = new System.Drawing.Point(170, 181);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(152, 61);
             this.button1.TabIndex = 0;
@@ -49,25 +49,27 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(305, 151);
+            this.button2.Location = new System.Drawing.Point(328, 181);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(152, 61);
             this.button2.TabIndex = 1;
             this.button2.Text = "Hóa đơn thanh toán";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(463, 151);
+            this.button3.Location = new System.Drawing.Point(486, 181);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(152, 61);
             this.button3.TabIndex = 2;
             this.button3.Text = "Khách hàng";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(147, 218);
+            this.button4.Location = new System.Drawing.Point(170, 248);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(152, 61);
             this.button4.TabIndex = 3;
@@ -76,28 +78,31 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(305, 218);
+            this.button5.Location = new System.Drawing.Point(328, 248);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(152, 61);
             this.button5.TabIndex = 4;
             this.button5.Text = "Loại cước";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(463, 218);
+            this.button6.Location = new System.Drawing.Point(486, 248);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(152, 61);
             this.button6.TabIndex = 5;
             this.button6.Text = "Sim";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(311, 48);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.label1.Location = new System.Drawing.Point(287, 84);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 13);
+            this.label1.Size = new System.Drawing.Size(238, 25);
             this.label1.TabIndex = 6;
             this.label1.Text = "Quản lý cước điện thoại";
             this.label1.Click += new System.EventHandler(this.label1_Click);

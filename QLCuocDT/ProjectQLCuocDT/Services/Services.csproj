@@ -92,6 +92,7 @@
     <Compile Include="Models\CuocGoiModel.cs" />
     <Compile Include="Models\HoaDonDKModel.cs" />
     <Compile Include="Models\HoaDonThanhToanModel.cs" />
+    <Compile Include="Models\KhachhangModel.cs" />
     <Compile Include="Models\LoaiCuocModel.cs" />
     <Compile Include="Models\SimModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -58,12 +58,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCuocGoi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmCuocGoi.Designer.cs">
-      <DependentUpon>frmCuocGoi.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmHoaDonDK.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +69,12 @@
     </Compile>
     <Compile Include="frmHoaDonThanhToan.Designer.cs">
       <DependentUpon>frmHoaDonThanhToan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frmkhachhang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frmkhachhang.Designer.cs">
+      <DependentUpon>Frmkhachhang.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLoaiCuoc.cs">
       <SubType>Form</SubType>
@@ -93,14 +93,14 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCuocGoi.resx">
-      <DependentUpon>frmCuocGoi.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmHoaDonDK.resx">
       <DependentUpon>frmHoaDonDK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHoaDonThanhToan.resx">
       <DependentUpon>frmHoaDonThanhToan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frmkhachhang.resx">
+      <DependentUpon>Frmkhachhang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLoaiCuoc.resx">
       <DependentUpon>frmLoaiCuoc.cs</DependentUpon>

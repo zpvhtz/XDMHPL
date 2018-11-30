@@ -29,6 +29,7 @@ namespace ProjectQLCuocDT
         {
             //dgvLoaiCuoc.DataSource = null;
             //dgvLoaiCuoc.Rows.Clear();
+            
             dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.GetHoaDonThanhToans();
             GetFirstValueDataGridView();
         }
