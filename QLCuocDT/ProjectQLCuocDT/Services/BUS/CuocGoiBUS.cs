@@ -21,6 +21,7 @@ namespace Services.BUS
                                                 TG_BatDau = cg.TG_BatDau,
                                                 TG_KetThuc = cg.TG_KetThuc,
                                                 SoPhutSD = cg.SoPhutSD,
+                                                PhiCuocGoi = cg.PhiCuocGoi,
                                                 trangthai = cg.trangthai == true ? "Không khoá" : "Khoá"
                                             }).ToList();
         }
@@ -66,6 +67,68 @@ namespace Services.BUS
                                                         c.MaSim.ToString().Contains(search) ||
                                                         c.Sim.SoSim.Contains(search))
                                             .ToList();
+            return list;
+        }
+
+        public List<CuocGoiModel> FilterCuocGoi(string filteritem, string filter, DateTime? tgbdgoi, DateTime? tgktgoi, int sophutmin, int sophutmax, decimal phicuocgoimin, decimal phicuocgoimax)
+        {
+            List<CuocGoiModel> list = new List<CuocGoiModel>();
+            switch(filteritem)
+            {
+                case "Thời gian gọi":
+                    list = db.CuocGois.Where(cg => cg.TG_BatDau >= tgbdgoi && cg.TG_BatDau <= tgktgoi && cg.TG_KetThuc >= tgbdgoi && cg.TG_KetThuc <= tgktgoi)
+                                      .Select(cg => new CuocGoiModel
+                                      {
+                                          MaCuocGoi = cg.MaCuocGoi,
+                                          MaSim = cg.MaSim,
+                                          TG_BatDau = cg.TG_BatDau,
+                                          TG_KetThuc = cg.TG_KetThuc,
+                                          SoPhutSD = cg.SoPhutSD,
+                                          PhiCuocGoi = cg.PhiCuocGoi,
+                                          trangthai = cg.trangthai == true ? "Không khoá" : "Khoá"
+                                      }).ToList();
+                    break;
+                case "Số phút gọi":
+                    list = db.CuocGois.Where(cg => cg.SoPhutSD >= sophutmin && cg.SoPhutSD <= sophutmax)
+                                      .Select(cg => new CuocGoiModel
+                                      {
+                                          MaCuocGoi = cg.MaCuocGoi,
+                                          MaSim = cg.MaSim,
+                                          TG_BatDau = cg.TG_BatDau,
+                                          TG_KetThuc = cg.TG_KetThuc,
+                                          SoPhutSD = cg.SoPhutSD,
+                                          PhiCuocGoi = cg.PhiCuocGoi,
+                                          trangthai = cg.trangthai == true ? "Không khoá" : "Khoá"
+                                      }).ToList();
+                    break;
+                case "Phí cuộc gọi":
+                    list = db.CuocGois.Where(cg => cg.PhiCuocGoi >= phicuocgoimin && cg.PhiCuocGoi <= phicuocgoimax)
+                                      .Select(cg => new CuocGoiModel
+                                      {
+                                          MaCuocGoi = cg.MaCuocGoi,
+                                          MaSim = cg.MaSim,
+                                          TG_BatDau = cg.TG_BatDau,
+                                          TG_KetThuc = cg.TG_KetThuc,
+                                          SoPhutSD = cg.SoPhutSD,
+                                          PhiCuocGoi = cg.PhiCuocGoi,
+                                          trangthai = cg.trangthai == true ? "Không khoá" : "Khoá"
+                                      }).ToList();
+                    break;
+                case "Tình trạng":
+                    bool tinhtrang = filter == "Không khoá" ? true : false;
+                    list = db.CuocGois.Where(cg => cg.trangthai == tinhtrang)
+                                      .Select(cg => new CuocGoiModel
+                                      {
+                                          MaCuocGoi = cg.MaCuocGoi,
+                                          MaSim = cg.MaSim,
+                                          TG_BatDau = cg.TG_BatDau,
+                                          TG_KetThuc = cg.TG_KetThuc,
+                                          SoPhutSD = cg.SoPhutSD,
+                                          PhiCuocGoi = cg.PhiCuocGoi,
+                                          trangthai = cg.trangthai == true ? "Không khoá" : "Khoá"
+                                      }).ToList();
+                    break;
+            }
             return list;
         }
     }

@@ -30,7 +30,8 @@ namespace ProjectQLCuocDT
             //dgvLoaiCuoc.DataSource = null;
             //dgvLoaiCuoc.Rows.Clear();
             dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.GetHoaDonThanhToans();
-            GetFirstValueDataGridView();
+            if(dgvHoaDonThanhToan.Rows.Count > 0)
+                GetFirstValueDataGridView();
         }
 
         private void GetFirstValueDataGridView()
@@ -104,41 +105,44 @@ namespace ProjectQLCuocDT
                         decimal thanhtienmin = numericFilterThanhTienMin.Value;
                         decimal thanhtienmax = numericFilterThanhTienMax.Value;
                         dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.FilterHoaDonThanhToan(filteritem, filter, null, null, thanhtienmin, thanhtienmax);
-                        GetFirstValueDataGridView();
                         break;
                     case "Ngày tạo":
                         filteritem = cbbFilter.SelectedItem.ToString();
                         DateTime ngaybdtao = dtpFilterNgayBDTao.Value;
                         DateTime ngaykttao = dtpFilterNgayKTTao.Value;
                         dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.FilterHoaDonThanhToan(filteritem, filter, ngaybdtao, ngaykttao, 0, 0);
-                        GetFirstValueDataGridView();
                         break;
                     case "Thanh toán":
                         if (cbbFilterThanhToan.SelectedItem == null)
                         {
                             MessageBox.Show("Vui lòng chọn tình trạng thanh toán để lọc");
+                            return;
                         }
                         else
                         {
                             filteritem = cbbFilter.SelectedItem.ToString();
                             filter = cbbFilterThanhToan.SelectedItem.ToString();
                             dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.FilterHoaDonThanhToan(filteritem, filter, null, null, 0, 0);
-                            GetFirstValueDataGridView();
                         }
                         break;
                     case "Tình trạng":
                         if (cbbTinhTrang.SelectedItem == null)
                         {
                             MessageBox.Show("Vui lòng chọn tình trạng để lọc");
+                            return;
                         }
                         else
                         {
                             filteritem = cbbFilter.SelectedItem.ToString();
                             filter = cbbTinhTrang.SelectedItem.ToString();
                             dgvHoaDonThanhToan.DataSource = hoadonthanhtoanbus.FilterHoaDonThanhToan(filteritem, filter, null, null, 0, 0);
-                            GetFirstValueDataGridView();
                         }
                         break;
+                }
+
+                if(dgvHoaDonThanhToan.Rows.Count > 0)
+                {
+                    GetFirstValueDataGridView();
                 }
             }
         }

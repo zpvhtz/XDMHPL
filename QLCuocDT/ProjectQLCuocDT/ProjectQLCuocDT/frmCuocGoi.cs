@@ -110,8 +110,9 @@ namespace ProjectQLCuocDT
             //dgvLoaiCuoc.DataSource = null;
             //dgvLoaiCuoc.Rows.Clear();
             dgvCuocGoi.DataSource = cuocgoibus.GetCuocGois();
-            GetFirstValueDataGridView();
-            cbbTinhTrang.Enabled = false;
+            if(dgvCuocGoi.Rows.Count > 0)
+                GetFirstValueDataGridView();
+            //cbbTinhTrang.Enabled = false;
         }
 
         public DateTime GenerateRandomDate()
@@ -167,6 +168,102 @@ namespace ProjectQLCuocDT
                 string search = txtTimKiem.Text;
                 dgvCuocGoi.DataSource = cuocgoibus.SearchCuocGoi(search);
                 GetFirstValueDataGridView();
+            }
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            if (cbbFilter.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn mục cần lọc");
+            }
+            else
+            {
+                string filteritem = "";
+                string filter = "null";
+
+                switch (cbbFilter.SelectedItem.ToString())
+                {
+                    case "Thời gian gọi":
+                        filteritem = cbbFilter.SelectedItem.ToString();
+                        DateTime tgbdgoi = dtpFilterTGBD.Value;
+                        DateTime tgktgoi = dtpFilterTGKT.Value;
+                        dgvCuocGoi.DataSource = cuocgoibus.FilterCuocGoi(filteritem, filter, tgbdgoi, tgktgoi, 0, 0, 0, 0);
+                        break;
+                    case "Số phút gọi":
+                        filteritem = cbbFilter.SelectedItem.ToString();
+                        int sophutmin = int.Parse(Math.Round(numericFilterSoPhutMin.Value).ToString());
+                        int sophutmax = int.Parse(Math.Round(numericFilterSoPhutMax.Value).ToString());
+                        dgvCuocGoi.DataSource = cuocgoibus.FilterCuocGoi(filteritem, filter, null, null, sophutmin, sophutmax, 0, 0);
+                        break;
+                    case "Phí cuộc gọi":
+                        filteritem = cbbFilter.SelectedItem.ToString();
+                        decimal phicuocgoimin = numericFilterPhiCuocGoiMin.Value;
+                        decimal phicuocgoimax = numericFilterPhiCuocGoiMax.Value;
+                        dgvCuocGoi.DataSource = cuocgoibus.FilterCuocGoi(filteritem, filter, null, null, 0, 0, phicuocgoimin, phicuocgoimax);
+                        break;
+                    case "Tình trạng":
+                        filteritem = cbbFilter.SelectedItem.ToString();
+                        if(cbbFilterTinhTrang.SelectedItem == null)
+                        {
+                            MessageBox.Show("Vui lòng chọn tình trạng đễ lọc");
+                            return;
+                        }
+                        else
+                        {
+                            filter = cbbFilterTinhTrang.SelectedItem.ToString();
+                            dgvCuocGoi.DataSource = cuocgoibus.FilterCuocGoi(filteritem, filter, null, null, 0, 0, 0, 0);
+                        }
+                        break;
+                }
+
+                if (dgvCuocGoi.Rows.Count > 0)
+                {
+                    GetFirstValueDataGridView();
+                }
+            }
+        }
+
+        private void cbbFilter_SelectedValueChanged(object sender, EventArgs e)
+        {
+            switch(cbbFilter.SelectedItem.ToString())
+            {
+                case "Thời gian gọi":
+                    dtpFilterTGBD.Visible = true;
+                    dtpFilterTGKT.Visible = true;
+                    numericFilterSoPhutMin.Visible = false;
+                    numericFilterSoPhutMax.Visible = false;
+                    numericFilterPhiCuocGoiMin.Visible = false;
+                    numericFilterPhiCuocGoiMax.Visible = false;
+                    cbbFilterTinhTrang.Visible = false;
+                    break;
+                case "Số phút gọi":
+                    dtpFilterTGBD.Visible = false;
+                    dtpFilterTGKT.Visible = false;
+                    numericFilterSoPhutMin.Visible = true;
+                    numericFilterSoPhutMax.Visible = true;
+                    numericFilterPhiCuocGoiMin.Visible = false;
+                    numericFilterPhiCuocGoiMax.Visible = false;
+                    cbbFilterTinhTrang.Visible = false;
+                    break;
+                case "Phí cuộc gọi gọi":
+                    dtpFilterTGBD.Visible = false;
+                    dtpFilterTGKT.Visible = false;
+                    numericFilterSoPhutMin.Visible = false;
+                    numericFilterSoPhutMax.Visible = false;
+                    numericFilterPhiCuocGoiMin.Visible = true;
+                    numericFilterPhiCuocGoiMax.Visible = true;
+                    cbbFilterTinhTrang.Visible = false;
+                    break;
+                case "Tình trạng":
+                    dtpFilterTGBD.Visible = false;
+                    dtpFilterTGKT.Visible = false;
+                    numericFilterSoPhutMin.Visible = false;
+                    numericFilterSoPhutMax.Visible = false;
+                    numericFilterPhiCuocGoiMin.Visible = false;
+                    numericFilterPhiCuocGoiMax.Visible = false;
+                    cbbFilterTinhTrang.Visible = true;
+                    break;
             }
         }
     }
