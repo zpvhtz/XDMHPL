@@ -116,7 +116,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="text-center text-danger">
+                        <div class="text-center text-danger notification-paragraph">
                             <asp:Label runat="server" ID="lblNotify" Text=""></asp:Label>
                         </div>
                     </div>

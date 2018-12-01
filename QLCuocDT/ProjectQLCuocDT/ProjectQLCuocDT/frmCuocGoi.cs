@@ -34,7 +34,7 @@ namespace ProjectQLCuocDT
             myFile.Close();
             using (StreamWriter file = new StreamWriter(path, true))
             {
-                for (int i = 0; i <= 5; i++)
+                for (int i = 0; i <= 100; i++)
                 {
                     DateTime tgbd = GenerateRandomDate();
                     DateTime tgkt = GenerateRandomDate(tgbd);

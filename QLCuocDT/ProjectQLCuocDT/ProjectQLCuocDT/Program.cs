@@ -17,6 +17,10 @@ namespace ProjectQLCuocDT
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+            //Application.Run(new frmLoaiCuoc());
+            //Application.Run(new frmCuocGoi());
+            //Application.Run(new frmHoaDonThanhToan());
+            //Application.Run(new frmSim());
         }
     }
 }

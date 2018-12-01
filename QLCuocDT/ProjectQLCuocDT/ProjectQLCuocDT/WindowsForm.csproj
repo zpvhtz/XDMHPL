@@ -58,6 +58,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCuocGoi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCuocGoi.Designer.cs">
+      <DependentUpon>frmCuocGoi.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmHoaDonDK.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCuocGoi.resx">
+      <DependentUpon>frmCuocGoi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHoaDonDK.resx">
       <DependentUpon>frmHoaDonDK.cs</DependentUpon>
