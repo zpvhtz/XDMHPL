@@ -58,8 +58,8 @@ public partial class testCalender : System.Web.UI.Page
             totalMinutes += item.SoPhutSD;
             totalPrice += item.PhiCuocGoi.GetValueOrDefault();
         }
-        this.totalMinutes.Text = totalMinutes.ToString() + " Phút";
-        this.totalPrice.Text = totalPrice.ToString() + " VNĐ";
+        this.totalMinutes.Text = totalMinutes.ToString("#,###") + " Phút";
+        this.totalPrice.Text = totalPrice.ToString("#,###") + " VNĐ";
     }
     private void SearchByDay(string from, string to)
     {
@@ -76,8 +76,8 @@ public partial class testCalender : System.Web.UI.Page
             totalMinutes += item.SoPhutSD;
             totalPrice += item.PhiCuocGoi.GetValueOrDefault();
         }
-        this.totalMinutes.Text = totalMinutes.ToString() + " Phút";
-        this.totalPrice.Text = totalPrice.ToString() + " VNĐ";
+        this.totalMinutes.Text = totalMinutes.ToString("#,###") + " Phút";
+        this.totalPrice.Text = totalPrice.ToString("#,###") + " VNĐ";
     }
     private string ChangeFormat(string input)
     {

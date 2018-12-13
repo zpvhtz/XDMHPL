@@ -1,4 +1,5 @@
 ﻿using Services.BUS;
+using Services.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,7 @@ namespace ProjectQLCuocDT
 
         private void btnTaoFile_Click(object sender, EventArgs e)
         {
+            List<int> listsim = cuocgoibus.GetArraySim();
             string path = Path.GetFullPath(Path.Combine(Application.StartupPath, @"../../../Assets/CuocGoi.txt"));
             Random rd = new Random();
             var myFile = File.Create(path);
@@ -36,9 +38,13 @@ namespace ProjectQLCuocDT
             {
                 for (int i = 0; i <= 100; i++)
                 {
-                    DateTime tgbd = GenerateRandomDate();
+                    int randomSim = rd.Next(0, listsim.Count);
+                    int maSim = listsim[randomSim];
+
+                    DateTime tgbd = GenerateRandomDate(maSim);
                     DateTime tgkt = GenerateRandomDate(tgbd);
-                    file.WriteLine(rd.Next(2, 12) + "\t" + tgbd.ToString() + "\t" + tgkt.ToString());
+
+                    file.WriteLine(maSim + "\t" + tgbd.ToString() + "\t" + tgkt.ToString());
                 }
             }
         }
@@ -115,12 +121,35 @@ namespace ProjectQLCuocDT
             //cbbTinhTrang.Enabled = false;
         }
 
-        public DateTime GenerateRandomDate()
+        public DateTime GenerateRandomDate(int maSim)
         {
+            HoaDonDK hoadondk = cuocgoibus.GetSim(maSim);
+            int yearbd = hoadondk.NgayDK.Year;
+            int monthbd = hoadondk.NgayDK.Month;
+            int daybd = hoadondk.NgayDK.Day;
+
             Random rd = new Random(Guid.NewGuid().GetHashCode());
-            int year = rd.Next(2010, 2018);
-            int month = rd.Next(1, 12);
-            int day = rd.Next(1, DateTime.DaysInMonth(year, month));
+            int year, month, day;
+            year = rd.Next(yearbd, 2018);
+
+            if(year > yearbd)
+            {
+                month = rd.Next(1, 12);
+            }
+            else
+            {
+                month = rd.Next(monthbd, 12);
+            }
+            
+            if(year == yearbd && month == monthbd)
+            {
+                day = rd.Next(daybd, DateTime.DaysInMonth(year, month));
+            }
+            else
+            {
+                day = rd.Next(1, DateTime.DaysInMonth(year, month));
+            }
+            
             return new DateTime(year, month, day, rd.Next(0, 23), rd.Next(0, 59), rd.Next(0, 59));
         }
 

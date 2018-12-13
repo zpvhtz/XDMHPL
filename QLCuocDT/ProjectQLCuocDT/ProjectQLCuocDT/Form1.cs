@@ -51,5 +51,11 @@ namespace ProjectQLCuocDT
             Frmkhachhang frm = new Frmkhachhang();
             frm.Show();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            frmCuocGoi frm = new frmCuocGoi();
+            frm.Show();
+        }
     }
 }

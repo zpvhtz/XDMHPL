@@ -17,5 +17,6 @@ namespace Services.Models
         public int MaKH { get; set; }
         public int MaSim { get; set; }
         public string DiaChi { get; set; }
+        public string Email { get; set; }
     }
 }

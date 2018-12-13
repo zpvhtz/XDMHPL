@@ -14,7 +14,7 @@ namespace Services.BUS
 
         public List<HoaDonDKModel> GetHoaDonDKs()
         {
-            return db.HoaDonDKs.Select(hd => new HoaDonDKModel
+            List<HoaDonDKModel> list = db.HoaDonDKs.Select(hd => new HoaDonDKModel
                                             {
                                                 MaHD = hd.MaHD,
                                                 TenKH = hd.KhachHang.TenKH,
@@ -23,8 +23,10 @@ namespace Services.BUS
                                                 ChiPhi = hd.ChiPhi,
                                                 MaKH = hd.MaKH,
                                                 MaSim = hd.MaSim,
-                                                DiaChi = hd.KhachHang.DiaChi
+                                                DiaChi = hd.KhachHang.DiaChi,
+                                                Email = hd.KhachHang.Email
                                             }).ToList();
+            return list;
         }
 
         public int GetMaHoaDon()

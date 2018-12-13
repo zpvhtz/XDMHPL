@@ -35,6 +35,7 @@ namespace ProjectQLCuocDT
             numericChiPhi.Value = int.Parse(dgvHoaDon.Rows[0].Cells[4].Value.ToString());
             txtDiaChi.Text = dgvHoaDon.Rows[0].Cells[7].Value.ToString();
             txtMaKH.Text = dgvHoaDon.Rows[0].Cells[5].Value.ToString();
+            txtEmail.Text = dgvHoaDon.Rows[0].Cells[8].Value.ToString();
         }
 
         private void RefreshPage()
@@ -58,6 +59,11 @@ namespace ProjectQLCuocDT
             if (txtDiaChi.Text == "")
             {
                 MessageBox.Show("Cần điền vào địa chỉ");
+                return false;
+            }
+            if (txtEmail.Text == "")
+            {
+                MessageBox.Show("Cần điền vào email");
                 return false;
             }
             if (numericChiPhi.Value < 0)
@@ -108,7 +114,8 @@ namespace ProjectQLCuocDT
                         string tenkh = txtTenKhachHang.Text;
                         string cmnd = txtCMND.Text;
                         string diachi = txtDiaChi.Text;
-                        string item = khachhangbus.AddKhachHang(makh, tenkh, cmnd, diachi);
+                        string email = txtEmail.Text;
+                        string item = khachhangbus.AddKhachHang(makh, tenkh, cmnd, diachi, email);
                     }
 
                     //thêm hóa đơn
@@ -162,6 +169,7 @@ namespace ProjectQLCuocDT
                 numericChiPhi.Value = int.Parse(dgvHoaDon.Rows[e.RowIndex].Cells[4].Value.ToString());
                 txtDiaChi.Text = dgvHoaDon.Rows[e.RowIndex].Cells[7].Value.ToString();
                 txtMaKH.Text = dgvHoaDon.Rows[e.RowIndex].Cells[5].Value.ToString();
+                txtEmail.Text = dgvHoaDon.Rows[e.RowIndex].Cells[8].Value.ToString();
                 cbSoSim.DropDownStyle = ComboBoxStyle.DropDown;
             }
         }

@@ -39,7 +39,7 @@ namespace Services.BUS
             }
         }
 
-        public string AddKhachHang(int makh, string tenkh, string cmnd, string diachi)
+        public string AddKhachHang(int makh, string tenkh, string cmnd, string diachi, string email)
         {
             KhachHang khachhang = new KhachHang();
             //Kiểm tra
@@ -54,6 +54,7 @@ namespace Services.BUS
             khachhang.TenKH = tenkh;
             khachhang.CMND = cmnd;
             khachhang.DiaChi = diachi;
+            khachhang.Email = email;
             khachhang.Status = true;
             db.KhachHangs.Add(khachhang);
             db.SaveChanges();

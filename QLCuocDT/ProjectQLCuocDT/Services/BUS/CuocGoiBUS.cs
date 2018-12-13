@@ -131,5 +131,21 @@ namespace Services.BUS
             }
             return list;
         }
+
+        public List<int> GetArraySim()
+        {
+            List<int> listsim = new List<int>();
+            List<HoaDonDK> listhoadondk = db.HoaDonDKs.ToList();
+            foreach(var item in listhoadondk)
+            {
+                listsim.Add(item.MaSim);
+            }
+            return listsim;
+        }
+
+        public HoaDonDK GetSim(int maSim)
+        {
+            return db.HoaDonDKs.Where(hd => hd.MaSim == maSim).SingleOrDefault();
+        }
     }
 }
