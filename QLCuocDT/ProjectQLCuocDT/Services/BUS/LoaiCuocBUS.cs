@@ -30,7 +30,17 @@ namespace Services.BUS
         {
             LoaiCuoc loaicuoc = db.LoaiCuocs.OrderByDescending(lc => lc.STT).FirstOrDefault();
             int stt = loaicuoc.STT;
-            return stt++;
+            return stt + 1;
+        }
+
+        public string GetMaMoiNhat()
+        {
+            LoaiCuoc loaicuoc = db.LoaiCuocs.OrderByDescending(lc => lc.MaLoaiCuoc.Substring(3)).FirstOrDefault();
+            string maloaicuoc = loaicuoc.MaLoaiCuoc;
+            int mamoinhat = int.Parse(maloaicuoc.Substring(maloaicuoc.IndexOf('-') + 1));
+            mamoinhat += 1;
+            maloaicuoc = "LC-" + mamoinhat.ToString();
+            return maloaicuoc;
         }
 
         public string AddLoaiCuoc(int stt, string maloaicuoc, TimeSpan tgbd, TimeSpan tgkt, DateTime ngayapdung, decimal giacuoc)

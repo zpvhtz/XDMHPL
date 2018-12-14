@@ -69,9 +69,10 @@ namespace ProjectQLCuocDT
             txtMaLoaiCuoc.Clear();
             GetThoiGian();
             dtpNgayApDung.Value = DateTime.Now;
+            GetMaMoiNhat();
             cbbTinhTrang.SelectedItem = "Không khoá";
 
-            txtMaLoaiCuoc.Enabled = true;
+            txtMaLoaiCuoc.Enabled = false;
             cbbTinhTrang.Enabled = false;
         }
 
@@ -142,6 +143,11 @@ namespace ProjectQLCuocDT
             dgvLoaiCuoc.DataSource = loaicuocbus.GetLoaiCuocs();
             if(dgvLoaiCuoc.Rows.Count > 0)
                 GetFirstValueDataGridView();
+        }
+
+        public void GetMaMoiNhat()
+        {
+            txtMaLoaiCuoc.Text = loaicuocbus.GetMaMoiNhat();
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)

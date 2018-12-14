@@ -92,8 +92,8 @@ INSERT INTO KhachHang
 		  (N'Nguyễn Quốc Thanh', '032541265', N'Giáo viên', N'49 Cách Mạng Tháng Tám P3',N'nguyenquocthanh@gmail.com', 1)
 
 INSERT INTO LoaiCuoc
-	VALUES('LC-01', '07:00:00', '22:59:59', '06/01/2018', 200, 1),
-		  ('LC-02', '23:00:00', '06:59:59', '06/01/2018', 150, 1)
+	VALUES('LC-1', '07:00:00', '22:59:59', '06/01/2018', 200, 1),
+		  ('LC-2', '23:00:00', '06:59:59', '06/01/2018', 150, 1)
 
 INSERT INTO Sim
 	VALUES('0938932950', 1),
