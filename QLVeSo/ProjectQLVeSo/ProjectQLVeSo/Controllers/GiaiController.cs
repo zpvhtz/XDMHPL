@@ -72,7 +72,7 @@ namespace ProjectQLVeSo.Controllers
 
         public JsonResult RandomKetQua()
         {
-            List<Giai> dsgiai = context.Giai.ToList();
+            List<Giai> dsgiai = context.Giai.OrderBy(g => g.MaGiai.Substring(2)).ToList();
             List<int> dsKQVS = new List<int>();
             foreach(var item in dsgiai)
             {

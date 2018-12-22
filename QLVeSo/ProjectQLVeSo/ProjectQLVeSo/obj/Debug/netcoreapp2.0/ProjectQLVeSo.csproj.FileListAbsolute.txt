@@ -53,3 +53,14 @@ F:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\Pro
 F:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.AssemblyInfo.cs
 F:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.dll
 F:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.pdb
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.deps.json
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.runtimeconfig.json
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.runtimeconfig.dev.json
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.dll
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\bin\Debug\netcoreapp2.0\ProjectQLVeSo.pdb
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.csprojAssemblyReference.cache
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.csproj.CoreCompileInputs.cache
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.AssemblyInfoInputs.cache
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.AssemblyInfo.cs
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.dll
+D:\ASP.NET\XDMHPL\QLVeSo\ProjectQLVeSo\ProjectQLVeSo\obj\Debug\netcoreapp2.0\ProjectQLVeSo.pdb
