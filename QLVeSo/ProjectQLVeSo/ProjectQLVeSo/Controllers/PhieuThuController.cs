@@ -12,7 +12,7 @@ namespace ProjectQLVeSo.Controllers
     public class PhieuThuController : Controller
     {
         private readonly QLVeSoContext context;
-        const int pageSize = 10;
+        const int pageSize = 20;
         int pageNumber = 1;
         public PhieuThuController(QLVeSoContext context)
         {

@@ -12,7 +12,7 @@ namespace ProjectQLVeSo.Controllers
     public class PhanPhoiController : Controller
     {
         private readonly QLVeSoContext context;
-        const int pageSize = 10;
+        const int pageSize = 20;
         int pageNumber = 1;
 
         public PhanPhoiController(QLVeSoContext context)

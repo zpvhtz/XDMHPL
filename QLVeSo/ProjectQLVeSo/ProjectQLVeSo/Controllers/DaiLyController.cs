@@ -11,7 +11,7 @@ namespace ProjectQLVeSo.Controllers
     public class DaiLyController : Controller
     {
         private readonly QLVeSoContext context;
-        const int pageSize = 10;
+        const int pageSize = 20;
         int pageNumber = 1;
         public DaiLyController(QLVeSoContext context)
         {
