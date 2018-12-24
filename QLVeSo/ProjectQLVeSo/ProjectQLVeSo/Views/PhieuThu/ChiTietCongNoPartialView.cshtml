@@ -5,7 +5,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Chi tiết công nợ</h4>
+            <h4 class="modal-title">Chi tiết công nợ của @ViewBag.DaiLy.Ten</h4>
         </div>
         <div class="modal-body panel-body" style="margin:auto">
             <table class="table" ui-jq="footable" ui-options='{
@@ -20,9 +20,9 @@
         }}'>
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        @*<th>Id</th>*@
                         <th>Mã công nợ</th>
-                        <th>Tên đại lý</th>
+                        @*<th>Tên đại lý</th>*@
                         <th>Ngày</th>
                         <th>Tổng tiền</th>
                     </tr>
@@ -31,9 +31,9 @@
                     @foreach (var item in Model)
                     {
                         <tr data-expanded="true">
-                            <td class="">@item.Id</td>
+                            @*<td class="">@item.Id</td>*@
                             <td class="">@item.MaCongNo</td>
-                            <td class="">@item.IdDaiLyNavigation.Ten</td>
+                            @*<td class="">@item.IdDaiLyNavigation.Ten</td>*@
                             <td class="">@item.Ngay</td>
                             <td class=""> @item.TongTien</td>
                         </tr>

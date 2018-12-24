@@ -1,4 +1,4 @@
-﻿ CREATE DATABASE QLVeSo
+﻿CREATE DATABASE QLVeSo
 GO
 --
 USE QLVeSo
@@ -423,4 +423,36 @@ AS
 				VALUES(NEWID(), @MaCongNo, @IdDaiLy, GETDATE(), @TongTien)
 		END
 	END
+GO
+
+--Hàm sửa phiếu thu--
+CREATE TRIGGER TG_Sua_PhieuThu ON PhieuThu AFTER UPDATE
+AS
+	DECLARE @TongTienTruocKhiSua FLOAT
+	DECLARE @TongTienSauKhiSua FLOAT
+	DECLARE @IdDaiLy UNIQUEIDENTIFIER
+	DECLARE @TongTienDu FLOAT
+	--
+	SELECT @TongTienTruocKhiSua = TongTien
+	FROM deleted
+	--
+	SELECT @TongTienSauKhiSua = TongTien, @IdDaiLy = IdDaiLy
+	FROM inserted
+	--
+	SET @TongTienDu = @TongTienTruocKhiSua - @TongTienSauKhiSua
+	--
+	DECLARE @MaCongNo VARCHAR(10)
+
+	SELECT TOP 1 @MaCongNo = MaCongNo
+	FROM CongNo
+	ORDER BY CAST(SUBSTRING(MaCongNo, 3, LEN(MaCongNo)) AS INT) DESC
+
+	DECLARE @STT INT = CAST(SUBSTRING(@MaCongNo, 3, LEN(@MaCongNo)) AS INT)
+	SET @STT = @STT + 1
+	SET @MaCongNo = 'CN' + CONVERT(VARCHAR(8), @STT)
+			
+	--Thêm công nợ--
+	INSERT INTO CongNo
+		VALUES(NEWID(), @MaCongNo, @IdDaiLy, GETDATE(), @TongTienDu)
+
 GO

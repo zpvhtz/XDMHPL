@@ -112,7 +112,6 @@
                                 <th>Ngày thu</th>
                                 <th>Tổng tiền</th>
                                 <th></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
@@ -121,11 +120,13 @@
                                 <tr data-expanded="true">
                                     <td class="item-maphieuthu">@item.MaPhieuThu</td>
                                     <td class="item-madaily">@item.IdDaiLyNavigation.MaDaiLy</td>
-                                    <td class="item-daily">@item.IdDaiLyNavigation.Ten</td>
+                                    <td class="item-tendaily">@item.IdDaiLyNavigation.Ten</td>
                                     <td class="item-ngaythu">@item.Ngay</td>
                                     <td class="item-tongtien"> @item.TongTien</td>
-                                    @*<td><button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaphieuthu"> Sửa </button></td>*@
-                                    <td> <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietphieuthu"> Chi tiết </button></td>
+                                    <td>
+                                        <button class="btn btn-warning btnSuaDaiLy" data-toggle="modal" data-target="#suaphieuthu"> Sửa </button>
+                                        <button class="btn btn-danger btnChitietDaiLy" data-toggle="modal" data-target="#chitietphieuthu"> Chi tiết </button>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -189,16 +190,20 @@
                             <div class="modal-body" style="margin:auto">
                                 <div class="form-group">
                                     <label class="control-label"> Mã phiếu thu</label>
-                                    <input type="text" class="form-control maphieuthu-edit" name="maphieuthu" />
+                                    <input type="text" class="form-control maphieuthu-edit" name="maphieuthu" readonly />
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" hidden>
                                     <label class="control-label"> Mã đại lý</label>
-                                    <input type="text" class="form-control madaily-edit" name="madaily" />
+                                    <input type="text" class="form-control madaily-edit" name="madaily" hidden />
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label"> Ngày thu </label>
-                                    <input type="datetime-local" class="form-control ngaythu-edit" name="ngaythu" />
+                                    <label class="control-label"> Tên đại lý</label>
+                                    <input type="text" class="form-control tendaily-edit" readonly />
                                 </div>
+                                @*<div class="form-group">
+                                    <label class="control-label"> Ngày thu </label>
+                                    <input type="datetime-local" class="form-control ngaythu-edit" name="ngaythu" readonly/>
+                                </div>*@
                                 <div class="form-group">
                                     <label class="control-label"> Tổng tiền </label>
                                     <input type="number" class="form-control tongtien-edit" name="tongtien" />
@@ -344,10 +349,14 @@
             let madaily = $(this).closest('tr').find('.item-madaily').text();
             let ngaythu = $(this).closest('tr').find('.item-ngaythu').text();
             let tongtien = $(this).closest('tr').find('.item-tongtien').text();
+            let tendaily = $(this).closest('tr').find('.item-tendaily').text();
+
+            //let myDate = new Date(ngaythu.trim());
 
             $(".maphieuthu-edit").val(maphieuthu.trim());
             $(".madaily-edit").val(madaily.trim());
-            $(".ngaythu-edit").val(ngaythu.trim());
+            $(".tendaily-edit").val(tendaily.trim());
+            //$(".ngaythu-edit").val(myDate.toLocaleDateString());
             $(".tongtien-edit").val(tongtien.trim());
         });
 

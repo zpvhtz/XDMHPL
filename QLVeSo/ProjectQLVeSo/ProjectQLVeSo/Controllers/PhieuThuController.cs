@@ -53,6 +53,19 @@ namespace ProjectQLVeSo.Controllers
         public ActionResult Search(string key)
         {
             List<PhieuThu> list = context.PhieuThu.Where(pt => pt.IdDaiLyNavigation.Ten.Contains(key)).Include(pt => pt.IdDaiLyNavigation).ToList();
+
+            var dsCongNo = context.CongNo.Where(cn => cn.IdDaiLyNavigation.Ten.Contains(key)).Include(cn => cn.IdDaiLyNavigation).Join(context.DaiLy, a => a.IdDaiLy, b => b.Id, (a, b) => new
+            {
+                MaDaiLy = b.MaDaiLy,
+                TongTien = a.TongTien
+            })
+            .GroupBy(cn => cn.MaDaiLy)
+            .Select(cn => new { MaDaiLy = cn.Key, TongTien = cn.Sum(tt => tt.TongTien) }).ToList();
+            ViewBag.CongNo = dsCongNo;
+
+            List<DaiLy> dsDaiLy = context.DaiLy.ToList();
+            ViewBag.DaiLy = dsDaiLy;
+
             return View("Index", list);
         }
 
@@ -123,7 +136,7 @@ namespace ProjectQLVeSo.Controllers
         }
 
         // GET: PhieuThu/Edit/5
-        public IActionResult Edit(string maphieuthu, string madaily, DateTime ngaythu, double tongtien)
+        public IActionResult Edit(string maphieuthu, string madaily,/* DateTime ngaythu,*/ double tongtien)
         {
             //Thông báo
             string thongbao = "";
@@ -132,7 +145,7 @@ namespace ProjectQLVeSo.Controllers
             DaiLy daily = context.DaiLy.Where(p => p.MaDaiLy == madaily).SingleOrDefault();
             pt.MaPhieuThu = maphieuthu;
             pt.IdDaiLy = daily.Id;
-            pt.Ngay = ngaythu;
+            //pt.Ngay = ngaythu;
             pt.TongTien = tongtien;
             context.SaveChanges();
             thongbao = "Sửa thành công";
@@ -144,6 +157,8 @@ namespace ProjectQLVeSo.Controllers
             List<CongNo> dsCongNo = context.CongNo.Where(cn => cn.IdDaiLyNavigation.MaDaiLy == ma)
                                                   .Include(cn => cn.IdDaiLyNavigation)
                                                   .ToList();
+            DaiLy daily = context.DaiLy.Where(dl => dl.MaDaiLy == ma).SingleOrDefault();
+            ViewBag.DaiLy = daily;
             return PartialView("ChiTietCongNoPartialView", dsCongNo);
         }
     }
