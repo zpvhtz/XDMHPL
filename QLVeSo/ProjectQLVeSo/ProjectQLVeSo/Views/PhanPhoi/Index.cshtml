@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PhanPhoi>
+﻿
+@model IEnumerable<PhanPhoi>
 
 @{
     ViewData["Title"] = "Index";
@@ -169,7 +170,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Id:</label>
-                        <input type="text" class="form-control id-edit" name="idedit" readonly>
+                        <input type="text" readonly class="form-control id-edit" name="idedit"/>
                     </div>
                     <div class="form-group">
                         <label>Số lượng giao:</label>
@@ -214,7 +215,7 @@
             $(".btnSuaModal").prop("disabled", true);
         }
         else {
-            $(".id-edit").attr('readonly', false);
+            $(".id-edit").attr('readonly', true);
             $(".slg-edit").attr('readonly', false);
             $(".slb-edit").attr('readonly', false);
             $(".btnSuaModal").prop("disabled", false);
